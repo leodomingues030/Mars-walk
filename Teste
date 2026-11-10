@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>MARSYNC - Sobrevivência em Marte</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{overflow:hidden;background:#000;font-family:Arial,sans-serif;color:white;touch-action:none}
+  #game{position:fixed;inset:0}
+  canvas{display:block}
+
+  /* HUD CAPACETE */
+  #hud{position:fixed;top:0;left:0;right:0;padding:10px 12px;background:linear-gradient(to bottom, rgba(0,0,0,.75), transparent);z-index:10;pointer-events:none}
+  #sol{font-weight:900;font-size:18px;letter-spacing:1px}
+  #sol span{color:#ff9a3c}
+  .bars{display:flex;gap:8px;margin-top:8px}
+  .bar{flex:1;background:rgba(255,255,255,.15);border-radius:20px;padding:5px 8px}
+  .bar b{font-size:11px}
+  .fill{height:8px;border-radius:10px;background:#2ecc71;margin-top:3px;transition:width .5s}
+  .fill.low{background:#e74c3c}
+  .fill.mid{background:#f1c40f}
+
+  /* VINHETA CAPACETE */
+  #visor{position:fixed;inset:0;pointer-events:none;z-index:5;box-shadow:inset 0 0 90px rgba(0,0,0,.85);border-radius:50%/20%;transition:box-shadow .3s}
+  #visor.red{box-shadow:inset 0 0 120px 30px rgba(231,76,60,.9)}
+  #visor.green{box-shadow:inset 0 0 120px 30px rgba(46,204,113,.9)}
+
+  #mission{position:fixed;top:108px;left:12px;right:12px;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:12px;z-index:10}
+  #mission h3{font-size:15px}
+  #mission p{font-size:13px;opacity:.9;margin-top:4px;line-height:1.4}
+
+  /* JOYSTICK */
+  #joyBase{position:fixed;left:18px;bottom:22px;width:120px;height:120px;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.35);border-radius:50%;z-index:20}
+  #joyKnob{position:absolute;left:35px;top:35px;width:50px;height:50px;background:white;border-radius:50%;box-shadow:0 4px 12px rgba(0,0,0,.5)}
+
+  #lookHint{position:fixed;right:16px;bottom:150px;background:rgba(0,0,0,.55);padding:8px 10px;border-radius:20px;font-size:11px;z-index:10;pointer-events:none}
+  #actionBtn{position:fixed;right:18px;bottom:28px;background:#ff6b00;border:none;color:white;font-weight:900;font-size:16px;padding:16px 22px;border-radius:999px;z-index:20;display:none;box-shadow:0 8px 20px rgba(0,0,0,.4)}
+  #actionBtn:active{transform:scale(.96)}
+
+  /* MODAL PERGUNTA */
+  #modal{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:50;display:none;align-items:flex-end;justify-content:center;padding:14px}
+  #modal.show{display:flex}
+  .card{width:100%;max-width:520px;background:#111827;border-radius:20px;padding:18px;border:2px solid #333}
+  .card h2{font-size:19px}
+  .card p{font-size:14px;line-height:1.5;opacity:.9;margin:10px 0 14px}
+  .opt{width:100%;text-align:left;background:#1f2937;color:white;border:1px solid #374151;padding:14px;border-radius:14px;margin-bottom:10px;font-size:14px}
+  .opt b{color:#ff9a3c}
+  #feedback{border-radius:14px;padding:14px;display:none;margin-top:6px}
+  #feedback.good{background:#14532d;border:2px solid #22c55e}
+  #feedback.bad{background:#450a0a;border:2px solid #ef4444}
+  #feedback h3{font-size:16px}
+  #feedback p{font-size:13px;line-height:1.5;margin:6px 0 10px}
+  #nextBtn{background:white;color:black;border:none;padding:12px 18px;border-radius:999px;font-weight:900;width:100%}
+  #end{position:fixed;inset:0;background:#000;z-index:100;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+  #end h1{font-size:32px}
+  #end p{margin:14px 0;line-height:1.5;opacity:.9}
+  #end button{background:#ff6b00;border:none;color:white;padding:14px 22px;border-radius:999px;font-weight:900}
+</style>
+</head>
+<body>
+<div id="game"></div>
+<div id="visor"></div>
+
+<div id="hud">
+  <div id="sol">MARSYNC | <span>SOL 1 DE 7</span></div>
+  <div class="bars">
+    <div class="bar"><b>🫁 OXIGÊNIO</b><div class="fill" id="fO2" style="width:100%"></div><span id="tO2">100</span></div>
+    <div class="bar"><b>💧 ÁGUA</b><div class="fill" id="fH2O" style="width:100%"></div><span id="tH2O">100</span></div>
+    <div class="bar"><b>🔋 ENERGIA</b><div class="fill" id="fE" style="width:100%"></div><span id="tE">100</span></div>
+  </div>
+</div>
+
+<div id="mission">
+  <h3 id="missionTitle">SOL 1 - VAZAMENTO DE OXIGÊNIO 🔊 pssss...</h3>
+  <p id="missionText">Ande com o joystick até a BASE na sua frente. Quando chegar perto, aperte CONSERTAR.</p>
+</div>
+
+<div id="lookHint">👉 Arraste aqui pra olhar</div>
+<div id="joyBase"><div id="joyKnob"></div></div>
+<button id="actionBtn">🔧 CONSERTAR</button>
+
+<div id="modal">
+  <div class="card">
+    <h2 id="qTitle">Sua base está vazando oxigênio!</h2>
+    <p id="qText">Você ouve: pssss... O que você faz?</p>
+    <div id="options"></div>
+    <div id="feedback"><h3 id="fbTitle"></h3><p id="fbText"></p><button id="nextBtn">CONTINUAR →</button></div>
+  </div>
+</div>
+
+<div id="end">
+  <h1 id="endTitle"></h1>
+  <p id="endText"></p>
+  <button onclick="location.reload()">🔄 JOGAR DE NOVO</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+let state = { sol:1, o2:100, h2o:100, energy:100, fixed:false };
+
+// CENA 3D
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xc68a5a);
+scene.fog = new THREE.Fog(0xc68a5a, 18, 70);
+
+const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 200);
+camera.position.set(0, 1.7, 14);
+let yaw = Math.PI, pitch = 0;
+
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+document.getElementById('game').appendChild(renderer.domElement);
+
+// LUZ DE MARTE
+const sun = new THREE.DirectionalLight(0xfff0d0, 1.2);
+sun.position.set(10, 20, 5);
+sun.castShadow = true;
+scene.add(sun);
+scene.add(new THREE.AmbientLight(0xffc9a0, 0.6));
+
+// CHÃO DE MARTE
+const ground = new THREE.Mesh(
+  new THREE.PlaneGeometry(120, 120),
+  new THREE.MeshStandardMaterial({color:0xb5653a, roughness:1})
+);
+ground.rotation.x = -Math.PI/2;
+ground.receiveShadow = true;
+scene.add(ground);
+
+// PEDRAS ESPALHADAS
+for(let i=0;i<28;i++){
+  const s = new THREE.Mesh(new THREE.DodecahedronGeometry(0.2+Math.random()*0.6), new THREE.MeshStandardMaterial({color:0x8a4a2d, roughness:1}));
+  s.position.set((Math.random()-0.5)*60, 0.2, (Math.random()-0.5)*60);
+  s.castShadow = true;
+  scene.add(s);
+}
+
+// MONTE SHARP AO FUNDO
+const mountain = new THREE.Mesh(new THREE.ConeGeometry(18, 12, 7), new THREE.MeshStandardMaterial({color:0x9e5a3c, roughness:1}));
+mountain.position.set(0, 6, -45);
+scene.add(mountain);
+
+// BASE - NA FRENTE
+const baseGroup = new THREE.Group();
+const baseBody = new THREE.Mesh(new THREE.BoxGeometry(6, 3, 4), new THREE.MeshStandardMaterial({color:0xd9d9d9, metalness:0.3, roughness:0.6}));
+baseBody.position.y = 1.5; baseBody.castShadow = true;
+baseGroup.add(baseBody);
+const baseTop = new THREE.Mesh(new THREE.CylinderGeometry(2.2, 2.2, 1, 16), new THREE.MeshStandardMaterial({color:0xff6b00}));
+baseTop.position.y = 3.5; baseTop.castShadow = true;
+baseGroup.add(baseTop);
+// Vazamento - fumaça branca
+const leak = new THREE.Mesh(new THREE.SphereGeometry(0.35, 12, 12), new THREE.MeshBasicMaterial({color:0xffffff, transparent:true, opacity:0.8}));
+leak.position.set(-2.5, 2, 2.1);
+baseGroup.add(leak);
+baseGroup.position.set(0, 0, 0);
+scene.add(baseGroup);
+
+// PAINEL SOLAR - DIREITA
+const panelGroup = new THREE.Group();
+const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 2.5), new THREE.MeshStandardMaterial({color:0x333}));
+pole.position.y = 1.25; panelGroup.add(pole);
+const panel = new THREE.Mesh(new THREE.BoxGeometry(3.2, 0.1, 2.2), new THREE.MeshStandardMaterial({color:0x1a3a8a, metalness:0.7, roughness:0.3}));
+panel.position.y = 2.7; panel.rotation.x = -0.4; panel.castShadow = true;
+panelGroup.add(panel);
+panelGroup.position.set(9, 0, 2);
+scene.add(panelGroup);
+
+// GELO - ESQUERDA
+const iceGroup = new THREE.Group();
+const ice = new THREE.Mesh(new THREE.IcosahedronGeometry(1.2, 0), new THREE.MeshStandardMaterial({color:0xbfefff, roughness:0.1, metalness:0.2, transparent:true, opacity:0.9}));
+ice.position.y = 0.6; ice.castShadow = true;
+iceGroup.add(ice);
+iceGroup.position.set(-9, 0, 2);
+scene.add(iceGroup);
+
+// PISTA DE POUSO - ATRÁS
+const pad = new THREE.Mesh(new THREE.CylinderGeometry(3.5, 3.5, 0.15, 24), new THREE.MeshStandardMaterial({color:0x444444}));
+pad.position.set(0, 0.07, 16);
+scene.add(pad);
+const padRing = new THREE.Mesh(new THREE.TorusGeometry(3, 0.12, 8, 32), new THREE.MeshBasicMaterial({color:0xff6b00}));
+padRing.rotation.x = Math.PI/2; padRing.position.set(0, 0.2, 16);
+scene.add(padRing);
+
+// CONTROLES - JOYSTICK
+let joyX = 0, joyY = 0, joyActive = false;
+const joyBase = document.getElementById('joyBase');
+const joyKnob = document.getElementById('joyKnob');
+joyBase.addEventListener('touchstart', e=>{ joyActive=true; moveJoy(e); }, {passive:false});
+joyBase.addEventListener('touchmove', e=>{ e.preventDefault(); moveJoy(e); }, {passive:false});
+joyBase.addEventListener('touchend', ()=>{ joyActive=false; joyX=0; joyY=0; joyKnob.style.left='35px'; joyKnob.style.top='35px'; });
+function moveJoy(e){
+  const r = joyBase.getBoundingClientRect();
+  const t = e.touches[0];
+  let dx = t.clientX - (r.left + 60);
+  let dy = t.clientY - (r.top + 60);
+  const len = Math.hypot(dx, dy) || 1;
+  const max = 38;
+  if(len > max){ dx = dx/len*max; dy = dy/len*max; }
+  joyKnob.style.left = (35+dx)+'px';
+  joyKnob.style.top = (35+dy)+'px';
+  joyX = dx/max; joyY = dy/max;
+}
+// MOUSE TAMBÉM ANDA SE SEGURAR
+let mouseJoy = false;
+joyBase.addEventListener('mousedown', ()=> mouseJoy=true);
+window.addEventListener('mousemove', e=>{ if(mouseJoy) moveJoy({touches:[e]}); });
+window.addEventListener('mouseup', ()=>{ mouseJoy=false; joyX=0; joyY=0; joyKnob.style.left='35px'; joyKnob.style.top='35px'; });
+
+// OLHAR ARRASTANDO O DEDO
+let looking = false, lastX=0, lastY=0;
+renderer.domElement.addEventListener('touchstart', e=>{ if(e.target!==joyBase){ looking=true; lastX=e.touches[0].clientX; lastY=e.touches[0].clientY; } }, {passive:true});
+renderer.domElement.addEventListener('touchmove', e=>{ if(!looking) return; const dx=e.touches[0].clientX-lastX; const dy=e.touches[0].clientY-lastY; yaw -= dx*0.005; pitch -= dy*0.005; pitch=Math.max(-1.1, Math.min(1.1, pitch)); lastX=e.touches[0].clientX; lastY=e.touches[0].clientY; }, {passive:true});
+renderer.domElement.addEventListener('touchend', ()=> looking=false);
+let mouseLook=false;
+renderer.domElement.addEventListener('mousedown', e=>{ mouseLook=true; lastX=e.clientX; lastY=e.clientY; });
+window.addEventListener('mousemove', e=>{ if(!mouseLook) return; yaw -= (e.clientX-lastX)*0.005; pitch -= (e.clientY-lastY)*0.005; pitch=Math.max(-1.1, Math.min(1.1, pitch)); lastX=e.clientX; lastY=e.clientY; });
+window.addEventListener('mouseup', ()=> mouseLook=false);
+
+// SOLS - DESAFIOS
+const sols = [
+  { title:"SOL 1 - VAZAMENTO DE OXIGÊNIO", mission:"Ande até a BASE e aperte CONSERTAR.", target:{x:0,z:0}, q:"Sua base está vazando oxigênio! Você ouve: pssss... O que você faz?",
+    opts:[
+      {t:"A) Tapa o buraco com fita e pano", good:true, o2:-5, h2o:0, e:-5, exp:"BOA! A NASA faz isso de verdade. Consertar por dentro é mais seguro, porque fora tem radiação e poeira. Você gastou pouco oxigênio."},
+      {t:"B) Sai pra fora pra consertar por fora", good:false, o2:-30, h2o:-5, e:-10, exp:"PERIGOSO! Fora da base você gasta MUITO oxigênio e toma radiação. A NASA sempre tenta consertar por dentro primeiro."},
+      {t:"C) Ignora e dorme de novo", good:false, o2:-35, h2o:-5, e:0, exp:"NÃO! Se ignorar, o vazamento continua a noite toda. De manhã você já perdeu quase todo o oxigênio. Em Marte, problema pequeno vira problema gigante."}
+    ]},
+  { title:"SOL 2 - TEMPESTADE DE POEIRA", mission:"Ande até o PAINEL SOLAR na direita.", target:{x:9,z:2}, q:"Tempestade de poeira! O céu ficou marrom e o painel não gera energia. O que você faz?",
+    opts:[
+      {t:"A) Limpa o painel e entra na base", good:true, o2:-5, h2o:0, e:+15, exp:"PERFEITO! A poeira cobre o painel. Limpar e se proteger dentro da base é o que os rovers da NASA fazem nas tempestades."},
+      {t:"B) Sai pra explorar na tempestade", good:false, o2:-25, h2o:-10, e:-20, exp:"NÃO! Na tempestade você não enxerga nada e a poeira entra no capacete. Você gasta energia e oxigênio à toa."},
+      {t:"C) Deixa o painel sujo e espera", good:false, o2:-5, h2o:-5, e:-25, exp:"Se deixar sujo, você fica sem energia à noite e congela. Em Marte faz -110°C à noite sem energia."}
+    ]},
+  { title:"SOL 3 - VOCÊ ACHOU GELO", mission:"Ande até o GELO na esquerda.", target:{x:-9,z:2}, q:"Você achou gelo brilhando no chão! O que você faz?",
+    opts:[
+      {t:"A) Derrete metade pra beber e metade pra oxigênio", good:true, o2:+15, h2o:+15, e:-10, exp:"INTELIGENTE! A NASA faz isso: água vira oxigênio e água pra beber. Você dividiu bem os recursos."},
+      {t:"B) Bebe tudo agora", good:false, o2:-5, h2o:+10, e:-5, exp:"Você matou a sede agora, mas depois ficou sem água pra fazer oxigênio. Em Marte tem que pensar no amanhã."},
+      {t:"C) Deixa o gelo lá e vai embora", good:false, o2:-10, h2o:-15, e:-5, exp:"Você deixou a maior riqueza de Marte no chão! Gelo em Marte é água e oxigênio. É ouro."}
+    ]}
+];
+
+let currentSolIndex = 0;
+function updateHUD(){
+  document.getElementById('tO2').textContent = Math.max(0, state.o2);
+  document.getElementById('tH2O').textContent = Math.max(0, state.h2o);
+  document.getElementById('tE').textContent = Math.max(0, state.energy);
+  const set = (id, v)=>{ const el=document.getElementById(id); el.style.width=Math.max(0,v)+'%'; el.className='fill'+(v<=30?' low':v<=60?' mid':''); };
+  set('fO2', state.o2); set('fH2O', state.h2o); set('fE', state.energy);
+  document.getElementById('sol').innerHTML = `MARSYNC | <span>SOL ${state.sol} DE 7</span>`;
+  if(state.o2<=0||state.h2o<=0||state.energy<=0){ showEnd(false); }
+}
+function loadSol(i){
+  const s = sols[i];
+  document.getElementById('missionTitle').textContent = s.title;
+  document.getElementById('missionText').textContent = s.mission;
+  // Perde -10 todo dia por estar vivo, menos no Sol 1
+  if(i>0){ state.o2-=10; state.h2o-=10; state.energy-=10; }
+  updateHUD();
+}
+function openQuiz(){
+  const s = sols[currentSolIndex];
+  document.getElementById('qTitle').textContent = s.title;
+  document.getElementById('qText').textContent = s.q;
+  document.getElementById('feedback').style.display='none';
+  const box = document.getElementById('options');
+  box.innerHTML='';
+  s.opts.forEach((o, idx)=>{
+    const b=document.createElement('button');
+    b.className='opt'; b.innerHTML=`<b>${o.t.split(')')[0]})</b> ${o.t.split(')')[1]}`;
+    b.onclick=()=> answer(o);
+    box.appendChild(b);
+  });
+  document.getElementById('modal').classList.add('show');
+}
+function answer(o){
+  state.o2 += o.o2; state.h2o += o.h2o; state.energy += o.e;
+  state.o2=Math.min(100,state.o2); state.h2o=Math.min(100,state.h2o); state.energy=Math.min(100,state.energy);
+  const visor=document.getElementById('visor');
+  const fb=document.getElementById('feedback');
+  fb.style.display='block';
+  fb.className = o.good ? 'good' : 'bad';
+  // Corrigido: usa id feedback com classe good/bad via style
+  fb.style.background = o.good ? '#14532d' : '#450a0a';
+  fb.style.border = o.good ? '2px solid #22c55e' : '2px solid #ef4444';
+  document.getElementById('fbTitle').textContent = o.good ? '✅ ACERTOU! Borda VERDE' : '❌ ERROU! Borda VERMELHA';
+  document.getElementById('fbText').textContent = o.exp + ` | Efeito: Oxigênio ${o.o2>=0?'+':''}${o.o2} | Água ${o.h2o>=0?'+':''}${o.h2o} | Energia ${o.e>=0?'+':''}${o.e}`;
+  visor.className = o.good ? 'green' : 'red';
+  setTimeout(()=> visor.className='', 1200);
+  document.getElementById('options').innerHTML='';
+  updateHUD();
+}
+document.getElementById('nextBtn').onclick=()=>{
+  document.getElementById('modal').classList.remove('show');
+  currentSolIndex++;
+  if(currentSolIndex >= 3){
+    showEnd(true);
+    return;
+  }
+  state.sol = currentSolIndex+1;
+  // Muda o mundo: Sol 2 fica mais marrom, Sol 3 gelo brilha
+  if(currentSolIndex===1){ scene.background.set(0x8a5a3a); scene.fog.color.set(0x8a5a3a); }
+  if(currentSolIndex===2){ ice.material.emissive = new THREE.Color(0x88ffff); ice.material.emissiveIntensity = 0.5; }
+  loadSol(currentSolIndex);
+};
+document.getElementById('actionBtn').onclick=openQuiz;
+
+function showEnd(win){
+  const end=document.getElementById('end');
+  end.style.display='flex';
+  if(win){
+    document.getElementById('endTitle').textContent='🎉 VOCÊ SOBREVIVEU!';
+    document.getElementById('endText').textContent='Você passou 3 sóis de teste! Na versão completa serão 7 sóis até o resgate chegar. Oxigênio: '+Math.max(0,state.o2)+' | Água: '+Math.max(0,state.h2o)+' | Energia: '+Math.max(0,state.energy);
+  } else {
+    document.getElementById('endTitle').textContent='💀 VOCÊ NÃO SOBREVIVEU';
+    document.getElementById('endText').textContent='Uma barrinha zerou em Marte. Tente de novo e pense como a NASA: conserte por dentro, limpe o painel, divida a água!';
+  }
+}
+
+// LOOP
+const clock = new THREE.Clock();
+function animate(){
+  requestAnimationFrame(animate);
+  const dt = Math.min(clock.getDelta(), 0.05);
+  const speed = 4.5;
+  const sin = Math.sin(yaw), cos = Math.cos(yaw);
+  let mx = 0, mz = 0;
+  if(joyActive || mouseJoy){
+    // joystick: Y pra frente/trás, X pro lado
+    mz = -joyY; mx = joyX;
+  }
+  // Move na direção que você está olhando
+  camera.position.x += (sin*mz + cos*mx) * speed * dt;
+  camera.position.z += (cos*mz - sin*mx) * speed * dt;
+  // Limites do mundo
+  camera.position.x = Math.max(-25, Math.min(25, camera.position.x));
+  camera.position.z = Math.max(-25, Math.min(25, camera.position.z));
+  camera.rotation.order='YXZ';
+  camera.rotation.y = yaw;
+  camera.rotation.x = pitch;
+  // Animação vazamento
+  leak.scale.setScalar(1 + Math.sin(Date.now()*0.01)*0.3);
+  leak.position.y = 2 + Math.sin(Date.now()*0.005)*0.2;
+  // Mostra botão quando perto do alvo
+  const target = sols[currentSolIndex].target;
+  const dist = Math.hypot(camera.position.x - target.x, camera.position.z - target.z);
+  const btn = document.getElementById('actionBtn');
+  btn.style.display = dist < 5.5 ? 'block' : 'none';
+  if(dist < 5.5){ btn.textContent = currentSolIndex===0 ? '🔧 CONSERTAR BASE' : currentSolIndex===1 ? '🔧 LIMPAR PAINEL' : '❄️ PEGAR GELO'; }
+  renderer.render(scene, camera);
+}
+loadSol(0);
+updateHUD();
+animate();
+
+window.addEventListener('resize', ()=>{
+  camera.aspect = innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>
