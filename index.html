@@ -3,105 +3,61 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MarsWalk - Descubra Marte</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<title>MARSYNC - Descubra Marte | Leonardo e Gean</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#120805;color:#f5e6d8}
-header{background:#b14a22;padding:12px 15px;text-align:center;position:sticky;top:0;z-index:1000}
-header h1{margin:0;font-size:22px}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#120805;color:#f5e6d8;line-height:1.5}
+img{max-width:100%}
+header{background:#b14a22;padding:14px 15px;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+header h1{margin:0;font-size:24px}
 header p{margin:4px 0 0;font-size:12px}
-#menuBtn{position:absolute;right:12px;top:10px;background:#1a0f0a;color:white;border:none;font-size:22px;width:40px;height:40px;border-radius:50%;cursor:pointer;z-index:1001}
-#menu{position:absolute;right:12px;top:54px;background:#2a1a12;border:1px solid #ff6b1a;border-radius:12px;width:300px;max-width:90vw;display:none;z-index:9999;text-align:left;box-shadow:0 10px 30px rgba(0,0,0,.6);overflow:hidden}
-#menu a{display:block;padding:14px;color:white;text-decoration:none;border-bottom:1px solid #3a251a;font-size:15px;font-weight:bold}
-#menu a:hover{background:#b14a22}
-#menu a small{display:block;font-weight:normal;font-size:12px;color:#ffd9c0;margin-top:2px}
-.brasil{background:#009739;color:white;text-align:center;padding:7px;font-size:13px;font-weight:bold}
-.hero{position:relative}
-.hero img{width:100%;height:280px;object-fit:cover;display:block}
-.hero-text{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent, rgba(0,0,0,.85));padding:40px 16px 16px}
-.hero-text h2{margin:0;font-size:26px;line-height:1.1}
-.hero-text p{margin:8px 0 0;font-size:14px;line-height:1.5}
-.cta{margin:16px;text-align:center}
-.cta button{background:#ff6b1a;color:white;border:none;padding:16px 22px;border-radius:30px;font-size:17px;font-weight:bold;cursor:pointer;width:100%;max-width:420px;box-shadow:0 8px 20px rgba(255,107,26,.4)}
-.cta button:active{transform:scale(.97)}
-.cta button.btn3d{background:#fff;color:#000}
-.card{background:#2a1a12;margin:12px;border-radius:14px;overflow:hidden;border:1px solid #3a251a}
-.card img{width:100%;height:200px;object-fit:cover;display:block}
-.card-body{padding:16px}
-.card-body h3{margin:0 0 8px;color:#ff8c42;font-size:19px}
-.card-body p,.card-body li{font-size:14px;line-height:1.65;color:#f5e6d8}
-.card-body ul{padding-left:18px}
-.dados{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px}
-.dado{background:#3a1c0e;padding:12px;border-radius:12px;text-align:center}
-.dado b{display:block;font-size:22px;color:#ff8c42}
-.dado span{font-size:12px;color:#ffd9c0}
-.timeline{margin:12px;padding:0 16px 16px}
-.timeline div{border-left:3px solid #ff6b1a;padding:0 0 16px 14px;position:relative}
-.timeline div:before{content:"";width:12px;height:12px;background:#ff6b1a;border-radius:50%;position:absolute;left:-8px;top:2px}
-.timeline b{color:#ff8c42}
-.timeline p{margin:4px 0 0;font-size:14px;line-height:1.5}
-.footer{text-align:center;padding:20px;font-size:12px;color:#ffd9c0;background:#1f120b}
-#tela-mapa{display:none}
-#map{height:70vh;width:100%;background:#6e3520;filter:sepia(0.18) contrast(1.28) brightness(0.98) saturate(1.25)}
-.botoes{display:flex;gap:8px;flex-wrap:wrap;margin:10px}
-button.botao{background:#b14a22;color:white;border:none;padding:10px 15px;border-radius:20px;font-weight:bold;cursor:pointer;flex:1}
-#info{background:#2a1a12;padding:15px;margin:10px;border-radius:10px}
-#info h2{margin:0 0 10px;color:#ff8c42;font-size:18px}
-.score{font-size:26px;font-weight:bold;color:#4ade80}
-.legenda{font-size:12px;color:#ffd9c0;margin:6px 10px 0}
-.voltar{background:#1a0f0a;color:white;border:1px solid #ff6b1a;padding:10px 16px;border-radius:20px;font-weight:bold;cursor:pointer;margin:10px}
-#modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;z-index:10000;align-items:flex-end;justify-content:center}
-#modalBox{background:#1f120b;width:100%;max-width:520px;max-height:85vh;overflow:auto;border-radius:18px 18px 0 0;padding:20px}
-#modalBox h2{color:#ff8c42;margin-top:0}
-#modalBox p,#modalBox li{font-size:14px;line-height:1.6}
-#fechar{float:right;background:#b14a22;border:none;color:white;padding:8px 12px;border-radius:20px;font-weight:bold}
-/* JOGO 3D */
-#tela-jogo3d{display:none;position:fixed;inset:0;background:#000;z-index:20000}
-#gameCanvas{width:100%;height:100%;display:block}
-#hud3d{position:absolute;top:12px;left:12px;right:12px;display:flex;justify-content:space-between;align-items:flex-start}
-.hud-box3d{background:rgba(0,0,0,.65);border:1px solid #ffffff33;padding:10px 12px;border-radius:12px;font-size:13px;line-height:1.4;color:#fff}
-#msg3d{position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.9);border:1px solid #ff6b1a;padding:18px;border-radius:16px;text-align:center;width:86%;max-width:340px;display:none;color:#fff}
-#joy{position:absolute;bottom:20px;left:18px;width:110px;height:110px;background:rgba(255,255,255,.12);border:1px solid #ffffff55;border-radius:50%}
-#knob{position:absolute;width:48px;height:48px;background:#fff;border-radius:50%;left:31px;top:31px}
-#btnJump{position:absolute;bottom:34px;right:20px;width:78px;height:78px;border-radius:50%;background:#ff6b1a;color:#fff;border:2px solid #fff;font-weight:900;font-size:15px}
-#btnExit3d{background:#fff;color:#000;border:none;padding:8px 14px;border-radius:999px;font-weight:800}
+.brasil{background:#1a0f0a;color:#fff;text-align:center;padding:9px 10px;font-size:13px;font-weight:bold;border-bottom:2px solid #FFC107}
+.brasil span{color:#FFC107}
+.hero{position:relative;background:#000}
+.hero img{width:100%;height:320px;object-fit:cover;display:block;background:#6e3520}
+.hero-text{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent, rgba(0,0,0,.88));padding:48px 16px 18px}
+.hero-text h2{margin:0;font-size:26px;line-height:1.15}
+.hero-text p{margin:10px 0 0;font-size:14px;line-height:1.6}
+.badge{display:inline-block;background:#ff6b1a;color:#fff;font-size:11px;font-weight:bold;padding:5px 10px;border-radius:20px;margin-bottom:8px}
+.dados{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 12px}
+.dado{background:#3a1c0e;padding:14px 10px;border-radius:12px;text-align:center;border:1px solid #4a2515}
+.dado b{display:block;font-size:22px;color:#ff8c42;line-height:1}
+.dado span{font-size:12px;color:#ffd9c0;display:block;margin-top:5px}
+.card{background:#2a1a12;margin:14px 12px;border-radius:16px;overflow:hidden;border:1px solid #3a251a}
+.card img{width:100%;height:230px;object-fit:cover;display:block;background:#6e3520}
+.card-body{padding:17px}
+.card-body h3{margin:0 0 9px;color:#ff8c42;font-size:20px}
+.card-body p{font-size:14.5px;line-height:1.7;margin:0 0 10px}
+.card-body ul{padding-left:19px;margin:8px 0}
+.card-body li{font-size:14.5px;line-height:1.65;margin-bottom:7px}
+.destaque{background:#b14a22;border-radius:10px;padding:12px 14px;font-size:14px;line-height:1.6;margin:12px 0}
+.timeline{margin:14px 12px;padding:4px 0 6px 6px}
+.timeline h3{color:#ff8c42;font-size:19px;margin:0 0 14px}
+.timeline-item{border-left:3px solid #ff6b1a;padding:0 0 18px 15px;position:relative}
+.timeline-item:before{content:"";width:13px;height:13px;background:#ff6b1a;border:2px solid #fff;border-radius:50%;position:absolute;left:-9px;top:2px}
+.timeline-item b{color:#ff8c42;font-size:14px}
+.timeline-item p{margin:4px 0 0;font-size:14px;line-height:1.6}
+.curiosidade{background:#1f120b;margin:14px 12px;border:1px dashed #FFC107;border-radius:14px;padding:16px}
+.curiosidade h3{margin:0 0 8px;color:#FFC107}
+.curiosidade p{font-size:14px;line-height:1.65;margin:0}
+.footer{text-align:center;padding:22px 14px;font-size:12.5px;color:#ffd9c0;background:#1f120b;line-height:1.7}
+.footer b{color:#fff}
 </style>
 </head>
 <body>
-
 <header>
-<h1>🚀 MarsWalk</h1>
+<h1>🚀 MARSYNC</h1>
 <p>Descubra Marte de verdade | NASA Space Apps</p>
-<button id="menuBtn" onclick="toggleMenu()">⋮</button>
-<div id="menu">
-<a href="#" onclick="voltarInicio();return false">🏠 Início - Explicação sobre Marte<small>Volta pra página principal</small></a>
-<a href="#" onclick="irExplorar();return false">🚀 Venha Explorar - O MAPA<small>Clique aqui para abrir o mapa interativo da Cratera Gale</small></a>
-<a href="#" onclick="abrirJogo3d();return false" style="background:#ff6b1a">🎮 JOGO 3D - Caminhada em Marte<small>Ande com o joystick e responda as perguntas!</small></a>
-<a href="#" onclick="abrir('como');return false">🗺️ Como usar o mapa<small>Aprenda a jogar no mapa</small></a>
-<a href="#" onclick="abrir('sobrevivencia');return false">🧑‍🚀 Sobrevivência em Marte<small>O que precisa pra viver lá</small></a>
-<a href="#" onclick="abrir('creditos');return false">🇧🇷 Créditos - Leonardo e Gean<small>Quem fez o projeto</small></a>
-</div>
 </header>
-<div class="brasil">🇧🇷 Feito no Brasil por Leonardo e Gean 🇧🇷</div>
+<div class="brasil">🇧🇷 Feito no Brasil pela equipe <span>MARSYNC - Leonardo e Gean</span> 🇧🇷</div>
 
-<div id="tela-inicio">
 <div class="hero">
-<img src="https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg" alt="Marte de verdade">
+<img src="Foto1.jpg" alt="Marte">
 <div class="hero-text">
-<h2>O Planeta Vermelho existe de verdade. E a gente pode explorar ele agora.</h2>
-<p>Marte não é desenho. É um planeta de ferro, poeira, crateras, vulcões gigantes e um passado com água. Esse site usa dados reais da NASA e da ESA pra te mostrar isso.</p>
+<span class="badge">✦ EQUIPE MARSYNC • DADOS REAIS DA NASA + ESA ✦</span>
+<h2>O Planeta Vermelho existe de verdade. E você pode conhecer ele agora.</h2>
+<p>Marte não é desenho. É um planeta de ferro, poeira, crateras, vulcões gigantes e um passado com água. Esse site usa dados reais da NASA e da ESA para te mostrar isso.</p>
 </div>
-</div>
-
-<div class="cta">
-<button onclick="irExplorar()">🚀 VENHA EXPLORAR O MAPA AGORA →</button>
-<p style="font-size:12px;color:#ffd9c0;margin:8px 0 0">Ou desce pra ler tudo sobre Marte antes de explorar</p>
-</div>
-<div class="cta">
-<button class="btn3d" onclick="abrirJogo3d()">🎮 JOGAR O JOGO 3D - CAMINHADA EM MARTE →</button>
 </div>
 
 <div class="dados">
@@ -112,64 +68,99 @@ button.botao{background:#b14a22;color:white;border:none;padding:10px 15px;border
 </div>
 
 <div class="card">
-<img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Mars_Valles_Marineris.jpeg">
+<img src="Foto2.jpg" alt="Deserto de Marte com crateras">
 <div class="card-body">
 <h3>🪐 O que é Marte?</h3>
-<p>Marte é o 4º planeta do Sistema Solar. Ele é menor que a Terra, tem metade do tamanho, mas tem coisas muito maiores que as nossas.</p>
+<p>Marte é o 4º planeta do Sistema Solar. Ele é menor que a Terra, tem mais ou menos metade do tamanho, mas tem coisas muito maiores que as nossas.</p>
 <ul>
 <li><b>Monte Olimpo:</b> O maior vulcão do Sistema Solar, com 21 km de altura. Quase 2,5x o Everest!</li>
-<li><b>Valles Marineris:</b> Um cânion de 4.000 km de comprimento. Caberia o Brasil inteiro dentro dele.</li>
+<li><b>Valles Marineris:</b> Um cânion de 4.000 km de comprimento. Caberia o Brasil inteiro dentro dele. Tem até 7 km de profundidade.</li>
 <li><b>Calotas polares:</b> Marte tem gelo nos polos, igual a Terra, feito de água e CO2 congelado.</li>
 <li><b>2 luas:</b> Fobos e Deimos, pequenas e com formato de batata.</li>
+<li><b>Gravidade:</b> Só 38% da Terra. Você pularia 3x mais alto lá!</li>
 </ul>
-<p>Marte é um deserto frio, seco e com radiação alta. Mas nem sempre foi assim.</p>
+<div class="destaque">💡 <b>Curiosidade:</b> Um dia em Marte se chama <b>SOL</b>. Dura 24h 37min, quase igual ao nosso dia.</div>
 </div>
 </div>
 
 <div class="card">
-<img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Mars_dust_storm.jpg">
+<img src="Foto3.jpg" alt="Monte Olimpo em Marte">
 <div class="card-body">
-<h3>🧡 Por que Marte é laranja / marrom avermelhado?</h3>
-<p>Não é laranja neon, é <b>marrom avermelhado</b>.</p>
-<p>Isso é por causa do <b>óxido de ferro</b> - é literalmente <b>ferrugem</b>! Há bilhões de anos Marte tinha água e oxigênio, o ferro da superfície enferrujou. O vento espalha essa poeira de ferrugem por todo o planeta, por isso o céu de Marte também fica rosado.</p>
-<p>As partes escuras que você vê no mapa são crateras e rochas antigas. As claras são poeira fina e dunas.</p>
-</div>
-</div>
-
-<div class="card">
-<img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Gale_Crater%2C_Mars%2C_from_orbit.jpg">
-<div class="card-body">
-<h3>🔴 Cratera Gale - O nosso mapa é aqui!</h3>
-<p>A Cratera Gale tem <b>154 km de largura</b> - maior que a cidade de São Paulo. Ela foi formada por um asteroide gigante há 3,5 bilhões de anos.</p>
+<h3>🔴 Cratera Gale</h3>
+<p>A Cratera Gale tem <b>154 km de largura</b> - maior que a cidade de São Paulo. Ela foi formada por um asteroide gigante há cerca de 3,5 bilhões de anos.</p>
 <p>No centro dela tem o <b>Monte Sharp</b>, com 5,5 km de altura. Ele é como um livro de história: cada camada de rocha conta uma época diferente de Marte.</p>
 <p><b>Por que a NASA escolheu a Gale?</b> Porque lá tem provas de que já teve um lago gigante de água líquida. Onde tem água, pode ter tido vida.</p>
 </div>
 </div>
 
 <div class="card">
-<img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Curiosity_Self-Portrait_at_%27Big_Sky%27_Drilling_Site.jpg">
+<img src="Foto4.jpg" alt="Robô Curiosity em Marte">
 <div class="card-body">
 <h3>🤖 Pesquisas reais - O que a NASA já descobriu?</h3>
 <ul>
-<li><b>Curiosity (2012 - até hoje):</b> Pousou na Cratera Gale. Achou argila, minerais que só se formam na água, e moléculas orgânicas - os tijolos da vida.</li>
-<li><b>Perseverance (2021 - até hoje):</b> Pousou na Cratera Jezero. Está guardando amostras de rocha pra trazer pra Terra e achou sinais de que lá já foi um delta de rio.</li>
-<li><b>Ingenuity - Helicóptero (2021-2024):</b> Fez 72 voos em Marte! Provou que dá pra voar em outro planeta, mesmo com ar super fino.</li>
-<li><b>Água hoje:</b> Tem gelo no subsolo e nas calotas polares. Se derreter tudo, daria pra cobrir Marte com 11 metros de água.</li>
-<li><b>Metano:</b> O Curiosity detectou metano na atmosfera. Na Terra, metano vem de vida ou de vulcões. Em Marte ainda é um mistério.</li>
+<li><b>Curiosity (2012 - até hoje):</b> Pousou na Cratera Gale. Achou argila, minerais que só se formam na água e moléculas orgânicas.</li>
+<li><b>Perseverance (2021 - até hoje):</b> Pousou na Cratera Jezero. Está guardando amostras de rocha para trazer para a Terra.</li>
+<li><b>Ingenuity - Helicóptero (2021-2024):</b> Fez 72 voos em Marte! Era para fazer só 5 voos.</li>
+<li><b>Água hoje:</b> Tem gelo no subsolo e nas calotas polares.</li>
+<li><b>Metano:</b> O Curiosity detectou metano na atmosfera. Ainda é um mistério.</li>
+<li><b>Oxigênio:</b> O experimento MOXIE conseguiu criar oxigênio a partir do CO2 de Marte.</li>
 </ul>
 </div>
 </div>
 
 <div class="card">
-<img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Mars_Perseverance_Selfie.jpg">
+<img src="Foto6.jpg" alt="Planeta Marte vermelho">
 <div class="card-body">
 <h3>👽 Já teve vida em Marte?</h3>
 <p>Ainda não achamos vida, mas achamos tudo que a vida precisa:</p>
-<ul><li>Água líquida no passado</li><li>Elementos químicos certos: carbono, hidrogênio, oxigênio, nitrogênio</li><li>Energia: do Sol e de reações químicas nas rochas</li><li>Proteção: embaixo da superfície, longe da radiação</li></ul>
+<ul>
+<li>Água líquida no passado</li>
+<li>Elementos químicos certos: carbono, hidrogênio, oxigênio, nitrogênio</li>
+<li>Energia: do Sol e de reações químicas nas rochas</li>
+<li>Proteção: embaixo da superfície, longe da radiação</li>
+</ul>
 <p>Se um dia teve vida em Marte, provavelmente era <b>micróbio</b>, bem pequenininho, escondido embaixo da terra.</p>
+<p>Por que Marte é marrom avermelhado? Por causa do <b>óxido de ferro</b>, é literalmente <b>ferrugem</b>!</p>
 </div>
 </div>
 
 <div class="timeline">
-<h3 style="color:#ff8c42">📅 Linha do tempo de Marte</h3>
-<div><b>
+<h3>📅 Linha do tempo de Marte</h3>
+<div class="timeline-item"><b>4,5 bilhões de anos atrás</b><p>Marte nasce, quente, com vulcões e talvez oceanos.</p></div>
+<div class="timeline-item"><b>3,5 bilhões de anos atrás</b><p>Cratera Gale se forma. Tem lagos, rios e clima mais quente.</p></div>
+<div class="timeline-item"><b>3 bilhões de anos atrás</b><p>Marte perde o campo magnético, fica frio e seco.</p></div>
+<div class="timeline-item"><b>2012</b><p>Curiosity pousa na Gale e confirma que já teve água potável lá.</p></div>
+<div class="timeline-item"><b>2021</b><p>Perseverance pousa e o helicóptero Ingenuity voa pela primeira vez em outro planeta.</p></div>
+<div class="timeline-item"><b>2030s</b><p>NASA planeja trazer as amostras de Marte para a Terra e, no futuro, mandar humanos.</p></div>
+</div>
+
+<div class="card">
+<img src="Foto5.jpg" alt="Astronauta andando em Marte">
+<div class="card-body">
+<h3>🧑‍🚀 E se a gente morar lá? O que precisa?</h3>
+<ul>
+<li><b>Base em cratera ou vale:</b> A cratera protege da radiação e do vento.</li>
+<li><b>Água do gelo do subsolo:</b> Para beber, plantar e fazer oxigênio.</li>
+<li><b>Energia solar + nuclear:</b> Tempestade de poeira pode cobrir o Sol por semanas.</li>
+<li><b>Estufa:</b> Para plantar comida com luz artificial.</li>
+<li><b>Roupa térmica:</b> -110°C à noite é normal.</li>
+</ul>
+</div>
+</div>
+
+<div class="curiosidade">
+<h3>🤔 Você sabia?</h3>
+<p>• O pôr do sol em Marte é <b>AZUL</b>, não laranja!<br>
+- Marte já teve um oceano no hemisfério norte.<br>
+- Se você pesar 50 kg na Terra, em Marte vai pesar só 19 kg.<br>
+- A maior montanha do Sistema Solar está em Marte.</p>
+</div>
+
+<div class="footer">
+<b>MARSYNC - Cratera Gale</b><br>
+Projeto da equipe MARSYNC - Leonardo e Gean - NASA Space Apps Challenge<br>
+Dados: NASA / ESA / DLR HRSC + MGS MOLA + Viking<br>
+Feito no Brasil 🇧🇷
+</div>
+</body>
+  </html>
