@@ -47,16 +47,17 @@ header p{margin:4px 0 0;font-size:12px}
 .footer b{color:#fff}
 .brasil-final{margin-top:14px;padding-top:12px;border-top:1px solid #3a251a;font-size:12px;color:#ccc}
 .brasil-final span{color:#FFC107;font-weight:bold}
-/* JOGO 3D */
-#tela-jogo3d{display:none;position:fixed;inset:0;background:#000;z-index:20000}
-#gameCanvas{width:100%;height:100%;display:block}
-#hud3d{position:absolute;top:12px;left:12px;right:12px;display:flex;justify-content:space-between;align-items:flex-start}
-.hud-box3d{background:rgba(0,0,0,.65);border:1px solid #ffffff33;padding:10px 12px;border-radius:12px;font-size:13px;line-height:1.4;color:#fff}
-#msg3d{position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.9);border:1px solid #ff6b1a;padding:18px;border-radius:16px;text-align:center;width:86%;max-width:340px;display:none;color:#fff}
-#joy{position:absolute;bottom:20px;left:18px;width:110px;height:110px;background:rgba(255,255,255,.12);border:1px solid #ffffff55;border-radius:50%}
-#knob{position:absolute;width:48px;height:48px;background:#fff;border-radius:50%;left:31px;top:31px}
-#btnJump{position:absolute;bottom:34px;right:20px;width:78px;height:78px;border-radius:50%;background:#ff6b1a;color:#fff;border:2px solid #fff;font-weight:900;font-size:15px}
-#btnExit3d{background:#fff;color:#000;border:none;padding:8px 14px;border-radius:999px;font-weight:800}
+#tela-jogo3d{display:none;position:fixed;inset:0;background:#000;z-index:20000;touch-action:none}
+#gameCanvas{width:100%;height:100%;display:block;touch-action:none}
+#hud3d{position:absolute;top:12px;left:12px;right:12px;display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none}
+.hud-box3d{background:rgba(0,0,0,.65);border:1px solid #ffffff33;padding:10px 12px;border-radius:12px;font-size:13px;line-height:1.4;color:#fff;backdrop-filter:blur(4px);pointer-events:none}
+#diaBadge{position:absolute;top:12px;left:50%;transform:translateX(-50%);background:#ff6b1a;color:#fff;padding:8px 16px;border-radius:999px;font-weight:900;font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,.5);pointer-events:none}
+#dicaGirar{position:absolute;bottom:145px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);color:#fff;padding:7px 12px;border-radius:999px;font-size:12px;pointer-events:none;white-space:nowrap}
+#msg3d{position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.92);border:1px solid #ff6b1a;padding:18px;border-radius:16px;text-align:center;width:86%;max-width:340px;display:none;color:#fff;z-index:10}
+#joy{position:absolute;bottom:20px;left:18px;width:110px;height:110px;background:rgba(255,255,255,.12);border:1px solid #ffffff55;border-radius:50%;z-index:5}
+#knob{position:absolute;width:48px;height:48px;background:#fff;border-radius:50%;left:31px;top:31px;box-shadow:0 4px 10px rgba(0,0,0,.5)}
+#btnJump{position:absolute;bottom:34px;right:20px;width:78px;height:78px;border-radius:50%;background:#ff6b1a;color:#fff;border:2px solid #fff;font-weight:900;font-size:15px;z-index:5}
+#btnExit3d{background:#fff;color:#000;border:none;padding:8px 14px;border-radius:999px;font-weight:800;pointer-events:auto}
 </style>
 </head>
 <body>
@@ -66,7 +67,7 @@ header p{margin:4px 0 0;font-size:12px}
 <button id="menuBtn" onclick="toggleMenu()">⋮</button>
 <div id="menu">
 <a href="#" onclick="voltarTopo();return false">🏠 Início - MARSYNC<small>Volta pro começo do site</small></a>
-<a href="#" onclick="abrirJogo3d();return false" style="background:#ff6b1a">🎮 JOGO 3D - Caminhada em Marte<small>Ande com o joystick e responda as perguntas!</small></a>
+<a href="#" onclick="abrirJogo3d();return false" style="background:#ff6b1a">🎮 JOGO 3D - Caminhada em Marte<small>7 dias em Marte - 1 pergunta por dia!</small></a>
 </div>
 </header>
 
@@ -94,160 +95,4 @@ header p{margin:4px 0 0;font-size:12px}
 <ul>
 <li><b>Monte Olimpo:</b> O maior vulcão do Sistema Solar, com 21 km de altura. Quase 2,5x o Everest!</li>
 <li><b>Valles Marineris:</b> Um cânion de 4.000 km de comprimento. Caberia o Brasil inteiro dentro dele. Tem até 7 km de profundidade.</li>
-<li><b>Calotas polares:</b> Marte tem gelo nos polos, igual a Terra, feito de água e CO2 congelado.</li>
-<li><b>2 luas:</b> Fobos e Deimos, pequenas e com formato de batata.</li>
-<li><b>Gravidade:</b> Só 38% da Terra. Você pularia 3x mais alto lá!</li>
-</ul>
-<div class="destaque">💡 <b>Curiosidade:</b> Um dia em Marte se chama <b>SOL</b>. Dura 24h 37min, quase igual ao nosso dia.</div>
-</div>
-</div>
-
-<div class="card">
-<img src="Foto3.jpg" alt="Monte Olimpo em Marte">
-<div class="card-body">
-<h3>🔴 Cratera Gale</h3>
-<p>A Cratera Gale tem <b>154 km de largura</b> - maior que a cidade de São Paulo. Ela foi formada por um asteroide gigante há cerca de 3,5 bilhões de anos.</p>
-<p>No centro dela tem o <b>Monte Sharp</b>, com 5,5 km de altura. Ele é como um livro de história: cada camada de rocha conta uma época diferente de Marte.</p>
-<p><b>Por que a NASA escolheu a Gale?</b> Porque lá tem provas de que já teve um lago gigante de água líquida. Onde tem água, pode ter tido vida.</p>
-</div>
-</div>
-
-<div class="card">
-<img src="Foto4.jpg" alt="Robô Curiosity em Marte">
-<div class="card-body">
-<h3>🤖 Pesquisas reais - O que a NASA já descobriu?</h3>
-<ul>
-<li><b>Curiosity (2012 - até hoje):</b> Pousou na Cratera Gale. Achou argila, minerais que só se formam na água e moléculas orgânicas.</li>
-<li><b>Perseverance (2021 - até hoje):</b> Pousou na Cratera Jezero. Está guardando amostras de rocha para trazer para a Terra.</li>
-<li><b>Ingenuity - Helicóptero (2021-2024):</b> Fez 72 voos em Marte! Era para fazer só 5 voos.</li>
-<li><b>Água hoje:</b> Tem gelo no subsolo e nas calotas polares.</li>
-<li><b>Metano:</b> O Curiosity detectou metano na atmosfera. Ainda é um mistério.</li>
-<li><b>Oxigênio:</b> O experimento MOXIE conseguiu criar oxigênio a partir do CO2 de Marte.</li>
-</ul>
-</div>
-</div>
-
-<div class="card">
-<img src="Foto6.jpg" alt="Planeta Marte vermelho">
-<div class="card-body">
-<h3>👽 Já teve vida em Marte?</h3>
-<p>Ainda não achamos vida, mas achamos tudo que a vida precisa:</p>
-<ul>
-<li>Água líquida no passado</li>
-<li>Elementos químicos certos: carbono, hidrogênio, oxigênio, nitrogênio</li>
-<li>Energia: do Sol e de reações químicas nas rochas</li>
-<li>Proteção: embaixo da superfície, longe da radiação</li>
-</ul>
-<p>Se um dia teve vida em Marte, provavelmente era <b>micróbio</b>, bem pequenininho, escondido embaixo da terra.</p>
-<p>Por que Marte é marrom avermelhado? Por causa do <b>óxido de ferro</b>, é literalmente <b>ferrugem</b>!</p>
-</div>
-</div>
-
-<div class="timeline">
-<h3>📅 Linha do tempo de Marte</h3>
-<div class="timeline-item"><b>4,5 bilhões de anos atrás</b><p>Marte nasce, quente, com vulcões e talvez oceanos.</p></div>
-<div class="timeline-item"><b>3,5 bilhões de anos atrás</b><p>Cratera Gale se forma. Tem lagos, rios e clima mais quente.</p></div>
-<div class="timeline-item"><b>3 bilhões de anos atrás</b><p>Marte perde o campo magnético, fica frio e seco.</p></div>
-<div class="timeline-item"><b>2012</b><p>Curiosity pousa na Gale e confirma que já teve água potável lá.</p></div>
-<div class="timeline-item"><b>2021</b><p>Perseverance pousa e o helicóptero Ingenuity voa pela primeira vez em outro planeta.</p></div>
-<div class="timeline-item"><b>2030s</b><p>NASA planeja trazer as amostras de Marte para a Terra e, no futuro, mandar humanos.</p></div>
-</div>
-
-<div class="card">
-<img src="Foto5.jpg" alt="Astronauta andando em Marte">
-<div class="card-body">
-<h3>🧑‍🚀 E se a gente morar lá? O que precisa?</h3>
-<ul>
-<li><b>Base em cratera ou vale:</b> A cratera protege da radiação e do vento.</li>
-<li><b>Água do gelo do subsolo:</b> Para beber, plantar e fazer oxigênio.</li>
-<li><b>Energia solar + nuclear:</b> Tempestade de poeira pode cobrir o Sol por semanas.</li>
-<li><b>Estufa:</b> Para plantar comida com luz artificial.</li>
-<li><b>Roupa térmica:</b> -110°C à noite é normal.</li>
-</ul>
-</div>
-</div>
-
-<div class="curiosidade">
-<h3>🤔 Você sabia?</h3>
-<p>• O pôr do sol em Marte é <b>AZUL</b>, não laranja!<br>
-- Marte já teve um oceano no hemisfério norte.<br>
-- Se você pesar 50 kg na Terra, em Marte vai pesar só 19 kg.<br>
-- A maior montanha do Sistema Solar está em Marte.</p>
-</div>
-
-<div class="footer">
-<b>MARSYNC - Cratera Gale</b><br>
-Projeto da equipe MARSYNC - Leonardo e Gean - NASA Space Apps Challenge<br>
-Dados: NASA / ESA / DLR HRSC + MGS MOLA + Viking<br>
-Feito no Brasil 🇧🇷
-<div class="brasil-final">🇧🇷 Feito no Brasil pela equipe <span>MARSYNC - Leonardo e Gean</span> 🇧🇷</div>
-</div>
-
-<!-- JOGO 3D - SÓ ABRE PELOS 3 PONTINHOS -->
-<div id="tela-jogo3d">
-<canvas id="gameCanvas"></canvas>
-<div id="hud3d">
-<div class="hud-box3d">❤️ Vida: <b id="vida3d">100</b><br>⭐ Pontos: <b id="pontos3d">0</b><br>❓ Pergunta: <b id="perguntaNum3d">1/5</b></div>
-<button id="btnExit3d" onclick="fecharJogo3d()">✕ SAIR</button>
-</div>
-<div id="msg3d"><h3 id="msgTitulo3d">Pergunta</h3><p id="msgTexto3d"></p><div id="msgBotoes3d" style="margin-top:12px"></div></div>
-<div id="joy"><div id="knob"></div></div>
-<button id="btnJump">PULAR</button>
-</div>
-
-<script>
-function toggleMenu(){ var m=document.getElementById('menu'); m.style.display = m.style.display==='block'?'none':'block'; }
-document.addEventListener('click', function(e){ if(!e.target.closest('header')){ var m=document.getElementById('menu'); if(m) m.style.display='none'; }});
-function voltarTopo(){ document.getElementById('menu').style.display='none'; window.scrollTo(0,0); }
-let gameStarted=false, scene, camera, renderer, player, perguntas=[], perguntaAtual=0, pontos=0, vida=100, mov={x:0,z:0}, pulando=false, velY=0, noChao=true;
-const perguntasData=[
-{q:"Qual é o planeta conhecido como Planeta Vermelho?",a:["Marte","Vênus","Júpiter"],c:0,ex:"Marte é vermelho por causa do óxido de ferro, tipo ferrugem!"},
-{q:"Quanto tempo dura um dia em Marte?",a:["24h 37min","10 horas","48 horas"],c:0,ex:"Um dia em Marte é quase igual ao da Terra!"},
-{q:"Qual é a maior montanha do Sistema Solar, que fica em Marte?",a:["Monte Olimpo","Everest","Monte Fuji"],c:0,ex:"O Monte Olimpo tem 21km de altura, 2x e meia o Everest!"},
-{q:"Qual robô da NASA está explorando Marte agora?",a:["Perseverance","Curiosity 2","Voyager"],c:0,ex:"O Perseverance procura sinais de vida antiga em Marte!"},
-{q:"Marte tem quantas luas?",a:["2 - Fobos e Deimos","1 - igual a Terra","0"],c:0,ex:"Fobos e Deimos são pequenas e significam Medo e Pânico!"}
-];
-function abrirJogo3d(){document.getElementById('menu').style.display='none';document.getElementById('tela-jogo3d').style.display='block';if(!gameStarted){gameStarted=true;iniciarJogo3d();}}
-function fecharJogo3d(){document.getElementById('tela-jogo3d').style.display='none';}
-function iniciarJogo3d(){
-scene=new THREE.Scene(); scene.background=new THREE.Color(0x8a3b1a); scene.fog=new THREE.Fog(0x8a3b1a,20,90);
-camera=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,0.1,200);
-renderer=new THREE.WebGLRenderer({canvas:document.getElementById('gameCanvas'),antialias:true}); renderer.setSize(innerWidth,innerHeight);
-scene.add(new THREE.AmbientLight(0xffffff,0.9)); let sol=new THREE.DirectionalLight(0xffffff,0.7); sol.position.set(10,20,10); scene.add(sol);
-let chao=new THREE.Mesh(new THREE.PlaneGeometry(200,200),new THREE.MeshLambertMaterial({color:0xb35a2a})); chao.rotation.x=-Math.PI/2; scene.add(chao);
-for(let i=0;i<30;i++){let r=new THREE.Mesh(new THREE.DodecahedronGeometry(Math.random()*1.5+0.5),new THREE.MeshLambertMaterial({color:0x7a2f14})); r.position.set((Math.random()-0.5)*120,0.5,(Math.random()-0.5)*120); scene.add(r);}
-for(let i=0;i<12;i++){let m=new THREE.Mesh(new THREE.ConeGeometry(2,5,6),new THREE.MeshLambertMaterial({color:0x5a2310})); m.position.set((Math.random()-0.5)*100,2.5,(Math.random()-0.5)*100); scene.add(m);}
-player=new THREE.Group(); let corpo=new THREE.Mesh(new THREE.BoxGeometry(0.8,1.2,0.5),new THREE.MeshLambertMaterial({color:0xffffff})); corpo.position.y=1; player.add(corpo);
-let cabeca=new THREE.Mesh(new THREE.BoxGeometry(0.6,0.6,0.6),new THREE.MeshLambertMaterial({color:0xffcc99})); cabeca.position.y=1.9; player.add(cabeca);
-let capacete=new THREE.Mesh(new THREE.SphereGeometry(0.5,12,12),new THREE.MeshLambertMaterial({color:0xffffff,transparent:true,opacity:0.4})); capacete.position.y=1.9; player.add(capacete);
-scene.add(player); perguntas=[];
-for(let i=0;i<5;i++){let g=new THREE.Mesh(new THREE.SphereGeometry(0.7,12,12),new THREE.MeshLambertMaterial({color:0xffd700,emissive:0x8a6d00})); let ang=i*1.25; g.position.set(Math.cos(ang)*14,1.2,Math.sin(ang)*14); g.userData.index=i; scene.add(g); perguntas.push(g);}
-loop3d();
-}
-function loop3d(){requestAnimationFrame(loop3d); if(!gameStarted) return;
-player.position.x+=mov.x*0.12; player.position.z+=mov.z*0.12;
-player.position.x=Math.max(-45,Math.min(45,player.position.x)); player.position.z=Math.max(-45,Math.min(45,player.position.z));
-if(pulando||!noChao){velY-=0.015; player.position.y+=velY; if(player.position.y<=0){player.position.y=0; noChao=true; pulando=false; velY=0;}}
-camera.position.set(player.position.x, player.position.y+4.5, player.position.z+7); camera.lookAt(player.position.x, player.position.y+1, player.position.z);
-perguntas.forEach(p=>{p.rotation.y+=0.03; p.position.y=1.2+Math.sin(Date.now()*0.003+p.position.x)*0.2; if(p.visible && player.position.distanceTo(p.position)<1.5){mostrarPergunta3d(p.userData.index); p.visible=false;}});
-renderer.render(scene,camera);
-}
-function mostrarPergunta3d(i){perguntaAtual=i; let d=perguntasData[i]; document.getElementById('perguntaNum3d').innerText=(i+1)+"/5";
-document.getElementById('msgTitulo3d').innerText="❓ PERGUNTA "+(i+1); document.getElementById('msgTexto3d').innerText=d.q;
-let botoes=document.getElementById('msgBotoes3d'); botoes.innerHTML="";
-d.a.forEach((alt,idx)=>{let b=document.createElement('button'); b.innerText=alt; b.style.cssText="display:block;width:100%;padding:12px;margin-top:8px;border:none;border-radius:10px;background:#ff6b1a;color:#fff;font-weight:800"; b.onclick=()=>responder3d(idx,d); botoes.appendChild(b);});
-document.getElementById('msg3d').style.display='block';
-}
-function responder3d(idx,d){let ok=idx===d.c; let titulo=document.getElementById('msgTitulo3d'); let texto=document.getElementById('msgTexto3d'); let botoes=document.getElementById('msgBotoes3d');
-if(ok){pontos+=20; titulo.innerText="✅ ACERTOU! +20"; texto.innerText=d.ex;}else{vida-=20; titulo.innerText="❌ ERROU! -20 de vida"; texto.innerText="Resposta certa: "+d.a[d.c]+" - "+d.ex;}
-document.getElementById('pontos3d').innerText=pontos; document.getElementById('vida3d').innerText=vida;
-botoes.innerHTML=""; let b=document.createElement('button'); b.innerText=(perguntaAtual>=4||vida<=0)?"VER RESULTADO":"CONTINUAR"; b.style.cssText="padding:12px 20px;border:none;border-radius:999px;background:#fff;color:#000;font-weight:800;margin-top:10px"; b.onclick=()=>{document.getElementById('msg3d').style.display='none'; if(vida<=0) fimJogo3d(false); else if(perguntaAtual>=4) fimJogo3d(true);}; botoes.appendChild(b);
-}
-function fimJogo3d(venceu){document.getElementById('msgTitulo3d').innerText=venceu?"🏆 VOCÊ VENCEU!":"💀 FIM DE JOGO"; document.getElementById('msgTexto3d').innerText="Pontos: "+pontos+" | Vida: "+vida+(venceu?" - Você é um verdadeiro explorador de Marte!":" - Tente de novo, astronauta!"); document.getElementById('msgBotoes3d').innerHTML=""; let b=document.createElement('button'); b.innerText="🔁 JOGAR DE NOVO"; b.style.cssText="padding:12px 20px;border:none;border-radius:999px;background:#ff6b1a;color:#fff;font-weight:800;margin-top:10px"; b.onclick=()=>{location.reload();}; document.getElementById('msgBotoes3d').appendChild(b); document.getElementById('msg3d').style.display='block';}
-let joy=document.getElementById('joy'), knob=document.getElementById('knob'), arrastando=false;
-function joyMove(e){if(!arrastando) return; let t=e.touches?e.touches[0]:e; let r=joy.getBoundingClientRect(); let dx=t.clientX-(r.left+55); let dy=t.clientY-(r.top+55); dx=Math.max(-35,Math.min(35,dx)); dy=Math.max(-35,Math.min(35,dy)); knob.style.left=(31+dx)+"px"; knob.style.top=(31+dy)+"px"; mov.x=dx/35; mov.z=dy/35;}
-joy.addEventListener('touchstart',e=>{arrastando=true; joyMove(e)}); joy.addEventListener('touchmove',e=>{joyMove(e); e.preventDefault()}); joy.addEventListener('touchend',()=>{arrastando=false; mov={x:0,z:0}; knob.style.left="31px"; knob.style.top="31px"});
-document.getElementById('btnJump').addEventListener('click',()=>{if(noChao){pulando=true; noChao=false; velY=0.28;}});
-</script>
-</body>
-  </html>
+<li><b>Calotas polares:</b> Marte tem gelo nos polos, igual a Terra, feito
