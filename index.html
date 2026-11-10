@@ -46,8 +46,7 @@ button.active{background:#ea580c}
 <p>Alta inclinação + radiação</p>
 </div>
 <script>
-var map = L.map('map').setView([-4.5895, 137.4417], 11);
-L.tileLayer('https://trek.nasa.gov/tiles/Mars/EQ/Mars_Viking_MDIM21_ClrMosaic_global_1024.jpg/{z}/{x}/{y}.png', {maxZoom: 10, attribution: 'NASA Mars Trek'}).addTo(map);
+var map = L.map('map').setView([L.tileLayer('https://trek.nasa.gov/tiles/Mars/EQ/Mars_Viking_MDIM21_ClrMosaic_global_1024.jpg/1.0.0/default/default028mm/{z}/{y}/{x}.jpg', {maxZoom: 10, attribution: 'NASA Mars Trek'}).addTo(map);
 var base = L.marker([-4.5895, 137.4417]).addTo(map).bindPopup("<b>Acampamento Base</b><br>Altitude: -4500m<br>Temp: -60°C");
 var boxwork = L.marker([-4.45, 137.60]).addTo(map).bindPopup("<b>Formações em caixa</b><br>Alto valor científico!");
 var sharp = L.marker([-4.65, 137.35]).addTo(map).bindPopup("<b>Monte Sharp</b><br>Elevação: -2000m<br>Íngreme - Perigo!");
