@@ -1,77 +1,61 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MarsWalk - Cratera Gale</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
-body{margin:0;font-family:Arial;background:#111;color:#fff}
-header{background:#c2410c;padding:15px;text-align:center}
+body{margin:0;font-family:Arial,sans-serif;background:#1a0f0a;color:white}
+header{background:#ff6b1a;padding:15px;text-align:center}
 header h1{margin:0;font-size:22px}
 header p{margin:5px 0 0;font-size:13px}
-#map{height:380px;width:100%;background:#000}
-.controls{padding:10px;background:#1f1f1f;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-button{border:0;padding:10px 16px;border-radius:20px;background:#333;color:#fff;font-weight:bold}
-button.active{background:#ea580c}
-#info{padding:15px;background:#222;line-height:1.5}
-#info h3{margin:10px 0 5px;color:#fb923c}
+#map{height:60vh;width:100%;background:#c1440e}
+#info{background:#2a1a12;padding:15px;margin:10px;border-radius:10px}
+#info h2{margin:0 0 10px;color:#ff8c42;font-size:18px}
+.botoes{display:flex;gap:8px;flex-wrap:wrap;margin:10px}
+button{background:#ff6b1a;color:white;border:none;padding:10px 15px;border-radius:20px;font-weight:bold;cursor:pointer;flex:1}
+button:hover{background:#ff8c42}
+.score{font-size:28px;font-weight:bold;color:#4ade80}
 </style>
 </head>
 <body>
 <header>
-<h1>MarsWalk - Cratera Gale</h1>
-<p>Mapa interativo de sobrevivência para astronautas | NASA Space Apps 2026</p>
+<h1>🚀 MarsWalk - Cratera Gale</h1>
+<p>Mapa interativo de sobrevivência em Marte | NASA Space Apps</p>
 </header>
-<div id="map"></div>
-<div class="controls">
-<button onclick="showLayer('topo',this)" class="active">Topografia</button>
-<button onclick="showLayer('danger',this)">Perigo</button>
-<button onclick="showLayer('science',this)">Ciência</button>
-<button onclick="showLayer('route',this)">Rota</button>
+<div class="botoes">
+<button onclick="irPara(-4.5895,137.4417,8)">📍 Base</button>
+<button onclick="irPara(-5.4,137.8,8)">⚠️ Perigo</button>
+<button onclick="irPara(-4.7,137.2,8)">🔬 Ciência</button>
+<button onclick="irPara(-4.5895,137.4417,7)">🗺️ Rota</button>
 </div>
+<div id="map"></div>
 <div id="info">
-<h3>Clique em qualquer lugar do mapa</h3>
-<p>Você vai ver altitude, temperatura, radiação e pontuação de segurança.</p>
-<h3>Acampamento Base</h3>
-<p>Local de pouso do Curiosity - Altitude: -4500m - Temp: -60°C</p>
-<h3>Formações em caixa</h3>
-<p>Descoberto pela Curiosity. Alto valor científico! Segurança: 67/100</p>
-<h3>Monte Sharp</h3>
-<p>Elevação: -2000m - Íngreme - Perigo!</p>
-<h3>Rota mais segura</h3>
-<p>Distância: 3,2 km - Tempo: 6,4 horas - Segurança: 78/100</p>
-<h3>Zona de Perigo</h3>
-<p>Alta inclinação + radiação</p>
+<h2>👋 Clique em qualquer lugar do mapa!</h2>
+<p id="detalhes">Escolha um local para ver altitude, temperatura, radiação e pontuação de segurança.</p>
 </div>
 <script>
-var map = L.map('map').setView([L.tileLayer('https://trek.nasa.gov/tiles/Mars/EQ/Mars_Viking_MDIM21_ClrMosaic_global_1024.jpg/1.0.0/default/default028mm/{z}/{y}/{x}.jpg', {maxZoom: 10, attribution: 'NASA Mars Trek'}).addTo(map);
-var base = L.marker([-4.5895, 137.4417]).addTo(map).bindPopup("<b>Acampamento Base</b><br>Altitude: -4500m<br>Temp: -60°C");
-var boxwork = L.marker([-4.45, 137.60]).addTo(map).bindPopup("<b>Formações em caixa</b><br>Alto valor científico!");
-var sharp = L.marker([-4.65, 137.35]).addTo(map).bindPopup("<b>Monte Sharp</b><br>Elevação: -2000m<br>Íngreme - Perigo!");
-var route = L.polyline([[-4.5895, 137.4417], [-4.55, 137.48], [-4.50, 137.52], [-4.45, 137.60]], {color: '#00ff88', weight: 5}).addTo(map).bindPopup("<b>Rota mais segura</b><br>3,2 km - 6,4 horas - Segurança: 78/100");
-var dangerCircle = L.circle([-4.65, 137.35], {color: 'red', fillColor: '#f03', fillOpacity: 0.3, radius: 3000}).addTo(map).bindPopup("Zona de Perigo - Alta inclinação + radiação");
-var scienceCircle = L.circle([-4.45, 137.60], {color: 'yellow', fillColor: '#ff0', fillOpacity: 0.3, radius: 2500}).addTo(map);
-dangerCircle.setStyle({opacity: 0});
-function showLayer(type, btn){
-document.querySelectorAll('.controls button').forEach(b=>b.classList.remove('active'));
-if(btn) btn.classList.add('active');
-if(type=='danger'){ dangerCircle.setStyle({opacity:1}); map.setView([-4.65,137.35],11); }
-else if(type=='topo'){ alert('Camada de Topografia: Plano = Seguro, Íngreme = Perigoso. Observe o Monte Sharp!'); }
-else if(type=='science'){ map.setView([-4.45,137.60],12); }
-else if(type=='route'){ map.setView([-4.5895,137.4417],11); }
-}
+var map = L.map('map').setView([-4.5895, 137.4417], 7);
+L.tileLayer('https://trek.nasa.gov/tiles/Mars/EQ/Mars_Viking_MDIM21_ClrMosaic_global_1024.jpg/1.0.0/default/default028mm/{z}/{y}/{x}.jpg', {maxZoom: 10, minZoom: 3, tms: true, attribution: 'NASA Mars Trek'}).addTo(map);
+
+var base = L.marker([-4.5895, 137.4417]).addTo(map).bindPopup("<b>🏠 Base - Cratera Gale</b><br>Local de pouso seguro");
+var perigo = L.circle([-5.4, 137.8], {color:'red', fillColor:'#f03', fillOpacity:0.4, radius: 15000}).addTo(map).bindPopup("<b>⚠️ Zona de Perigo - Monte Sharp</b><br>Alta radiação e declive perigoso");
+var ciencia = L.marker([-4.7, 137.2]).addTo(map).bindPopup("<b>🔬 Formações em Caixa</b><br>Alto valor científico - possíveis sinais de água antiga");
+var rota = L.polyline([[-4.5895,137.4417],[-4.7,137.2],[-4.8,137.5],[-5.0,137.6]], {color:'lime', weight:4}).addTo(map).bindPopup("Rota segura");
+
+function irPara(lat,lng,zoom){ map.setView([lat,lng], zoom); }
 map.on('click', function(e){
-var lat = e.latlng.lat.toFixed(2);
-var lng = e.latlng.lng.toFixed(2);
-var slope = Math.floor(Math.random()*12)+1;
-var radiation = Math.floor(Math.random()*20)+5;
-var temp = -70 + Math.floor(Math.random()*20);
-var score = Math.round(100 - (slope*2) - (radiation*1.5));
-if(score<0) score=5;
-var level = score>=70 ? "SEGURO" : score>=40 ? "CUIDADO" : "PERIGO";
-document.getElementById('info').innerHTML = "<h3>Localização: "+lat+", "+lng+"</h3><p>Altitude: "+(-4500 + slope*80)+"m | Inclinação: "+slope+"°</p><p>Temperatura: "+temp+"°C | Radiação: "+radiation+" mSv</p><h3>Pontuação: "+score+"/100 - "+level+"</h3><p>Tempo até a base: "+(Math.random()*5+1).toFixed(1)+" horas</p>";
+  var lat = e.latlng.lat.toFixed(4);
+  var lng = e.latlng.lng.toFixed(4);
+  var alt = Math.floor(Math.random()*800 - 4500);
+  var temp = Math.floor(Math.random()*20 - 70);
+  var rad = (Math.random()*0.5 + 0.1).toFixed(2);
+  var score = Math.floor(Math.random()*40 + 55);
+  var status = score >= 80 ? '✅ SEGURO' : score >= 60 ? '⚠️ CUIDADO' : '🚨 PERIGOSO';
+  var cor = score >= 80 ? '#4ade80' : score >= 60 ? '#facc15' : '#ef4444';
+  document.getElementById('detalhes').innerHTML = '<b>📍 Lat:</b> '+lat+' | <b>Lng:</b> '+lng+'<br><b>⛰️ Altitude:</b> '+alt+' m<br><b>🌡️ Temperatura:</b> '+temp+'°C<br><b>☢️ Radiação:</b> '+rad+' mSv/dia<br><br><span class="score" style="color:'+cor+'">Pontuação: '+score+'/100 - '+status+'</span>';
 });
 </script>
 </body>
