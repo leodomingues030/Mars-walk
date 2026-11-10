@@ -11,12 +11,12 @@
 html{background:#120805}
 body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#120805;color:#f5e6d8;line-height:1.5}
 img{max-width:100%;background:#120805}
-header{background:#b14a22;padding:14px 15px;text-align:center;position:relative;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,.4)}
-header h1{margin:0;font-size:24px;color:#fff;padding-right:40px}
-header p{margin:4px 0 0;font-size:12px;color:#ffd9c0;padding-right:40px}
-/* 3 PONTINHOS - AGORA ACESSIVEL */
-#menuBtn{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.25);color:#fff;border:1px solid rgba(255,255,255,.4);font-size:22px;width:42px;height:42px;border-radius:50%;cursor:pointer;z-index:200;line-height:1;display:flex;align-items:center;justify-content:center}
-#menu{position:absolute;right:8px;top:58px;background:#1a0f08;border:2px solid #ff6b1a;border-radius:12px;width:300px;max-width:92vw;display:none;z-index:9999;text-align:left;box-shadow:0 10px 30px rgba(0,0,0,.7);overflow:hidden}
+header{background:#b14a22;padding:14px 15px;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+header h1{margin:0;font-size:24px;color:#fff}
+header p{margin:4px 0 0;font-size:12px;color:#ffd9c0}
+/* 3 PONTINHOS FIXO - SEMPRE FUNCIONA */
+#menuBtn{position:fixed;right:10px;top:10px;background:#1a0f08;color:#fff;border:2px solid #fff;font-size:24px;width:44px;height:44px;border-radius:50%;cursor:pointer;z-index:99999;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.6)}
+#menu{position:fixed;right:10px;top:60px;background:#1a0f08;border:2px solid #ff6b1a;border-radius:12px;width:300px;max-width:92vw;display:none;z-index:99998;text-align:left;box-shadow:0 10px 30px rgba(0,0,0,.7);overflow:hidden}
 #menu a{display:block;padding:16px;color:white;text-decoration:none;border-bottom:1px solid #3a251a;font-size:15px;font-weight:bold}
 #menu a small{display:block;font-weight:normal;font-size:12px;color:#ffd9c0;margin-top:3px}
 .hero{position:relative;background:#000}
@@ -50,8 +50,7 @@ header p{margin:4px 0 0;font-size:12px;color:#ffd9c0;padding-right:40px}
 .footer b{color:#fff}
 .brasil-final{margin-top:14px;padding-top:12px;border-top:1px solid #3a251a;font-size:12px;color:#ccc}
 .brasil-final span{color:#FFC107;font-weight:bold}
-/* TELA DO MAPA */
-#tela-mapa{display:none;position:fixed;inset:0;background:#101317;z-index:50000;overflow-y:auto;color:#f4f1eb}
+#tela-mapa{display:none;position:fixed;inset:0;background:#101317;z-index:100000;overflow-y:auto;color:#f4f1eb}
 .mapa-topo{position:sticky;top:0;background:#101317;border-bottom:1px solid #303943;padding:14px 5%;display:flex;justify-content:space-between;align-items:center;gap:10px;z-index:10}
 .mapa-topo b{letter-spacing:2px;font-size:20px}
 .mapa-topo b span{color:#ef7547}
@@ -93,12 +92,12 @@ header p{margin:4px 0 0;font-size:12px;color:#ffd9c0;padding-right:40px}
 <header>
 <h1>🚀 MARSYNC</h1>
 <p>Descubra Marte de verdade | NASA Space Apps</p>
-<button id="menuBtn" onclick="toggleMenu(event)">⋮</button>
-<div id="menu">
-<a href="#" onclick="voltarTopo();return false">🏠 Início - MARSYNC<small>Volta pro começo do site</small></a>
-<a href="#" onclick="abrirMapa();return false" style="background:#ef7547;color:#17110e">🗺️ Mapa de Exploração<small>Pra quem quer se aprofundar em como sobreviver em Marte</small></a>
-</div>
 </header>
+<button id="menuBtn" type="button">⋮</button>
+<div id="menu">
+<a href="#" id="linkInicio">🏠 Início - MARSYNC<small>Volta pro começo do site</small></a>
+<a href="#" id="linkMapa" style="background:#ef7547;color:#17110e">🗺️ Mapa de Exploração<small>Pra quem quer se aprofundar em como sobreviver em Marte</small></a>
+</div>
 
 <div class="hero">
 <img src="Foto1.jpg" alt="Marte">
@@ -214,7 +213,7 @@ Feito no Brasil 🇧🇷
 </div>
 
 <div id="tela-mapa">
-<div class="mapa-topo"><b>MARS<span>YNC</span></b><span style="font-size:12px;color:#9ed6a2">● PROTÓTIPO DE PLANEJAMENTO DE MISSÃO</span><button id="btnFecharMapa" onclick="fecharMapa()">✕ SAIR</button></div>
+<div class="mapa-topo"><b>MARS<span>YNC</span></b><span style="font-size:12px;color:#9ed6a2">● PROTÓTIPO DE PLANEJAMENTO DE MISSÃO</span><button id="btnFecharMapa" type="button">✕ SAIR</button></div>
 <div class="mapa-conteudo">
 <div class="mapa-intro">
 <h1>Exploração inteligente da superfície marciana</h1>
@@ -253,5 +252,40 @@ Feito no Brasil 🇧🇷
 </div>
 
 <script>
-function toggleMenu(e){if(e){e.stopPropagation();}var m=document.getElementById('menu');m.style.display=(m.style.display==='block')?'none':'block';}
-document.addEventListener('click',function(e){if(!e.target.closest('#menu') && !e.target.closest('#menuBtn')){var m=document.getElementById('menu');if(m)m.style.display
+// BOTAO 3 PONTINHOS - VERSAO SIMPLES E A PROVA DE FALHA
+var btn = document.getElementById('menuBtn');
+var menu = document.getElementById('menu');
+function abrirFecharMenu(e){
+  if(e){ e.preventDefault(); e.stopPropagation(); }
+  if(menu.style.display === 'block'){ menu.style.display = 'none'; }
+  else { menu.style.display = 'block'; }
+}
+btn.addEventListener('click', abrirFecharMenu);
+btn.addEventListener('touchstart', function(e){ e.preventDefault(); abrirFecharMenu(e); }, {passive:false});
+document.addEventListener('click', function(e){
+  if(e.target !== btn && !menu.contains(e.target)){ menu.style.display = 'none'; }
+});
+document.getElementById('linkInicio').addEventListener('click', function(e){ e.preventDefault(); menu.style.display='none'; window.scrollTo(0,0); });
+document.getElementById('linkMapa').addEventListener('click', function(e){ e.preventDefault(); menu.style.display='none'; abrirMapa(); });
+document.getElementById('btnFecharMapa').addEventListener('click', function(){ fecharMapa(); });
+function abrirMapa(){ var t=document.getElementById('tela-mapa'); t.style.display='block'; document.body.style.overflow='hidden'; setTimeout(function(){ resize(); update(); },100); setTimeout(function(){ resize(); update(); },500); }
+function fecharMapa(){ document.getElementById('tela-mapa').style.display='none'; document.body.style.overflow='auto'; }
+var canvas=document.getElementById('map'); var ctx=canvas.getContext('2d');
+var sites={gale:{name:'Cratera Gale',rover:'Curiosity',lat:-4.5895,lon:137.4417,desc:'Local de exploração do rover Curiosity. Região de interesse para estudar a história geológica e ambiental de Marte. Ótimo lugar para pensar em sobrevivência: cratera protege da radiação e do vento.'},jezero:{name:'Cratera Jezero',rover:'Perseverance',lat:18.4447,lon:77.4508,desc:'Local de exploração do rover Perseverance. A missão investiga geologia antiga e procura sinais de ambientes que poderiam ter sido habitáveis. Já teve um lago aqui - onde tem água, tem chance de sobreviver.'},custom:{name:'Visão geral',rover:'—',lat:0,lon:0,desc:'Visão esquemática geral de Marte.'}};
+var selected='gale'; var points=[]; var route=false;
+function resize(){ var r=canvas.getBoundingClientRect(); if(r.width===0) return; var dpr=window.devicePixelRatio||1; canvas.width=r.width*dpr; canvas.height=r.height*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); draw(); }
+function xy(lat,lon){ var w=canvas.clientWidth; var h=canvas.clientHeight; return {x:(lon+180)/360*w, y:(90-lat)/180*h}; }
+function marker(x,y,color,label){ ctx.beginPath(); ctx.arc(x,y,7,0,Math.PI*2); ctx.fillStyle=color; ctx.fill(); ctx.strokeStyle='#171717'; ctx.lineWidth=2; ctx.stroke(); ctx.fillStyle='#fff'; ctx.font='bold 11px Arial'; ctx.fillText(label,x+10,y-9); }
+function draw(){ var w=canvas.clientWidth; var h=canvas.clientHeight; if(!w||!h) return; ctx.clearRect(0,0,w,h); var grad=ctx.createRadialGradient(w*.48,h*.48,15,w*.48,h*.48,w*.65); grad.addColorStop(0,'#bd7952'); grad.addColorStop(.55,'#8b4d36'); grad.addColorStop(1,'#422a27'); ctx.fillStyle=grad; ctx.fillRect(0,0,w,h); for(var i=0;i<95;i++){ var x=(i*83%997)/997*w; var y=(i*137%991)/991*h; var r=2+(i%5)*2; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fillStyle=i%3?'#d18b6540':'#271c1b55'; ctx.fill(); } ctx.strokeStyle='#f2c4a02b'; ctx.lineWidth=1; for(var i=1;i<6;i++){ var x2=w*i/6; ctx.beginPath(); ctx.moveTo(x2,0); ctx.lineTo(x2,h); ctx.stroke(); } for(var i=1;i<5;i++){ var y2=h*i/5; ctx.beginPath(); ctx.moveTo(0,y2); ctx.lineTo(w,y2); ctx.stroke(); } ctx.fillStyle='#ef7547'; ctx.globalAlpha=.16; ctx.beginPath(); ctx.ellipse(w*.68,h*.35,42,25,-.4,0,Math.PI*2); ctx.fill(); ctx.globalAlpha=1; ctx.fillStyle='#ffd0b4'; ctx.font='12px Arial'; ctx.fillText('Região ilustrativa',w*.68-36,h*.35+4); var s=sites[selected]; var p=xy(s.lat,s.lon); if(selected!=='custom'){ marker(p.x,p.y,'#63d5dc',s.rover); } points.forEach(function(pt,idx){ var q=xy(pt.lat,pt.lon); marker(q.x,q.y,'#f4d35e','P'+(idx+1)); }); if(route&&points.length>1){ ctx.beginPath(); points.forEach(function(pt,idx){ var q=xy(pt.lat,pt.lon); if(idx){ ctx.lineTo(q.x,q.y); } else { ctx.moveTo(q.x,q.y); } }); ctx.strokeStyle='#f4d35e'; ctx.lineWidth=2.5; ctx.setLineDash([7,5]); ctx.stroke(); ctx.setLineDash([]); } ctx.fillStyle='#f7e7dc'; ctx.font='11px Arial'; ctx.fillText('180°W',8,h-10); ctx.fillText('0°',w/2-8,h-10); ctx.fillText('180°E',w-43,h-10); }
+function update(){ var s=sites[selected]; document.getElementById('siteInfo').innerHTML='<strong>'+s.name+'</strong><br>'+s.desc; document.getElementById('latStat').textContent=s.lat.toFixed(2)+'°'; document.getElementById('lonStat').textContent=s.lon.toFixed(2)+'°'; draw(); }
+document.getElementById('site').addEventListener('change', function(e){ selected=e.target.value; update(); });
+document.getElementById('centerBtn').addEventListener('click', function(){ if(selected==='custom'){ alert('Escolha Cratera Gale ou Cratera Jezero.'); return; } update(); });
+canvas.addEventListener('click', function(e){ var r=canvas.getBoundingClientRect(); var x=e.clientX-r.left; var y=e.clientY-r.top; var lon=x/r.width*360-180; var lat=90-y/r.height*180; points.push({lat:lat,lon:lon}); renderPoints(); draw(); });
+function renderPoints(){ var el=document.getElementById('points'); if(!points.length){ el.innerHTML='<div class="info">Clique no mapa para registrar um ponto de interesse.</div>'; return; } el.innerHTML=''; points.forEach(function(p,i){ var d=document.createElement('div'); d.className='point'; d.innerHTML='<span><strong>Ponto '+(i+1)+'</strong><br>'+p.lat.toFixed(3)+'°, '+p.lon.toFixed(3)+'°</span>'+'<button class="secondary" data-i="'+i+'">Excluir</button>'; el.appendChild(d); }); el.querySelectorAll('button').forEach(function(b){ b.addEventListener('click', function(){ points.splice(Number(b.dataset.i),1); renderPoints(); draw(); }); }); }
+document.getElementById('routeBtn').addEventListener('click', function(){ route=!route; draw(); document.getElementById('routeBtn').textContent=route?'Ocultar conexão':'Conectar pontos adicionados'; });
+document.getElementById('clearBtn').addEventListener('click', function(){ points=[]; route=false; renderPoints(); draw(); document.getElementById('routeBtn').textContent='Conectar pontos adicionados'; });
+window.addEventListener('resize', resize);
+update();
+</script>
+</body>
+                                                                                             </html>
