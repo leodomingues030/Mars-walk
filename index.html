@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MarsWalk - Gale Crater</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#0b0b0f;color:white}
+header{background:#c1440e;padding:14px;text-align:center}
+header h1{margin:0;font-size:22px}
+header p{margin:4px 0 0;font-size:13px;opacity:.9}
+#map{height:62vh;width:100%}
+.panel{padding:12px;background:#1a1a22}
+.panel h2{margin:0 0 8px;font-size:17px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+button{border:0;padding:9px 12px;border-radius:20px;font-weight:bold;cursor:pointer}
+.active{background:#c1440e;color:white}
+.inactive{background:#333;color:white}
+.card{background:#22222e;border-radius:12px;padding:12px;margin-top:12px}
+.card b{color:#ffb347}
+.legend{font-size:12px;line-height:1.6}
+footer{padding:10px;text-align:center;font-size:11px;opacity:.7}
+</style>
+</head>
+<body>
+<header>
+<h1>MarsWalk - Gale Crater</h1>
+<p>Interactive survival map for astronauts | NASA Space Apps 2026</p>
+</header>
+<div id="map"></div>
+<div class="panel">
+<h2>Choose Layer</h2>
+<div class="btns">
+<button id="btn-topo" class="active" onclick="showLayer('topo')">Topography</button>
+<button id="btn-danger" class="inactive" onclick="showLayer('danger')">Danger</button>
+<button id="btn-science" class="inactive" onclick="showLayer('science')">Science</button>
+<button id="btn-route" class="active" onclick="showLayer('route')">Route</button>
+</<script>
+var map = L.map('map').setView([-4.5895, 137.4417], 11);
+var marsLayer = L.tileLayer('https://trek.nasa.gov/tiles/Mars/EQ/Mars_Viking_MDIM21_ClrMosaic_global_232m/1.0.0/default/default028mm/{z}/{y}/{x}.jpg', {
+maxZoom: 10, attribution: 'NASA Mars Trek'
+}).addTo(map);
+var base = L.marker([-4.5895, 137.4417]).addTo(map).bindPopup("<b>Base Camp</b><br>Curiosity Landing Site<br>Elevation: -4500m<br>Temp: -60C");
+var boxwork = L.marker([-4.45, 137.60]).addTo(map).bindPopup("<b>Boxwork Formations</b><br>Discovered by Curiosity<br>High science value!<br>Safety: 67/100");
+var sharp = L.marker([-4.65, 137.35]).addTo(map).bindPopup("<b>Mount Sharp</b><br>Elevation: -2000m<br>Steep - Danger!");
+var route = L.polyline([
+[-4.5895, 137.4417],
+[-4.55, 137.48],
+[-4.50, 137.52],
+[-4.45, 137.60]
+], {color: '#00ff88', weight: 5}).addTo(map).bindPopup("<b>Safest Route</b><br>Distance: 3.2 km<br>Walking Time: 6.4 hours<br>Safety: 78/100");
+var dangerCircle = L.circle([-4.65, 137.35], {color: 'red', fillColor: '#f03', fillOpacity: 0.3, radius: 3000}).addTo(map).bindPopup("<b>Danger Zone</b><br>High slope + radiation");
+dangerCircle.setStyle({opacity:0});
+var scienceCircle = L.circle([-4.45, 137.60], {color: 'yellow', fillColor: '#ff0', fillOpacity: 0.3, radius: 2500}).addTo(map);
+function showLayer(type){
+  if(type=='danger'){
+    dangerCircle.setStyle({opacity:1});
+    document.getElementById('btn-danger').className='active';
+  } else if(type=='topo'){
+    alert('Topography Layer: Flat = Safe, Steep = Dangerous. Look at Mount Sharp - red area is steep!');
+  } else if(type=='science'){
+    map.setView([-4.45,137.60],12);
+  } else if(type=='route'){
+    map.setView([-4.5895,137.4417],11);
+  }
+}
+map.on('click', function(e){
+  var lat = e.latlng.lat.toFixed(2);
+  var lng = e.latlng.lng.toFixed(2);
+  var slope = Math.floor(Math.random()*12)+1;
+  var radiation = Math.floor(Math.random()*20)+5;
+  var temp = -70 + Math.floor(Math.random()*20);
+  var score = Math.round(100 - (slope*2) - (radiation*1.5));
+  if(score<0) score=5;
+  var level = score>=70 ? "SAFE" : score>=40 ? "CAUTION" : "DANGER";
+  document.getElementById('info').innerHTML = "<b>Location: "+lat+", "+lng+"</b><br>Elevation: "+(-4500 + slope*80)+"m | Slope: "+slope+"<br>Temperature: "+temp+"C | Radiation: "+radiation+" mSv<br><b>Safety Score: "+score+"/100 - "+level+"</b><br>Walking Time to Base: "+(Math.random()*5+1).toFixed(1)+" hours";
+});
+</script>
+</body>
+</html>
