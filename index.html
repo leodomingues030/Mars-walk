@@ -11,25 +11,21 @@
 body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#120805;color:#f5e6d8;line-height:1.5}
 img{max-width:100%}
 button{font-family:inherit;cursor:pointer}
-/* HEADER - CORRIGIDO */
-header{background:#b14a22;padding:12px 15px;text-align:center;position:relative;position:sticky;top:0;z-index:5000;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+header{background:#b14a22;padding:12px 15px;text-align:center;position:sticky;top:0;z-index:5000;box-shadow:0 4px 12px rgba(0,0,0,.4)}
 header h1{margin:0;font-size:22px}
 header p{margin:4px 0 0;font-size:12px}
-/* BOTAO 3 PONTINHOS - AGORA GRANDE E CLICAVEL */
-#menuBtn{position:absolute;right:10px;top:8px;background:#1a0f0a;color:#fff;border:2px solid #ff8c42;font-size:28px;font-weight:bold;width:48px;height:48px;border-radius:50%;cursor:pointer;line-height:1;z-index:6000;display:flex;align-items:center;justify-content:center}
+#menuBtn{position:absolute;right:10px;top:8px;background:#1a0f0a;color:#fff;border:2px solid #ff8c42;font-size:28px;font-weight:bold;width:48px;height:48px;border-radius:50%;line-height:1;z-index:6000;display:flex;align-items:center;justify-content:center}
 #menuBtn:active{background:#ff6b1a}
-/* MENU - AGORA FIXO POR CIMA DE TUDO */
 #menu{position:fixed;right:10px;top:64px;background:#2a1a12;border:2px solid #ff6b1a;border-radius:14px;width:320px;max-width:92vw;display:none;z-index:99999;text-align:left;box-shadow:0 12px 32px rgba(0,0,0,.8);overflow:hidden}
 #menu a{display:block;padding:16px 15px;color:#fff;text-decoration:none;border-bottom:1px solid #3a251a;font-size:16px;font-weight:bold}
 #menu a:last-child{border-bottom:none}
 #menu a:active{background:#b14a22}
 #menu a small{display:block;font-weight:normal;font-size:12px;color:#ffd9c0;margin-top:3px;line-height:1.4}
 #menuOverlay{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:99990}
-/* FAIXA BRASIL - ANTES ERA VERDE, AGORA É MARROM ESCURO COM DOURADO */
 .brasil{background:#1a0f0a;color:#fff;text-align:center;padding:9px 10px;font-size:13px;font-weight:bold;border-bottom:2px solid #FFC107}
 .brasil span{color:#FFC107}
 .hero{position:relative;background:#000}
-.hero img{width:100%;height:300px;object-fit:cover;display:block;background:#6e3520}
+.hero img{width:100%;height:320px;object-fit:cover;display:block;background:#6e3520}
 .hero-text{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent, rgba(0,0,0,.88));padding:48px 16px 18px}
 .hero-text h2{margin:0;font-size:26px;line-height:1.15}
 .hero-text p{margin:10px 0 0;font-size:14px;line-height:1.6}
@@ -43,7 +39,7 @@ header p{margin:4px 0 0;font-size:12px}
 .dado b{display:block;font-size:22px;color:#ff8c42;line-height:1}
 .dado span{font-size:12px;color:#ffd9c0;display:block;margin-top:5px}
 .card{background:#2a1a12;margin:14px 12px;border-radius:16px;overflow:hidden;border:1px solid #3a251a}
-.card img{width:100%;height:210px;object-fit:cover;display:block;background:#6e3520}
+.card img{width:100%;height:230px;object-fit:cover;display:block;background:#6e3520}
 .card-body{padding:17px}
 .card-body h3{margin:0 0 9px;color:#ff8c42;font-size:20px}
 .card-body p{font-size:14.5px;line-height:1.7;margin:0 0 10px}
@@ -73,7 +69,6 @@ button.botao:active{background:#d15a2e}
 #info{background:#2a1a12;padding:16px;margin:12px;border-radius:12px;border:1px solid #3a251a}
 #info h2{margin:0 0 10px;color:#ff8c42;font-size:18px}
 #detalhes{font-size:14px;line-height:1.65}
-/* ANTES ERA VERDE, AGORA É DOURADO */
 .score{font-size:26px;font-weight:bold;color:#FFC107;display:inline-block;margin-top:6px}
 .voltar{background:#1a0f0a;color:#fff;border:1px solid #ff6b1a;padding:11px 18px;border-radius:20px;font-weight:bold;margin:10px 12px;font-size:14px}
 .voltar:active{background:#b14a22}
@@ -90,15 +85,12 @@ button.botao:active{background:#d15a2e}
 </style>
 </head>
 <body>
-
 <div id="menuOverlay" onclick="fecharMenu()"></div>
-
 <header>
 <h1>🚀 MarsWalk</h1>
 <p>Descubra Marte de verdade | NASA Space Apps</p>
 <button id="menuBtn" type="button" aria-label="Abrir menu">⋮</button>
 </header>
-
 <div id="menu">
 <a href="#" onclick="voltarInicio();return false">🏠 Início - Explicação sobre Marte<small>Volta para a página principal com tudo sobre Marte</small></a>
 <a href="#" onclick="irExplorar();return false">🚀 Venha Explorar - O JOGO<small>Abre o mapa interativo da Cratera Gale. Clique e veja se é seguro morar lá!</small></a>
@@ -107,34 +99,28 @@ button.botao:active{background:#d15a2e}
 <a href="#" onclick="abrirModal('pesquisas');return false">🔬 Pesquisas da NASA<small>Curiosity, Perseverance, Ingenuity e o que já descobriram</small></a>
 <a href="#" onclick="abrirModal('creditos');return false">🇧🇷 Créditos - Leonardo e Gean<small>Quem fez o projeto</small></a>
 </div>
-
 <div class="brasil">🇧🇷 Feito no Brasil por <span>Leonardo e Gean</span> 🇧🇷</div>
-
-<!-- TELA 1 - EXPLICAÇÃO -->
 <div id="tela-inicio">
 <div class="hero">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/OSIRIS_Mars_true_color.jpg/800px-OSIRIS_Mars_true_color.jpg" onerror="this.onerror=null;this.src='https://mars.nasa.gov/system/resources/detail_files/26651_PIA24546-1280.jpg'" alt="Marte de verdade">
+<img src="Foto1.jpg" alt="Marte">
 <div class="hero-text">
 <span class="badge">✦ DADOS REAIS DA NASA + ESA ✦</span>
 <h2>O Planeta Vermelho existe de verdade. E você pode explorar ele agora.</h2>
 <p>Marte não é desenho. É um planeta de ferro, poeira, crateras, vulcões gigantes e um passado com água. Esse site usa dados reais da NASA e da ESA para te mostrar isso.</p>
 </div>
 </div>
-
 <div class="cta">
 <button type="button" id="btnExplorar1">🚀 VENHA EXPLORAR O MAPA AGORA →</button>
 <p>Ou desce para ler tudo sobre Marte antes de explorar 👇</p>
 </div>
-
 <div class="dados">
 <div class="dado"><b>225 mi km</b><span>Distância da Terra</span></div>
 <div class="dado"><b>-63°C</b><span>Temperatura média</span></div>
 <div class="dado"><b>687 dias</b><span>1 ano em Marte</span></div>
 <div class="dado"><b>24h 37min</b><span>1 dia em Marte</span></div>
 </div>
-
 <div class="card">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Mars_Valles_Marineris.jpeg/800px-Mars_Valles_Marineris.jpeg" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/OSIRIS_Mars_true_color.jpg/800px-OSIRIS_Mars_true_color.jpg'" alt="Valles Marineris">
+<img src="Foto2.jpg" alt="Deserto de Marte com crateras">
 <div class="card-body">
 <h3>🪐 O que é Marte?</h3>
 <p>Marte é o 4º planeta do Sistema Solar. Ele é menor que a Terra, tem mais ou menos metade do tamanho, mas tem coisas muito maiores que as nossas.</p>
@@ -148,9 +134,8 @@ button.botao:active{background:#d15a2e}
 <div class="destaque">💡 <b>Curiosidade:</b> Um dia em Marte se chama <b>SOL</b>. Dura 24h 37min, quase igual ao nosso dia.</div>
 </div>
 </div>
-
 <div class="card">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Gale_Crater%2C_Mars%2C_from_orbit.jpg/800px-Gale_Crater%2C_Mars%2C_from_orbit.jpg" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/OSIRIS_Mars_true_color.jpg/800px-OSIRIS_Mars_true_color.jpg'" alt="Cratera Gale">
+<img src="Foto3.jpg" alt="Monte Olimpo em Marte">
 <div class="card-body">
 <h3>🔴 Cratera Gale - O nosso mapa é aqui!</h3>
 <p>A Cratera Gale tem <b>154 km de largura</b> - maior que a cidade de São Paulo. Ela foi formada por um asteroide gigante há cerca de 3,5 bilhões de anos.</p>
@@ -158,9 +143,8 @@ button.botao:active{background:#d15a2e}
 <p><b>Por que a NASA escolheu a Gale?</b> Porque lá tem provas de que já teve um lago gigante de água líquida. Onde tem água, pode ter tido vida.</p>
 </div>
 </div>
-
 <div class="card">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Curiosity_Self-Portrait_at_%27Big_Sky%27_Drilling_Site.jpg/800px-Curiosity_Self-Portrait_at_%27Big_Sky%27_Drilling_Site.jpg" onerror="this.onerror=null;this.src='https://mars.nasa.gov/system/resources/detail_files/26651_PIA24546-1280.jpg'" alt="Curiosity">
+<img src="Foto4.jpg" alt="Robô Curiosity em Marte">
 <div class="card-body">
 <h3>🤖 Pesquisas reais - O que a NASA já descobriu?</h3>
 <ul>
@@ -173,9 +157,8 @@ button.botao:active{background:#d15a2e}
 </ul>
 </div>
 </div>
-
 <div class="card">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Mars_Perseverance_Selfie.jpg/800px-Mars_Perseverance_Selfie.jpg" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Curiosity_Self-Portrait_at_%27Big_Sky%27_Drilling_Site.jpg/800px-Curiosity_Self-Portrait_at_%27Big_Sky%27_Drilling_Site.jpg'" alt="Perseverance">
+<img src="Foto6.jpg" alt="Planeta Marte vermelho">
 <div class="card-body">
 <h3>👽 Já teve vida em Marte?</h3>
 <p>Ainda não achamos vida, mas achamos tudo que a vida precisa:</p>
@@ -186,9 +169,9 @@ button.botao:active{background:#d15a2e}
 <li>Proteção: embaixo da superfície, longe da radiação</li>
 </ul>
 <p>Se um dia teve vida em Marte, provavelmente era <b>micróbio</b>, bem pequenininho, escondido embaixo da terra.</p>
+<p>Por que Marte é marrom avermelhado? Por causa do <b>óxido de ferro</b>, é literalmente <b>ferrugem</b>!</p>
 </div>
 </div>
-
 <div class="timeline">
 <h3>📅 Linha do tempo de Marte</h3>
 <div class="timeline-item"><b>4,5 bilhões de anos atrás</b><p>Marte nasce, quente, com vulcões e talvez oceanos.</p></div>
@@ -198,9 +181,8 @@ button.botao:active{background:#d15a2e}
 <div class="timeline-item"><b>2021</b><p>Perseverance pousa e o helicóptero Ingenuity voa pela primeira vez em outro planeta.</p></div>
 <div class="timeline-item"><b>2030s</b><p>NASA planeja trazer as amostras de Marte para a Terra e, no futuro, mandar humanos.</p></div>
 </div>
-
 <div class="card">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Mars_Science_Laboratory_Curiosity_rover_tracks.jpg/800px-Mars_Science_Laboratory_Curiosity_rover_tracks.jpg" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Curiosity_Self-Portrait_at_%27Big_Sky%27_Drilling_Site.jpg/800px-Curiosity_Self-Portrait_at_%27Big_Sky%27_Drilling_Site.jpg'" alt="Trilhas do Curiosity">
+<img src="Foto5.jpg" alt="Astronauta andando em Marte">
 <div class="card-body">
 <h3>🧑‍🚀 E se a gente morar lá? O que precisa?</h3>
 <ul>
@@ -213,7 +195,6 @@ button.botao:active{background:#d15a2e}
 <p><b>É isso que o nosso mapa faz:</b> ele calcula qual lugar da Cratera Gale é mais seguro para colocar a base. É só clicar nos 3 pontinhos e ir em <b>Venha Explorar</b>.</p>
 </div>
 </div>
-
 <div class="curiosidade">
 <h3>🤔 Você sabia?</h3>
 <p>• O pôr do sol em Marte é <b>AZUL</b>, não laranja!<br>
@@ -221,21 +202,16 @@ button.botao:active{background:#d15a2e}
 - Se você pesar 50 kg na Terra, em Marte vai pesar só 19 kg.<br>
 - A maior montanha do Sistema Solar está em Marte.</p>
 </div>
-
 <div class="cta">
 <button type="button" id="btnExplorar2">🚀 AGORA SIM, VENHA EXPLORAR! →</button>
 </div>
-
 <div class="footer">
 <b>MarsWalk - Cratera Gale</b><br>
 Projeto de Leonardo e Gean - NASA Space Apps Challenge<br>
 Dados: NASA / ESA / DLR HRSC + MGS MOLA + Viking<br>
-Fotos: NASA / ESA / Wikimedia Commons<br>
 Feito no Brasil 🇧🇷
 </div>
 </div>
-
-<!-- TELA 2 - O JOGO / MAPA -->
 <div id="tela-mapa">
 <button class="voltar" type="button" onclick="voltarInicio()">← Voltar para a explicação</button>
 <div class="mapa-topo">
@@ -264,35 +240,19 @@ Feito no Brasil 🇧🇷
 <button class="voltar" type="button" onclick="voltarInicio()">← Voltar para a explicação sobre Marte</button>
 </div>
 </div>
-
 <div id="modal" onclick="fecharModal()"><div id="modalBox" onclick="event.stopPropagation()">
 <button id="fechar" type="button" onclick="fecharModal()">X Fechar</button>
 <div id="conteudo"></div>
 </div></div>
-
 <script>
 var map = null;
 var mapaCriado = false;
-
-function abrirMenu(){
-  document.getElementById('menu').style.display = 'block';
-  document.getElementById('menuOverlay').style.display = 'block';
-}
-function fecharMenu(){
-  document.getElementById('menu').style.display = 'none';
-  document.getElementById('menuOverlay').style.display = 'none';
-}
-function toggleMenu(){
-  var m = document.getElementById('menu');
-  if(m.style.display === 'block'){ fecharMenu(); } else { abrirMenu(); }
-}
-document.getElementById('menuBtn').addEventListener('click', function(e){
-  e.stopPropagation();
-  toggleMenu();
-});
+function abrirMenu(){ document.getElementById('menu').style.display = 'block'; document.getElementById('menuOverlay').style.display = 'block'; }
+function fecharMenu(){ document.getElementById('menu').style.display = 'none'; document.getElementById('menuOverlay').style.display = 'none'; }
+function toggleMenu(){ var m = document.getElementById('menu'); if(m.style.display === 'block'){ fecharMenu(); } else { abrirMenu(); } }
+document.getElementById('menuBtn').addEventListener('click', function(e){ e.stopPropagation(); toggleMenu(); });
 document.getElementById('btnExplorar1').addEventListener('click', irExplorar);
 document.getElementById('btnExplorar2').addEventListener('click', irExplorar);
-
 function irExplorar(){
   fecharMenu();
   document.getElementById('tela-inicio').style.display = 'none';
@@ -325,7 +285,6 @@ function initMap(){
   L.marker([-4.5895, 137.4417]).addTo(map).bindPopup("<b>🏠 Base - Cratera Gale</b><br>Base de Leonardo e Gean<br>Local de pouso seguro");
   L.circle([-5.4, 137.8], { color: 'red', fillColor: '#f03', fillOpacity: 0.30, radius: 15000 }).addTo(map).bindPopup("<b>⚠️ Zona de Perigo - Monte Sharp</b><br>Alta radiação e declive perigoso");
   L.marker([-4.7, 137.2]).addTo(map).bindPopup("<b>🔬 Formações em Caixa</b><br>Alto valor científico - possíveis sinais de água antiga");
-  // ROTA ANTES ERA VERDE, AGORA É DOURADO
   L.polyline([[-4.5895,137.4417],[-4.7,137.2],[-4.8,137.5],[-5.0,137.6]], { color: '#FFC107', weight: 5 }).addTo(map).bindPopup("Rota segura de Leonardo e Gean");
   map.on('click', function(e){
     var lat = e.latlng.lat.toFixed(4);
@@ -335,7 +294,6 @@ function initMap(){
     var rad = (Math.random()*0.5 + 0.1).toFixed(2);
     var score = Math.floor(Math.random()*40 + 55);
     var status = score >= 80 ? '✅ SEGURO' : score >= 60 ? '⚠️ CUIDADO' : '🚨 PERIGOSO';
-    // ANTES ERA VERDE, AGORA É DOURADO / AMARELO / VERMELHO
     var cor = score >= 80 ? '#FFC107' : score >= 60 ? '#FFA500' : '#ef4444';
     document.getElementById('detalhes').innerHTML = '<b>📍 Lat:</b> ' + lat + ' | <b>Lng:</b> ' + lng + '<br><b>⛰️ Altitude:</b> ' + alt + ' m<br><b>🌡️ Temperatura:</b> ' + temp + '°C<br><b>☢️ Radiação:</b> ' + rad + ' mSv/dia<br><br><span class="score" style="color:' + cor + '">Pontuação: ' + score + '/100 - ' + status + '</span><br><br>👨‍🚀 <b>Exploradores:</b> Leonardo e Gean';
   });
@@ -345,13 +303,9 @@ var textos = {
 como: "<h2>🗺️ Como usar o mapa</h2><ul><li><b>Clique em qualquer lugar</b> do mapa para ver altitude, temperatura, radiação e nota de 0 a 100.</li><li><b>Botões em cima:</b> Base, Perigo, Ciência e Rota levam você direto para os pontos importantes.</li><li><b>Quadradinho no canto inferior direito:</b> troca o visual do mapa.</li><li><b>Zoom:</b> use dois dedos para dar zoom e ver as craterinhas igual na foto.</li><li><b>Dourado = seguro, Laranja = cuidado, Vermelho = perigoso.</b></li></ul>",
 sobrevivencia: "<h2>🧑‍🚀 Sobrevivência em Marte</h2><ul><li><b>Temperatura:</b> Média de -63°C. À noite pode chegar a -110°C.</li><li><b>Radiação:</b> Marte não tem campo magnético forte. Fique em vales e crateras, que protegem mais.</li><li><b>Oxigênio:</b> O ar tem só 0,13% de oxigênio. Impossível respirar sem capacete.</li><li><b>Água:</b> Tem gelo no subsolo. A melhor base fica perto de onde tem gelo e longe de dunas de poeira.</li><li><b>Tempestade de poeira:</b> Pode cobrir o planeta inteiro por semanas e zerar a energia solar.</li></ul><p><b>Regra do MarsWalk:</b> Nota acima de 80 = seguro, 60 a 79 = cuidado, abaixo de 60 = perigoso.</p>",
 pesquisas: "<h2>🔬 Pesquisas da NASA</h2><p><b>Curiosity:</b> Está na Cratera Gale desde 2012. Achou argila e moléculas orgânicas.</p><p><b>Perseverance:</b> Está na Cratera Jezero desde 2021. Guardando amostras para trazer para a Terra.</p><p><b>Ingenuity:</b> Helicóptero que fez 72 voos, quando era para fazer só 5.</p><p><b>MOXIE:</b> Experimento que criou oxigênio a partir do CO2 de Marte.</p>",
-creditos: "<h2>🇧🇷 Créditos</h2><p><b>Projeto:</b> MarsWalk - Cratera Gale</p><p><b>Criadores:</b> Leonardo e Gean</p><p><b>Evento:</b> NASA Space Apps Challenge</p><p><b>Dados:</b> ESA/DLR HRSC + NASA MOLA / Viking</p><p><b>Fotos:</b> NASA / ESA / Wikimedia Commons</p><p>Obrigado por explorar Marte com a gente! 🚀</p>"
+creditos: "<h2>🇧🇷 Créditos</h2><p><b>Projeto:</b> MarsWalk - Cratera Gale</p><p><b>Criadores:</b> Leonardo e Gean</p><p><b>Evento:</b> NASA Space Apps Challenge</p><p><b>Dados:</b> ESA/DLR HRSC + NASA MOLA / Viking</p><p>Obrigado por explorar Marte com a gente! 🚀</p>"
 };
-function abrirModal(chave){
-  document.getElementById('conteudo').innerHTML = textos[chave] || "";
-  document.getElementById('modal').style.display = 'flex';
-  fecharMenu();
-}
+function abrirModal(chave){ document.getElementById('conteudo').innerHTML = textos[chave] || ""; document.getElementById('modal').style.display = 'flex'; fecharMenu(); }
 function fecharModal(){ document.getElementById('modal').style.display = 'none'; }
 </script>
 </body>
