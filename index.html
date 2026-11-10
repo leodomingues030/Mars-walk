@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#120805">
-<meta name="msapplication-navbutton-color" content="#120805">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="color-scheme" content="dark">
@@ -17,6 +17,12 @@ img{max-width:100%;background:#120805}
 header{background:#b14a22;padding:14px 15px;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,.4)}
 header h1{margin:0;font-size:24px;color:#fff}
 header p{margin:4px 0 0;font-size:12px;color:#ffd9c0}
+/* 3 PONTINHOS BEM PEQUENO - ÚNICO LUGAR QUE ACESSA O MAPA */
+#menuBtn{position:absolute;right:8px;top:10px;background:transparent;color:rgba(255,255,255,.55);border:none;font-size:14px;width:26px;height:26px;border-radius:50%;cursor:pointer;z-index:101;line-height:1;padding:0}
+#menuBtn:active{background:rgba(0,0,0,.2);color:#fff}
+#menu{position:absolute;right:8px;top:38px;background:#1a0f08;border:1px solid #ff6b1a;border-radius:12px;width:280px;max-width:90vw;display:none;z-index:9999;text-align:left;box-shadow:0 10px 30px rgba(0,0,0,.6);overflow:hidden}
+#menu a{display:block;padding:14px;color:white;text-decoration:none;border-bottom:1px solid #3a251a;font-size:14px;font-weight:bold}
+#menu a small{display:block;font-weight:normal;font-size:12px;color:#ffd9c0;margin-top:2px}
 .hero{position:relative;background:#000}
 .hero img{width:100%;height:320px;object-fit:cover;display:block;background:#120805}
 .hero-text{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent, rgba(0,0,0,.88));padding:48px 16px 18px}
@@ -48,12 +54,54 @@ header p{margin:4px 0 0;font-size:12px;color:#ffd9c0}
 .footer b{color:#fff}
 .brasil-final{margin-top:14px;padding-top:12px;border-top:1px solid #3a251a;font-size:12px;color:#ccc}
 .brasil-final span{color:#FFC107;font-weight:bold}
+/* TELA DO MAPA - SÓ ABRE PELOS 3 PONTINHOS */
+#tela-mapa{display:none;position:fixed;inset:0;background:#101317;z-index:20000;overflow-y:auto;color:#f4f1eb}
+#tela-mapa .mapa-topo{position:sticky;top:0;background:#101317;border-bottom:1px solid #303943;padding:14px 5%;display:flex;justify-content:space-between;align-items:center;z-index:10}
+#tela-mapa .mapa-topo b{letter-spacing:2px;font-size:20px}
+#tela-mapa .mapa-topo b span{color:#ef7547}
+#btnFecharMapa{background:#ef7547;color:#17110e;border:none;padding:8px 14px;border-radius:999px;font-weight:800;cursor:pointer}
+.mapa-conteudo{max-width:1300px;margin:auto;padding:24px 5%}
+.mapa-intro{margin-bottom:20px;background:#191e24;border:1px solid #303943;border-radius:14px;padding:17px}
+.mapa-intro h1{font-size:26px;margin:0 0 6px}
+.mapa-intro p{color:#aab2bb;margin:0;line-height:1.6}
+.mapa-intro .aviso-sobreviver{background:#ef7547;color:#17110e;border-radius:9px;padding:10px 12px;font-weight:700;font-size:13px;line-height:1.5;margin-top:12px}
+.mapa-layout{display:grid;grid-template-columns:1.7fr 0.8fr;gap:18px}
+.mapa-panel{background:#191e24;border:1px solid #303943;border-radius:14px;padding:17px}
+.mapa-panel h2{font-size:17px;margin:0 0 12px}
+.map-wrap{position:relative;overflow:hidden;border-radius:10px;background:#38251f}
+#map{width:100%;height:430px;display:block;cursor:crosshair}
+.map-label{position:absolute;left:12px;top:12px;background:#101317d9;padding:7px 10px;border-radius:7px;font-size:12px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;color:#aab2bb;font-size:12px;margin-top:12px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
+.controls{display:grid;gap:12px}
+.field label{display:block;color:#aab2bb;font-size:12px;margin-bottom:5px}
+.mapa-panel select,.mapa-panel button{width:100%;padding:11px;border-radius:8px;border:1px solid #303943;background:#11161b;color:#f4f1eb;font:inherit}
+.mapa-panel button{background:#ef7547;color:#17110e;border:0;font-weight:700;cursor:pointer}
+.mapa-panel button.secondary{background:#27313a;color:#f4f1eb;border:1px solid #303943}
+.info{padding:12px;background:#11161b;border-radius:9px;color:#aab2bb;font-size:13px;line-height:1.5}
+.info strong{color:#f4f1eb}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.stat{background:#11161b;padding:11px;border-radius:9px}
+.stat b{display:block;font-size:19px;color:#63d5dc}
+.stat small{color:#aab2bb}
+#points{display:grid;gap:8px;margin-top:12px}
+.point{border:1px solid #303943;padding:9px;border-radius:8px;font-size:13px;display:flex;justify-content:space-between;gap:8px}
+.point button{width:auto;padding:5px 9px;font-size:11px}
+.note,.mapa-footer{font-size:12px;color:#aab2bb}
+.mapa-footer{max-width:1300px;margin:auto;padding:0 5% 28px}
+.mapa-footer a{color:#63d5dc}
+@media(max-width:850px){.mapa-layout{grid-template-columns:1fr}.map-wrap,#map{height:350px}}
 </style>
 </head>
 <body>
 <header>
 <h1>🚀 MARSYNC</h1>
 <p>Descubra Marte de verdade | NASA Space Apps</p>
+<button id="menuBtn" onclick="toggleMenu()">⋮</button>
+<div id="menu">
+<a href="#" onclick="voltarTopo();return false">🏠 Início - MARSYNC<small>Volta pro começo do site</small></a>
+<a href="#" onclick="abrirMapa();return false" style="background:#ef7547;color:#17110e">🗺️ Mapa de Exploração<small>Pra quem quer se aprofundar em como sobreviver em Marte</small></a>
+</div>
 </header>
 
 <div class="hero">
@@ -80,93 +128,4 @@ header p{margin:4px 0 0;font-size:12px;color:#ffd9c0}
 <ul>
 <li><b>Monte Olimpo:</b> O maior vulcão do Sistema Solar, com 21 km de altura. Quase 2,5x o Everest!</li>
 <li><b>Valles Marineris:</b> Um cânion de 4.000 km de comprimento. Caberia o Brasil inteiro dentro dele. Tem até 7 km de profundidade.</li>
-<li><b>Calotas polares:</b> Marte tem gelo nos polos, igual a Terra, feito de água e CO2 congelado.</li>
-<li><b>2 luas:</b> Fobos e Deimos, pequenas e com formato de batata.</li>
-<li><b>Gravidade:</b> Só 38% da Terra. Você pularia 3x mais alto lá!</li>
-</ul>
-<div class="destaque">💡 <b>Curiosidade:</b> Um dia em Marte se chama <b>SOL</b>. Dura 24h 37min, quase igual ao nosso dia.</div>
-</div>
-</div>
-
-<div class="card">
-<img src="Foto3.jpg" alt="Monte Olimpo em Marte">
-<div class="card-body">
-<h3>🔴 Cratera Gale</h3>
-<p>A Cratera Gale tem <b>154 km de largura</b> - maior que a cidade de São Paulo. Ela foi formada por um asteroide gigante há cerca de 3,5 bilhões de anos.</p>
-<p>No centro dela tem o <b>Monte Sharp</b>, com 5,5 km de altura. Ele é como um livro de história: cada camada de rocha conta uma época diferente de Marte.</p>
-<p><b>Por que a NASA escolheu a Gale?</b> Porque lá tem provas de que já teve um lago gigante de água líquida. Onde tem água, pode ter tido vida.</p>
-</div>
-</div>
-
-<div class="card">
-<img src="Foto4.jpg" alt="Robô Curiosity em Marte">
-<div class="card-body">
-<h3>🤖 Pesquisas reais - O que a NASA já descobriu?</h3>
-<ul>
-<li><b>Curiosity (2012 - até hoje):</b> Pousou na Cratera Gale. Achou argila, minerais que só se formam na água e moléculas orgânicas.</li>
-<li><b>Perseverance (2021 - até hoje):</b> Pousou na Cratera Jezero. Está guardando amostras de rocha para trazer para a Terra.</li>
-<li><b>Ingenuity - Helicóptero (2021-2024):</b> Fez 72 voos em Marte! Era para fazer só 5 voos.</li>
-<li><b>Água hoje:</b> Tem gelo no subsolo e nas calotas polares.</li>
-<li><b>Metano:</b> O Curiosity detectou metano na atmosfera. Ainda é um mistério.</li>
-<li><b>Oxigênio:</b> O experimento MOXIE conseguiu criar oxigênio a partir do CO2 de Marte.</li>
-</ul>
-</div>
-</div>
-
-<div class="card">
-<img src="Foto6.jpg" alt="Planeta Marte vermelho">
-<div class="card-body">
-<h3>👽 Já teve vida em Marte?</h3>
-<p>Ainda não achamos vida, mas achamos tudo que a vida precisa:</p>
-<ul>
-<li>Água líquida no passado</li>
-<li>Elementos químicos certos: carbono, hidrogênio, oxigênio, nitrogênio</li>
-<li>Energia: do Sol e de reações químicas nas rochas</li>
-<li>Proteção: embaixo da superfície, longe da radiação</li>
-</ul>
-<p>Se um dia teve vida em Marte, provavelmente era <b>micróbio</b>, bem pequenininho, escondido embaixo da terra.</p>
-<p>Por que Marte é marrom avermelhado? Por causa do <b>óxido de ferro</b>, é literalmente <b>ferrugem</b>!</p>
-</div>
-</div>
-
-<div class="timeline">
-<h3>📅 Linha do tempo de Marte</h3>
-<div class="timeline-item"><b>4,5 bilhões de anos atrás</b><p>Marte nasce, quente, com vulcões e talvez oceanos.</p></div>
-<div class="timeline-item"><b>3,5 bilhões de anos atrás</b><p>Cratera Gale se forma. Tem lagos, rios e clima mais quente.</p></div>
-<div class="timeline-item"><b>3 bilhões de anos atrás</b><p>Marte perde o campo magnético, fica frio e seco.</p></div>
-<div class="timeline-item"><b>2012</b><p>Curiosity pousa na Gale e confirma que já teve água potável lá.</p></div>
-<div class="timeline-item"><b>2021</b><p>Perseverance pousa e o helicóptero Ingenuity voa pela primeira vez em outro planeta.</p></div>
-<div class="timeline-item"><b>2030s</b><p>NASA planeja trazer as amostras de Marte para a Terra e, no futuro, mandar humanos.</p></div>
-</div>
-
-<div class="card">
-<img src="Foto5.jpg" alt="Astronauta andando em Marte">
-<div class="card-body">
-<h3>🧑‍🚀 E se a gente morar lá? O que precisa?</h3>
-<ul>
-<li><b>Base em cratera ou vale:</b> A cratera protege da radiação e do vento.</li>
-<li><b>Água do gelo do subsolo:</b> Para beber, plantar e fazer oxigênio.</li>
-<li><b>Energia solar + nuclear:</b> Tempestade de poeira pode cobrir o Sol por semanas.</li>
-<li><b>Estufa:</b> Para plantar comida com luz artificial.</li>
-<li><b>Roupa térmica:</b> -110°C à noite é normal.</li>
-</ul>
-</div>
-</div>
-
-<div class="curiosidade">
-<h3>🤔 Você sabia?</h3>
-<p>• O pôr do sol em Marte é <b>AZUL</b>, não laranja!<br>
-- Marte já teve um oceano no hemisfério norte.<br>
-- Se você pesar 50 kg na Terra, em Marte vai pesar só 19 kg.<br>
-- A maior montanha do Sistema Solar está em Marte.</p>
-</div>
-
-<div class="footer">
-<b>MARSYNC - Cratera Gale</b><br>
-Projeto da equipe MARSYNC - Leonardo e Gean - NASA Space Apps Challenge<br>
-Dados: NASA / ESA / DLR HRSC + MGS MOLA + Viking<br>
-Feito no Brasil 🇧🇷
-<div class="brasil-final">🇧🇷 Feito no Brasil pela equipe <span>MARSYNC - Leonardo e Gean</span> 🇧🇷</div>
-</div>
-</body>
-  </html>
+<li><b>Calotas polares
