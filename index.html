@@ -11,13 +11,14 @@ body{margin:0;font-family:Arial,sans-serif;background:#1a0f0a;color:white}
 header{background:#ff6b1a;padding:15px;text-align:center}
 header h1{margin:0;font-size:22px}
 header p{margin:5px 0 0;font-size:13px}
-#map{height:60vh;width:100%;background:#c1440e}
+#map{height:75vh;width:100%;background:#c1440e}
 #info{background:#2a1a12;padding:15px;margin:10px;border-radius:10px}
 #info h2{margin:0 0 10px;color:#ff8c42;font-size:18px}
 .botoes{display:flex;gap:8px;flex-wrap:wrap;margin:10px}
 button{background:#ff6b1a;color:white;border:none;padding:10px 15px;border-radius:20px;font-weight:bold;cursor:pointer;flex:1}
 button:hover{background:#ff8c42}
 .score{font-size:28px;font-weight:bold;color:#4ade80}
+.brasil{background:#009739;color:white;text-align:center;padding:6px;font-size:13px;font-weight:bold}
 </style>
 </head>
 <body>
@@ -25,6 +26,7 @@ button:hover{background:#ff8c42}
 <h1>🚀 MarsWalk - Cratera Gale</h1>
 <p>Mapa interativo de sobrevivência em Marte | NASA Space Apps</p>
 </header>
+<div class="brasil">🇧🇷 Feito no Brasil por Leonardo e Gean 🇧🇷</div>
 <div class="botoes">
 <button onclick="irPara(-4.5895,137.4417,8)">📍 Base</button>
 <button onclick="irPara(-5.4,137.8,8)">⚠️ Perigo</button>
@@ -34,16 +36,16 @@ button:hover{background:#ff8c42}
 <div id="map"></div>
 <div id="info">
 <h2>👋 Clique em qualquer lugar do mapa!</h2>
-<p id="detalhes">Escolha um local para ver altitude, temperatura, radiação e pontuação de segurança.</p>
+<p id="detalhes">Escolha um local para ver altitude, temperatura, radiação e pontuação de segurança.<br><br>👨‍🚀 <b>Exploradores:</b> Leonardo e Gean</p>
 </div>
 <script>
-var map = L.map('map').setView([-4.5895, 137.4417], 7);
-L.tileLayer('https://trek.nasa.gov/tiles/Mars/EQ/Mars_Viking_MDIM21_ClrMosaic_global_1024.jpg/1.0.0/default/default028mm/{z}/{y}/{x}.jpg', {maxZoom: 10, minZoom: 3, tms: true, attribution: 'NASA Mars Trek'}).addTo(map);
+var map = L.map('map', {attributionControl: false}).setView([-4.5895, 137.4417], 8);
+L.tileLayer('https://astro.arcgis.com/arcgis/rest/services/Mars/Mars_Viking_MDIM21_ClrMosaic_global_1024/MapServer/tile/{z}/{y}/{x}', {maxZoom: 10, minZoom: 3}).addTo(map);
 
-var base = L.marker([-4.5895, 137.4417]).addTo(map).bindPopup("<b>🏠 Base - Cratera Gale</b><br>Local de pouso seguro");
+var base = L.marker([-4.5895, 137.4417]).addTo(map).bindPopup("<b>🏠 Base - Cratera Gale</b><br>Base de Leonardo e Gean<br>Local de pouso seguro");
 var perigo = L.circle([-5.4, 137.8], {color:'red', fillColor:'#f03', fillOpacity:0.4, radius: 15000}).addTo(map).bindPopup("<b>⚠️ Zona de Perigo - Monte Sharp</b><br>Alta radiação e declive perigoso");
 var ciencia = L.marker([-4.7, 137.2]).addTo(map).bindPopup("<b>🔬 Formações em Caixa</b><br>Alto valor científico - possíveis sinais de água antiga");
-var rota = L.polyline([[-4.5895,137.4417],[-4.7,137.2],[-4.8,137.5],[-5.0,137.6]], {color:'lime', weight:4}).addTo(map).bindPopup("Rota segura");
+var rota = L.polyline([[-4.5895,137.4417],[-4.7,137.2],[-4.8,137.5],[-5.0,137.6]], {color:'lime', weight:4}).addTo(map).bindPopup("Rota segura de Leonardo e Gean");
 
 function irPara(lat,lng,zoom){ map.setView([lat,lng], zoom); }
 map.on('click', function(e){
@@ -55,7 +57,7 @@ map.on('click', function(e){
   var score = Math.floor(Math.random()*40 + 55);
   var status = score >= 80 ? '✅ SEGURO' : score >= 60 ? '⚠️ CUIDADO' : '🚨 PERIGOSO';
   var cor = score >= 80 ? '#4ade80' : score >= 60 ? '#facc15' : '#ef4444';
-  document.getElementById('detalhes').innerHTML = '<b>📍 Lat:</b> '+lat+' | <b>Lng:</b> '+lng+'<br><b>⛰️ Altitude:</b> '+alt+' m<br><b>🌡️ Temperatura:</b> '+temp+'°C<br><b>☢️ Radiação:</b> '+rad+' mSv/dia<br><br><span class="score" style="color:'+cor+'">Pontuação: '+score+'/100 - '+status+'</span>';
+  document.getElementById('detalhes').innerHTML = '<b>📍 Lat:</b> '+lat+' | <b>Lng:</b> '+lng+'<br><b>⛰️ Altitude:</b> '+alt+' m<br><b>🌡️ Temperatura:</b> '+temp+'°C<br><b>☢️ Radiação:</b> '+rad+' mSv/dia<br><br><span class="score" style="color:'+cor+'">Pontuação: '+score+'/100 - '+status+'</span><br><br>👨‍🚀 <b>Exploradores:</b> Leonardo e Gean';
 });
 </script>
 </body>
