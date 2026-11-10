@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#120805">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="color-scheme" content="dark">
 <title>MARSYNC - Descubra Marte | Leonardo e Gean</title>
 <style>
@@ -14,15 +11,14 @@
 html{background:#120805}
 body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#120805;color:#f5e6d8;line-height:1.5}
 img{max-width:100%;background:#120805}
-header{background:#b14a22;padding:14px 15px;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,.4)}
-header h1{margin:0;font-size:24px;color:#fff}
-header p{margin:4px 0 0;font-size:12px;color:#ffd9c0}
-/* 3 PONTINHOS BEM PEQUENO - ÚNICO LUGAR QUE ACESSA O MAPA */
-#menuBtn{position:absolute;right:8px;top:10px;background:transparent;color:rgba(255,255,255,.55);border:none;font-size:14px;width:26px;height:26px;border-radius:50%;cursor:pointer;z-index:101;line-height:1;padding:0}
-#menuBtn:active{background:rgba(0,0,0,.2);color:#fff}
-#menu{position:absolute;right:8px;top:38px;background:#1a0f08;border:1px solid #ff6b1a;border-radius:12px;width:280px;max-width:90vw;display:none;z-index:9999;text-align:left;box-shadow:0 10px 30px rgba(0,0,0,.6);overflow:hidden}
-#menu a{display:block;padding:14px;color:white;text-decoration:none;border-bottom:1px solid #3a251a;font-size:14px;font-weight:bold}
-#menu a small{display:block;font-weight:normal;font-size:12px;color:#ffd9c0;margin-top:2px}
+header{background:#b14a22;padding:14px 15px;text-align:center;position:relative;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+header h1{margin:0;font-size:24px;color:#fff;padding-right:40px}
+header p{margin:4px 0 0;font-size:12px;color:#ffd9c0;padding-right:40px}
+/* 3 PONTINHOS - AGORA ACESSIVEL */
+#menuBtn{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.25);color:#fff;border:1px solid rgba(255,255,255,.4);font-size:22px;width:42px;height:42px;border-radius:50%;cursor:pointer;z-index:200;line-height:1;display:flex;align-items:center;justify-content:center}
+#menu{position:absolute;right:8px;top:58px;background:#1a0f08;border:2px solid #ff6b1a;border-radius:12px;width:300px;max-width:92vw;display:none;z-index:9999;text-align:left;box-shadow:0 10px 30px rgba(0,0,0,.7);overflow:hidden}
+#menu a{display:block;padding:16px;color:white;text-decoration:none;border-bottom:1px solid #3a251a;font-size:15px;font-weight:bold}
+#menu a small{display:block;font-weight:normal;font-size:12px;color:#ffd9c0;margin-top:3px}
 .hero{position:relative;background:#000}
 .hero img{width:100%;height:320px;object-fit:cover;display:block;background:#120805}
 .hero-text{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent, rgba(0,0,0,.88));padding:48px 16px 18px}
@@ -50,27 +46,27 @@ header p{margin:4px 0 0;font-size:12px;color:#ffd9c0}
 .curiosidade{background:#1a0f08;margin:14px 12px;border:1px dashed #FFC107;border-radius:14px;padding:16px}
 .curiosidade h3{margin:0 0 8px;color:#FFC107}
 .curiosidade p{font-size:14px;line-height:1.65;margin:0}
-.footer{text-align:center;padding:22px 14px;padding-bottom:calc(22px + env(safe-area-inset-bottom));font-size:12.5px;color:#ffd9c0;background:#0a0503;line-height:1.7}
+.footer{text-align:center;padding:22px 14px;font-size:12.5px;color:#ffd9c0;background:#0a0503;line-height:1.7}
 .footer b{color:#fff}
 .brasil-final{margin-top:14px;padding-top:12px;border-top:1px solid #3a251a;font-size:12px;color:#ccc}
 .brasil-final span{color:#FFC107;font-weight:bold}
-/* TELA DO MAPA - SÓ ABRE PELOS 3 PONTINHOS */
-#tela-mapa{display:none;position:fixed;inset:0;background:#101317;z-index:20000;overflow-y:auto;color:#f4f1eb}
-#tela-mapa .mapa-topo{position:sticky;top:0;background:#101317;border-bottom:1px solid #303943;padding:14px 5%;display:flex;justify-content:space-between;align-items:center;z-index:10}
-#tela-mapa .mapa-topo b{letter-spacing:2px;font-size:20px}
-#tela-mapa .mapa-topo b span{color:#ef7547}
-#btnFecharMapa{background:#ef7547;color:#17110e;border:none;padding:8px 14px;border-radius:999px;font-weight:800;cursor:pointer}
+/* TELA DO MAPA */
+#tela-mapa{display:none;position:fixed;inset:0;background:#101317;z-index:50000;overflow-y:auto;color:#f4f1eb}
+.mapa-topo{position:sticky;top:0;background:#101317;border-bottom:1px solid #303943;padding:14px 5%;display:flex;justify-content:space-between;align-items:center;gap:10px;z-index:10}
+.mapa-topo b{letter-spacing:2px;font-size:20px}
+.mapa-topo b span{color:#ef7547}
+#btnFecharMapa{background:#ef7547;color:#17110e;border:none;padding:10px 16px;border-radius:999px;font-weight:800;cursor:pointer;white-space:nowrap}
 .mapa-conteudo{max-width:1300px;margin:auto;padding:24px 5%}
 .mapa-intro{margin-bottom:20px;background:#191e24;border:1px solid #303943;border-radius:14px;padding:17px}
-.mapa-intro h1{font-size:26px;margin:0 0 6px}
+.mapa-intro h1{font-size:26px;margin:0 0 6px;line-height:1.2}
 .mapa-intro p{color:#aab2bb;margin:0;line-height:1.6}
-.mapa-intro .aviso-sobreviver{background:#ef7547;color:#17110e;border-radius:9px;padding:10px 12px;font-weight:700;font-size:13px;line-height:1.5;margin-top:12px}
+.aviso-sobreviver{background:#ef7547;color:#17110e;border-radius:9px;padding:12px;font-weight:700;font-size:13px;line-height:1.5;margin-top:12px}
 .mapa-layout{display:grid;grid-template-columns:1.7fr 0.8fr;gap:18px}
 .mapa-panel{background:#191e24;border:1px solid #303943;border-radius:14px;padding:17px}
 .mapa-panel h2{font-size:17px;margin:0 0 12px}
-.map-wrap{position:relative;overflow:hidden;border-radius:10px;background:#38251f}
-#map{width:100%;height:430px;display:block;cursor:crosshair}
-.map-label{position:absolute;left:12px;top:12px;background:#101317d9;padding:7px 10px;border-radius:7px;font-size:12px}
+.map-wrap{position:relative;overflow:hidden;border-radius:10px;background:#38251f;min-height:350px}
+#map{width:100%;height:430px;display:block;cursor:crosshair;background:#38251f}
+.map-label{position:absolute;left:12px;top:12px;background:#101317d9;padding:7px 10px;border-radius:7px;font-size:12px;pointer-events:none}
 .legend{display:flex;gap:14px;flex-wrap:wrap;color:#aab2bb;font-size:12px;margin-top:12px}
 .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
 .controls{display:grid;gap:12px}
@@ -87,8 +83,8 @@ header p{margin:4px 0 0;font-size:12px;color:#ffd9c0}
 #points{display:grid;gap:8px;margin-top:12px}
 .point{border:1px solid #303943;padding:9px;border-radius:8px;font-size:13px;display:flex;justify-content:space-between;gap:8px}
 .point button{width:auto;padding:5px 9px;font-size:11px}
-.note,.mapa-footer{font-size:12px;color:#aab2bb}
-.mapa-footer{max-width:1300px;margin:auto;padding:0 5% 28px}
+.note{font-size:12px;color:#aab2bb}
+.mapa-footer{max-width:1300px;margin:auto;padding:0 5% 28px;font-size:12px;color:#aab2bb}
 .mapa-footer a{color:#63d5dc}
 @media(max-width:850px){.mapa-layout{grid-template-columns:1fr}.map-wrap,#map{height:350px}}
 </style>
@@ -97,7 +93,7 @@ header p{margin:4px 0 0;font-size:12px;color:#ffd9c0}
 <header>
 <h1>🚀 MARSYNC</h1>
 <p>Descubra Marte de verdade | NASA Space Apps</p>
-<button id="menuBtn" onclick="toggleMenu()">⋮</button>
+<button id="menuBtn" onclick="toggleMenu(event)">⋮</button>
 <div id="menu">
 <a href="#" onclick="voltarTopo();return false">🏠 Início - MARSYNC<small>Volta pro começo do site</small></a>
 <a href="#" onclick="abrirMapa();return false" style="background:#ef7547;color:#17110e">🗺️ Mapa de Exploração<small>Pra quem quer se aprofundar em como sobreviver em Marte</small></a>
@@ -128,4 +124,134 @@ header p{margin:4px 0 0;font-size:12px;color:#ffd9c0}
 <ul>
 <li><b>Monte Olimpo:</b> O maior vulcão do Sistema Solar, com 21 km de altura. Quase 2,5x o Everest!</li>
 <li><b>Valles Marineris:</b> Um cânion de 4.000 km de comprimento. Caberia o Brasil inteiro dentro dele. Tem até 7 km de profundidade.</li>
-<li><b>Calotas polares
+<li><b>Calotas polares:</b> Marte tem gelo nos polos, igual a Terra, feito de água e CO2 congelado.</li>
+<li><b>2 luas:</b> Fobos e Deimos, pequenas e com formato de batata.</li>
+<li><b>Gravidade:</b> Só 38% da Terra. Você pularia 3x mais alto lá!</li>
+</ul>
+<div class="destaque">💡 <b>Curiosidade:</b> Um dia em Marte se chama <b>SOL</b>. Dura 24h 37min, quase igual ao nosso dia.</div>
+</div>
+</div>
+
+<div class="card">
+<img src="Foto3.jpg" alt="Monte Olimpo em Marte">
+<div class="card-body">
+<h3>🔴 Cratera Gale</h3>
+<p>A Cratera Gale tem <b>154 km de largura</b> - maior que a cidade de São Paulo. Ela foi formada por um asteroide gigante há cerca de 3,5 bilhões de anos.</p>
+<p>No centro dela tem o <b>Monte Sharp</b>, com 5,5 km de altura. Ele é como um livro de história: cada camada de rocha conta uma época diferente de Marte.</p>
+<p><b>Por que a NASA escolheu a Gale?</b> Porque lá tem provas de que já teve um lago gigante de água líquida. Onde tem água, pode ter tido vida.</p>
+</div>
+</div>
+
+<div class="card">
+<img src="Foto4.jpg" alt="Robô Curiosity em Marte">
+<div class="card-body">
+<h3>🤖 Pesquisas reais - O que a NASA já descobriu?</h3>
+<ul>
+<li><b>Curiosity (2012 - até hoje):</b> Pousou na Cratera Gale. Achou argila, minerais que só se formam na água e moléculas orgânicas.</li>
+<li><b>Perseverance (2021 - até hoje):</b> Pousou na Cratera Jezero. Está guardando amostras de rocha para trazer para a Terra.</li>
+<li><b>Ingenuity - Helicóptero (2021-2024):</b> Fez 72 voos em Marte! Era para fazer só 5 voos.</li>
+<li><b>Água hoje:</b> Tem gelo no subsolo e nas calotas polares.</li>
+<li><b>Metano:</b> O Curiosity detectou metano na atmosfera. Ainda é um mistério.</li>
+<li><b>Oxigênio:</b> O experimento MOXIE conseguiu criar oxigênio a partir do CO2 de Marte.</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<img src="Foto6.jpg" alt="Planeta Marte vermelho">
+<div class="card-body">
+<h3>👽 Já teve vida em Marte?</h3>
+<p>Ainda não achamos vida, mas achamos tudo que a vida precisa:</p>
+<ul>
+<li>Água líquida no passado</li>
+<li>Elementos químicos certos: carbono, hidrogênio, oxigênio, nitrogênio</li>
+<li>Energia: do Sol e de reações químicas nas rochas</li>
+<li>Proteção: embaixo da superfície, longe da radiação</li>
+</ul>
+<p>Se um dia teve vida em Marte, provavelmente era <b>micróbio</b>, bem pequenininho, escondido embaixo da terra.</p>
+<p>Por que Marte é marrom avermelhado? Por causa do <b>óxido de ferro</b>, é literalmente <b>ferrugem</b>!</p>
+</div>
+</div>
+
+<div class="timeline">
+<h3>📅 Linha do tempo de Marte</h3>
+<div class="timeline-item"><b>4,5 bilhões de anos atrás</b><p>Marte nasce, quente, com vulcões e talvez oceanos.</p></div>
+<div class="timeline-item"><b>3,5 bilhões de anos atrás</b><p>Cratera Gale se forma. Tem lagos, rios e clima mais quente.</p></div>
+<div class="timeline-item"><b>3 bilhões de anos atrás</b><p>Marte perde o campo magnético, fica frio e seco.</p></div>
+<div class="timeline-item"><b>2012</b><p>Curiosity pousa na Gale e confirma que já teve água potável lá.</p></div>
+<div class="timeline-item"><b>2021</b><p>Perseverance pousa e o helicóptero Ingenuity voa pela primeira vez em outro planeta.</p></div>
+<div class="timeline-item"><b>2030s</b><p>NASA planeja trazer as amostras de Marte para a Terra e, no futuro, mandar humanos.</p></div>
+</div>
+
+<div class="card">
+<img src="Foto5.jpg" alt="Astronauta andando em Marte">
+<div class="card-body">
+<h3>🧑‍🚀 E se a gente morar lá? O que precisa?</h3>
+<ul>
+<li><b>Base em cratera ou vale:</b> A cratera protege da radiação e do vento.</li>
+<li><b>Água do gelo do subsolo:</b> Para beber, plantar e fazer oxigênio.</li>
+<li><b>Energia solar + nuclear:</b> Tempestade de poeira pode cobrir o Sol por semanas.</li>
+<li><b>Estufa:</b> Para plantar comida com luz artificial.</li>
+<li><b>Roupa térmica:</b> -110°C à noite é normal.</li>
+</ul>
+</div>
+</div>
+
+<div class="curiosidade">
+<h3>🤔 Você sabia?</h3>
+<p>• O pôr do sol em Marte é <b>AZUL</b>, não laranja!<br>
+- Marte já teve um oceano no hemisfério norte.<br>
+- Se você pesar 50 kg na Terra, em Marte vai pesar só 19 kg.<br>
+- A maior montanha do Sistema Solar está em Marte.</p>
+</div>
+
+<div class="footer">
+<b>MARSYNC - Cratera Gale</b><br>
+Projeto da equipe MARSYNC - Leonardo e Gean - NASA Space Apps Challenge<br>
+Dados: NASA / ESA / DLR HRSC + MGS MOLA + Viking<br>
+Feito no Brasil 🇧🇷
+<div class="brasil-final">🇧🇷 Feito no Brasil pela equipe <span>MARSYNC - Leonardo e Gean</span> 🇧🇷</div>
+</div>
+
+<div id="tela-mapa">
+<div class="mapa-topo"><b>MARS<span>YNC</span></b><span style="font-size:12px;color:#9ed6a2">● PROTÓTIPO DE PLANEJAMENTO DE MISSÃO</span><button id="btnFecharMapa" onclick="fecharMapa()">✕ SAIR</button></div>
+<div class="mapa-conteudo">
+<div class="mapa-intro">
+<h1>Exploração inteligente da superfície marciana</h1>
+<p>Mapa de apoio para visualizar locais de interesse, registrar pontos e planejar deslocamentos científicos.</p>
+<div class="aviso-sobreviver">🛡️ ESTE MAPA É PARA QUEM QUER SE APROFUNDAR EM COMO SOBREVIVER EM MARTE — Use ele para escolher onde montar a base, onde buscar água do gelo, onde tem proteção contra radiação e como planejar sua rota de sobrevivência.</div>
+<p style="margin-top:12px"><b>Como sobreviver usando o mapa:</b> 1. Escolha uma cratera para se proteger do vento e da radiação &nbsp; 2. Marque pontos perto de gelo / água &nbsp; 3. Conecte os pontos para criar sua rota de sobrevivência &nbsp; 4. Evite áreas abertas e tempestades de poeira.</p>
+</div>
+<div class="mapa-layout">
+<section class="mapa-panel">
+<h2>Mapa de exploração — Marte</h2>
+<div class="map-wrap"><canvas id="map"></canvas><div class="map-label">MARTE · COORDENADAS APROXIMADAS</div></div>
+<div class="legend"><span><i class="dot" style="background:#63d5dc"></i>Local de missão</span><span><i class="dot" style="background:#f4d35e"></i>Ponto adicionado</span><span><i class="dot" style="background:#ef7547"></i>Área ilustrativa</span></div>
+<p class="note">O desenho de fundo é esquemático e não representa relevo ou imagens orbitais em escala.</p>
+</section>
+<aside class="mapa-panel">
+<h2>Painel da missão</h2>
+<div class="controls">
+<div class="field"><label for="site">Selecionar região científica</label><select id="site"><option value="gale">Cratera Gale — Curiosity</option><option value="jezero">Cratera Jezero — Perseverance</option><option value="custom">Visualização geral</option></select></div>
+<div class="info" id="siteInfo"></div>
+<div class="stats"><div class="stat"><b id="latStat">-4.59°</b><small>Latitude aproximada</small></div><div class="stat"><b id="lonStat">137.44°</b><small>Longitude aproximada</small></div></div>
+<button id="centerBtn">Centralizar região selecionada</button>
+<button class="secondary" id="routeBtn">Conectar pontos adicionados</button>
+<button class="secondary" id="clearBtn">Limpar pontos criados</button>
+</div>
+<h2 style="margin-top:20px">Pontos da equipe</h2>
+<div id="points"><div class="info">Clique no mapa para registrar um ponto de interesse.</div></div>
+<div class="info" style="margin-top:12px"><strong>Como usar:</strong><br>1. Escolha uma região.<br>2. Clique no mapa para adicionar pontos.<br>3. Conecte os pontos para visualizar uma rota.<br>4. Registre observações para sua equipe.</div>
+<div class="info" style="margin-top:12px"><strong>🎯 Dica de sobrevivência:</strong><br>Marque no mapa: sua base, fonte de água, abrigo contra radiação e rota de fuga. Quem planeja no mapa, sobrevive em Marte.</div>
+</aside>
+</div>
+</div>
+<div class="mapa-footer">
+<p><strong>Fontes e ferramentas:</strong> <a href="https://trek.nasa.gov/" target="_blank">NASA Mars Trek</a> — <a href="https://science.nasa.gov/mission/mars-science-laboratory/" target="_blank">NASA Curiosity</a> — <a href="https://science.nasa.gov/mission/mars-2020-perseverance/" target="_blank">NASA Perseverance</a>.</p>
+<p>Nota: coordenadas aproximadas. As rotas deste protótipo não são dados operacionais e não devem ser usadas para navegação real.</p>
+</div>
+</div>
+
+<script>
+function toggleMenu(e){if(e){e.stopPropagation();}var m=document.getElementById('menu');m.style.display=(m.style.display==='block')?'none':'block';}
+document.addEventListener('click',function(e){if(!e.target.closest('#menu') && !e.target.closest('#menuBtn')){var m=document.getElementById('menu');if(m)m.style.display
