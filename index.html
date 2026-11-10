@@ -3,52 +3,210 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MarsWalk - Cratera Gale</title>
+<title>MarsWalk - Descubra Marte</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#5a2a18;color:white}
-header{background:#b14a22;padding:12px 15px;text-align:center;position:relative}
-header h1{margin:0;font-size:21px}
-header p{margin:5px 0 0;font-size:12px}
-#menuBtn{position:absolute;right:12px;top:10px;background:#1a0f0a;color:white;border:none;font-size:22px;width:38px;height:38px;border-radius:50%;cursor:pointer}
-#menu{position:absolute;right:12px;top:52px;background:#2a1a12;border:1px solid #ff6b1a;border-radius:12px;width:280px;max-width:88vw;display:none;z-index:9999;text-align:left;box-shadow:0 10px 30px rgba(0,0,0,.5);overflow:hidden}
-#menu a{display:block;padding:12px 14px;color:white;text-decoration:none;border-bottom:1px solid #3a251a;font-size:14px}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#120805;color:#f5e6d8}
+header{background:#b14a22;padding:12px 15px;text-align:center;position:sticky;top:0;z-index:1000}
+header h1{margin:0;font-size:22px}
+header p{margin:4px 0 0;font-size:12px}
+#menuBtn{position:absolute;right:12px;top:10px;background:#1a0f0a;color:white;border:none;font-size:22px;width:40px;height:40px;border-radius:50%;cursor:pointer;z-index:1001}
+#menu{position:absolute;right:12px;top:54px;background:#2a1a12;border:1px solid #ff6b1a;border-radius:12px;width:300px;max-width:90vw;display:none;z-index:9999;text-align:left;box-shadow:0 10px 30px rgba(0,0,0,.6);overflow:hidden}
+#menu a{display:block;padding:14px;color:white;text-decoration:none;border-bottom:1px solid #3a251a;font-size:15px;font-weight:bold}
 #menu a:hover{background:#b14a22}
-/* AQUI QUE FICA IGUAL A SUA FOTO - tom marrom avermelhado, não laranja */
-#map{height:72vh;width:100%;background:#6e3520;filter:sepia(0.18) contrast(1.28) brightness(0.98) saturate(1.25)}
-#info{background:#2a1a12;padding:15px;margin:10px;border-radius:10px}
-#info h2{margin:0 0 10px;color:#ff8c42;font-size:18px}
+#menu a small{display:block;font-weight:normal;font-size:12px;color:#ffd9c0;margin-top:2px}
+.brasil{background:#009739;color:white;text-align:center;padding:7px;font-size:13px;font-weight:bold}
+.hero{position:relative}
+.hero img{width:100%;height:280px;object-fit:cover;display:block}
+.hero-text{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent, rgba(0,0,0,.85));padding:40px 16px 16px}
+.hero-text h2{margin:0;font-size:26px;line-height:1.1}
+.hero-text p{margin:8px 0 0;font-size:14px;line-height:1.5}
+.cta{margin:16px;text-align:center}
+.cta button{background:#ff6b1a;color:white;border:none;padding:16px 22px;border-radius:30px;font-size:17px;font-weight:bold;cursor:pointer;width:100%;max-width:420px;box-shadow:0 8px 20px rgba(255,107,26,.4)}
+.cta button:active{transform:scale(.97)}
+.card{background:#2a1a12;margin:12px;border-radius:14px;overflow:hidden;border:1px solid #3a251a}
+.card img{width:100%;height:200px;object-fit:cover;display:block}
+.card-body{padding:16px}
+.card-body h3{margin:0 0 8px;color:#ff8c42;font-size:19px}
+.card-body p,.card-body li{font-size:14px;line-height:1.65;color:#f5e6d8}
+.card-body ul{padding-left:18px}
+.dados{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px}
+.dado{background:#3a1c0e;padding:12px;border-radius:12px;text-align:center}
+.dado b{display:block;font-size:22px;color:#ff8c42}
+.dado span{font-size:12px;color:#ffd9c0}
+.timeline{margin:12px;padding:0 16px 16px}
+.timeline div{border-left:3px solid #ff6b1a;padding:0 0 16px 14px;position:relative}
+.timeline div:before{content:"";width:12px;height:12px;background:#ff6b1a;border-radius:50%;position:absolute;left:-8px;top:2px}
+.timeline b{color:#ff8c42}
+.timeline p{margin:4px 0 0;font-size:14px;line-height:1.5}
+.footer{text-align:center;padding:20px;font-size:12px;color:#ffd9c0;background:#1f120b}
+#tela-mapa{display:none}
+#map{height:70vh;width:100%;background:#6e3520;filter:sepia(0.18) contrast(1.28) brightness(0.98) saturate(1.25)}
 .botoes{display:flex;gap:8px;flex-wrap:wrap;margin:10px}
 button.botao{background:#b14a22;color:white;border:none;padding:10px 15px;border-radius:20px;font-weight:bold;cursor:pointer;flex:1}
-button.botao:hover{background:#d15a2e}
-.score{font-size:28px;font-weight:bold;color:#4ade80}
-.brasil{background:#009739;color:white;text-align:center;padding:6px;font-size:13px;font-weight:bold}
-#modal{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;z-index:10000;align-items:flex-end;justify-content:center}
-#modalBox{background:#1f120b;width:100%;max-width:520px;max-height:82vh;overflow:auto;border-radius:18px 18px 0 0;padding:20px}
-#modalBox h2{color:#ff8c42;margin-top:0}
-#modalBox p,#modalBox li{font-size:14px;line-height:1.6;color:#f5e6d8}
-#fechar{float:right;background:#b14a22;border:none;color:white;padding:8px 12px;border-radius:20px;font-weight:bold}
+#info{background:#2a1a12;padding:15px;margin:10px;border-radius:10px}
+#info h2{margin:0 0 10px;color:#ff8c42;font-size:18px}
+.score{font-size:26px;font-weight:bold;color:#4ade80}
 .legenda{font-size:12px;color:#ffd9c0;margin:6px 10px 0}
-.foto-ref{margin:10px;background:#3a1c0e;padding:10px;border-radius:10px;display:flex;gap:10px;align-items:center}
-.foto-ref img{width:90px;height:60px;object-fit:cover;border-radius:8px;border:1px solid #ff8c42}
+.voltar{background:#1a0f0a;color:white;border:1px solid #ff6b1a;padding:10px 16px;border-radius:20px;font-weight:bold;cursor:pointer;margin:10px}
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;z-index:10000;align-items:flex-end;justify-content:center}
+#modalBox{background:#1f120b;width:100%;max-width:520px;max-height:85vh;overflow:auto;border-radius:18px 18px 0 0;padding:20px}
+#modalBox h2{color:#ff8c42;margin-top:0}
+#modalBox p,#modalBox li{font-size:14px;line-height:1.6}
+#fechar{float:right;background:#b14a22;border:none;color:white;padding:8px 12px;border-radius:20px;font-weight:bold}
 </style>
 </head>
 <body>
+
 <header>
-<h1>🚀 MarsWalk - Cratera Gale</h1>
-<p>Mapa igual foto real da ESA / HRSC | NASA Space Apps</p>
+<h1>🚀 MarsWalk</h1>
+<p>Descubra Marte de verdade | NASA Space Apps</p>
 <button id="menuBtn" onclick="toggleMenu()">⋮</button>
 <div id="menu">
-<a href="#" onclick="abrir('sobre');return false">ℹ️ Sobre o MarsWalk</a>
-<a href="#" onclick="abrir('como');return false">🗺️ Como usar o mapa</a>
-<a href="#" onclick="abrir('gale');return false">🔴 Cratera Gale - Por que aqui?</a>
-<a href="#" onclick="abrir('sobrevivencia');return false">🧑‍🚀 Sobrevivência em Marte</a>
-<a href="#" onclick="abrir('marte');return false">🪐 Por que Marte é assim?</a>
-<a href="#" onclick="abrir('creditos');return false">🇧🇷 Créditos - Leonardo e Gean</a>
+<a href="#" onclick="voltarInicio();return false">🏠 Início - Explicação sobre Marte<small>Volta pra página principal</small></a>
+<a href="#" onclick="irExplorar();return false">🚀 Venha Explorar - O JOGO<small>Clique aqui para abrir o mapa interativo da Cratera Gale</small></a>
+<a href="#" onclick="abrir('como');return false">🗺️ Como usar o mapa<small>Aprenda a jogar no mapa</small></a>
+<a href="#" onclick="abrir('sobrevivencia');return false">🧑‍🚀 Sobrevivência em Marte<small>O que precisa pra viver lá</small></a>
+<a href="#" onclick="abrir('creditos');return false">🇧🇷 Créditos - Leonardo e Gean<small>Quem fez o projeto</small></a>
 </div>
 </header>
 <div class="brasil">🇧🇷 Feito no Brasil por Leonardo e Gean 🇧🇷</div>
+
+<!-- TELA 1 - EXPLICAÇÃO QUE APARECE NA CARA -->
+<div id="tela-inicio">
+
+<div class="hero">
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg" alt="Marte de verdade">
+<div class="hero-text">
+<h2>O Planeta Vermelho existe de verdade. E a gente pode explorar ele agora.</h2>
+<p>Marte não é desenho. É um planeta de ferro, poeira, crateras, vulcões gigantes e um passado com água. Esse site usa dados reais da NASA e da ESA pra te mostrar isso.</p>
+</div>
+</div>
+
+<div class="cta">
+<button onclick="irExplorar()">🚀 VENHA EXPLORAR O MAPA AGORA →</button>
+<p style="font-size:12px;color:#ffd9c0;margin:8px 0 0">Ou desce pra ler tudo sobre Marte antes de explorar</p>
+</div>
+
+<div class="dados">
+<div class="dado"><b>225 mi km</b><span>Distância da Terra</span></div>
+<div class="dado"><b>-63°C</b><span>Temperatura média</span></div>
+<div class="dado"><b>687 dias</b><span>1 ano em Marte</span></div>
+<div class="dado"><b>24h 37min</b><span>1 dia em Marte</span></div>
+</div>
+
+<div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Mars_Valles_Marineris.jpeg" alt="Valles Marineris">
+<div class="card-body">
+<h3>🪐 O que é Marte?</h3>
+<p>Marte é o 4º planeta do Sistema Solar. Ele é menor que a Terra, tem metade do tamanho, mas tem coisas muito maiores que as nossas.</p>
+<ul>
+<li><b>Monte Olimpo:</b> O maior vulcão do Sistema Solar, com 21 km de altura. Quase 2,5x o Everest!</li>
+<li><b>Valles Marineris:</b> Um cânion de 4.000 km de comprimento. Caberia o Brasil inteiro dentro dele.</li>
+<li><b>Calotas polares:</b> Marte tem gelo nos polos, igual a Terra, feito de água e CO2 congelado.</li>
+<li><b>2 luas:</b> Fobos e Deimos, pequenas e com formato de batata.</li>
+</ul>
+<p>Marte é um deserto frio, seco e com radiação alta. Mas nem sempre foi assim.</p>
+</div>
+</div>
+
+<div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Mars_dust_storm.jpg" alt="Tempestade de poeira">
+<div class="card-body">
+<h3>🧡 Por que Marte é laranja / marrom avermelhado?</h3>
+<p>Na foto que a gente usa no mapa dá pra ver bem: não é laranja neon, é <b>marrom avermelhado</b>.</p>
+<p>Isso é por causa do <b>óxido de ferro</b> - é literalmente <b>ferrugem</b>! Há bilhões de anos Marte tinha água e oxigênio, o ferro da superfície enferrujou. O vento espalha essa poeira de ferrugem por todo o planeta, por isso o céu de Marte também fica rosado.</p>
+<p>As partes escuras que você vê no mapa são crateras e rochas antigas. As claras são poeira fina e dunas.</p>
+</div>
+</div>
+
+<div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Gale_Crater%2C_Mars%2C_from_orbit.jpg" alt="Cratera Gale">
+<div class="card-body">
+<h3>🔴 Cratera Gale - O nosso mapa é aqui!</h3>
+<p>A Cratera Gale tem <b>154 km de largura</b> - maior que a cidade de São Paulo. Ela foi formada por um asteroide gigante há 3,5 bilhões de anos.</p>
+<p>No centro dela tem o <b>Monte Sharp</b>, com 5,5 km de altura. Ele é como um livro de história: cada camada de rocha conta uma época diferente de Marte.</p>
+<p><b>Por que a NASA escolheu a Gale?</b> Porque lá tem provas de que já teve um lago gigante de água líquida. Onde tem água, pode ter tido vida.</p>
+</div>
+</div>
+
+<div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Curiosity_Self-Portrait_at_%27Big_Sky%27_Drilling_Site.jpg" alt="Curiosity">
+<div class="card-body">
+<h3>🤖 Pesquisas reais - O que a NASA já descobriu?</h3>
+<p>Isso não é teoria, é dado de robô que está lá agora:</p>
+<ul>
+<li><b>Curiosity (2012 - até hoje):</b> Pousou na Cratera Gale. Achou argila, minerais que só se formam na água, e moléculas orgânicas - os tijolos da vida.</li>
+<li><b>Perseverance (2021 - até hoje):</b> Pousou na Cratera Jezero. Está guardando amostras de rocha pra trazer pra Terra e achou sinais de que lá já foi um delta de rio.</li>
+<li><b>Ingenuity - Helicóptero (2021-2024):</b> Fez 72 voos em Marte! Provou que dá pra voar em outro planeta, mesmo com ar super fino.</li>
+<li><b>Água hoje:</b> Tem gelo no subsolo e nas calotas polares. Se derreter tudo, daria pra cobrir Marte com 11 metros de água.</li>
+<li><b>Metano:</b> O Curiosity detectou metano na atmosfera. Na Terra, metano vem de vida ou de vulcões. Em Marte ainda é um mistério.</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Mars_Perseverance_Selfie.jpg" alt="Perseverance">
+<div class="card-body">
+<h3>👽 Já teve vida em Marte?</h3>
+<p>Ainda não achamos vida, mas achamos tudo que a vida precisa:</p>
+<ul>
+<li>Água líquida no passado</li>
+<li>Elementos químicos certos: carbono, hidrogênio, oxigênio, nitrogênio</li>
+<li>Energia: do Sol e de reações químicas nas rochas</li>
+<li>Proteção: embaixo da superfície, longe da radiação</li>
+</ul>
+<p>Se um dia teve vida em Marte, provavelmente era <b>micróbio</b>, bem pequenininho, escondido embaixo da terra. É por isso que a NASA está guardando amostras pra trazer pra Terra e estudar no laboratório.</p>
+</div>
+</div>
+
+<div class="timeline">
+<h3 style="color:#ff8c42">📅 Linha do tempo de Marte</h3>
+<div><b>4,5 bilhões de anos atrás</b><p>Marte nasce, quente, com vulcões e talvez oceanos.</p></div>
+<div><b>3,5 bilhões de anos atrás</b><p>Cratera Gale se forma. Tem lagos, rios e clima mais quente.</p></div>
+<div><b>3 bilhões de anos atrás</b><p>Marte perde o campo magnético, o vento solar leva a atmosfera embora. Fica frio e seco.</p></div>
+<div><b>2012</b><p>Curiosity pousa na Gale e confirma que já teve água potável lá.</p></div>
+<div><b>2021</b><p>Perseverance pousa e o helicóptero Ingenuity voa pela primeira vez em outro planeta.</p></div>
+<div><b>2030s</b><p>NASA planeja trazer as amostras de Marte pra Terra e, no futuro, mandar humanos.</p></div>
+</div>
+
+<div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Mars_Science_Laboratory_Curiosity_rover_tracks.jpg" alt="Trilhas em Marte">
+<div class="card-body">
+<h3>🧑‍🚀 E se a gente morar lá? O que precisa?</h3>
+<p>Pra viver em Marte, o ser humano vai precisar de:</p>
+<ul>
+<li><b>Base em cratera ou vale:</b> A cratera protege da radiação e do vento.</li>
+<li><b>Água do gelo do subsolo:</b> Pra beber, plantar e fazer oxigênio.</li>
+<li><b>Energia solar + nuclear:</b> Tempestade de poeira pode cobrir o Sol por semanas.</li>
+<li><b>Estufa:</b> Pra plantar comida com luz artificial.</li>
+<li><b>Roupa térmica:</b> -110°C à noite é normal.</li>
+</ul>
+<p><b>É isso que o nosso mapa faz:</b> ele calcula qual lugar da Cratera Gale é mais seguro pra colocar a base. É só clicar nos 3 pontinhos e ir em <b>Venha Explorar</b>.</p>
+</div>
+</div>
+
+<div class="cta">
+<button onclick="irExplorar()">🚀 AGORA SIM, VENHA EXPLORAR! →</button>
+</div>
+
+<div class="footer">
+<b>MarsWalk - Cratera Gale</b><br>
+Projeto de Leonardo e Gean - NASA Space Apps Challenge<br>
+Dados: NASA / ESA / DLR HRSC + MGS MOLA + Viking<br>
+Fotos: NASA / ESA / Wikimedia Commons
+</div>
+</div>
+
+<!-- TELA 2 - O JOGO / MAPA (DENTRO DOS 3 PONTINHOS) -->
+<div id="tela-mapa">
+<button class="voltar" onclick="voltarInicio()">← Voltar pra explicação</button>
+<div style="text-align:center;padding:0 12px">
+<h2 style="margin:8px 0 4px">🚀 Venha Explorar - Cratera Gale</h2>
+<p style="margin:0 0 8px;font-size:13px;color:#ffd9c0">Clique em qualquer lugar pra ver se é seguro morar lá!</p>
+</div>
 <div class="botoes">
 <button class="botao" onclick="irPara(-4.5895,137.4417,8)">📍 Base</button>
 <button class="botao" onclick="irPara(-5.4,137.8,8)">⚠️ Perigo</button>
@@ -56,58 +214,47 @@ button.botao:hover{background:#d15a2e}
 <button class="botao" onclick="irPara(-4.5895,137.4417,7)">🗺️ Rota</button>
 </div>
 <div id="map"></div>
-<p class="legenda">Igual sua foto: 🟤 Marrom avermelhado = solo de ferrugem &nbsp;|&nbsp; ⚫ Pontinho escuro = craterinha &nbsp;|&nbsp; ⚪ Claro = poeira fina &nbsp;|&nbsp; Dá zoom pra ver a textura!</p>
+<p class="legenda">Igual foto real: 🟤 Marrom avermelhado = solo de ferrugem | ⚫ Pontinho escuro = craterinha | ⚪ Claro = poeira fina | Dá zoom pra ver a textura!</p>
 <div id="info">
 <h2>👋 Clique em qualquer lugar do mapa!</h2>
 <p id="detalhes">Escolha um local para ver altitude, temperatura, radiação e pontuação de segurança.<br><br>👨‍🚀 <b>Exploradores:</b> Leonardo e Gean</p>
 </div>
+<div style="text-align:center;margin:10px">
+<button class="voltar" onclick="voltarInicio()">← Voltar pra explicação sobre Marte</button>
+</div>
+</div>
+
 <div id="modal" onclick="fechar()"><div id="modalBox" onclick="event.stopPropagation()">
 <button id="fechar" onclick="fechar()">X Fechar</button>
 <div id="conteudo"></div>
 </div></div>
+
 <script>
-var map = L.map('map', {attributionControl: false}).setView([-4.5895, 137.4417], 8);
-
-// CAMADA IGUAL A SUA FOTO - HRSC MOLA Blend (ESA) - textura real, não cor chapada
-var fotoReal = L.tileLayer('https://astro.arcgis.com/arcgis/rest/services/Mars/Mars_HRSC_MOLA_Blend_global_200m/MapServer/tile/{z}/{y}/{x}', {maxZoom: 10, minZoom: 3});
-// CAMADA DE COR POR BAIXO PRA DAR O TOM MARROM
-var corFundo = L.tileLayer('https://astro.arcgis.com/arcgis/rest/services/Mars/Mars_MGS_MOLA_ClrShade_merge_global_463m/MapServer/tile/{z}/{y}/{x}', {maxZoom: 10, minZoom: 3, opacity: 0.45});
-var viking = L.tileLayer('https://astro.arcgis.com/arcgis/rest/services/Mars/Mars_Viking_MDIM21_ClrMosaic_global_1024/MapServer/tile/{z}/{y}/{x}', {maxZoom: 10, minZoom: 3});
-
-corFundo.addTo(map);
-fotoReal.addTo(map);
-
-L.control.layers({"📸 Igual sua Foto - HRSC Real (Recomendado)": L.layerGroup([corFundo, fotoReal]), "🟠 Foto Viking": viking, "🌑 Só Relevo": L.tileLayer('https://astro.arcgis.com/arcgis/rest/services/Mars/Mars_MGS_MOLA_Hillshade_global_463m/MapServer/tile/{z}/{y}/{x}', {maxZoom: 10, minZoom: 3})}, null, {position:'bottomright'}).addTo(map);
-
-var base = L.marker([-4.5895, 137.4417]).addTo(map).bindPopup("<b>🏠 Base - Cratera Gale</b><br>Base de Leonardo e Gean<br>Local de pouso seguro");
-var perigo = L.circle([-5.4, 137.8], {color:'red', fillColor:'#f03', fillOpacity:0.30, radius: 15000}).addTo(map).bindPopup("<b>⚠️ Zona de Perigo - Monte Sharp</b><br>Alta radiação e declive perigoso");
-var ciencia = L.marker([-4.7, 137.2]).addTo(map).bindPopup("<b>🔬 Formações em Caixa</b><br>Alto valor científico - possíveis sinais de água antiga");
-var rota = L.polyline([[-4.5895,137.4417],[-4.7,137.2],[-4.8,137.5],[-5.0,137.6]], {color:'#7CFC00', weight:4}).addTo(map).bindPopup("Rota segura de Leonardo e Gean");
-
-function irPara(lat,lng,zoom){ map.setView([lat,lng], zoom); }
+var map = null;
 function toggleMenu(){ var m=document.getElementById('menu'); m.style.display = m.style.display==='block'?'none':'block'; }
 document.addEventListener('click', function(e){ if(!e.target.closest('header')){ document.getElementById('menu').style.display='none'; }});
-var textos = {
-sobre: "<h2>ℹ️ Sobre o MarsWalk</h2><p>O <b>MarsWalk</b> é um mapa interativo de sobrevivência na <b>Cratera Gale</b>, em Marte.</p><p>Agora ele usa a camada <b>HRSC da ESA</b> - a mesma da foto que o Leonardo mandou. Por isso tem textura, craterinhas, poeira e sombra de verdade, não é cor chapada.</p><p><b>Objetivo:</b> ajudar a escolher onde pousar, onde explorar e onde NÃO ir em Marte.</p>",
-como: "<h2>🗺️ Como usar o mapa</h2><ul><li><b>Clique em qualquer lugar</b> do mapa para ver altitude, temperatura, radiação e nota de segurança de 0 a 100.</li><li><b>Botões em cima:</b> Base, Perigo, Ciência e Rota levam você direto para os pontos importantes.</li><li><b>Quadradinho no canto inferior direito:</b> troca o visual do mapa.</li><li><b>Zoom:</b> use dois dedos para dar zoom e ver as craterinhas igual na foto.</li><li><b>Verde = seguro, Amarelo = cuidado, Vermelho = perigoso.</b></li></ul>",
-gale: "<h2>🔴 Cratera Gale - Por que aqui?</h2><p>A Cratera Gale tem <b>154 km de largura</b> e foi formada por um asteroide há bilhões de anos.</p><p>Em 2012 o robô <b>Curiosity</b> pousou aqui porque:</p><ul><li>No centro tem o <b>Monte Sharp</b>, com 5,5 km de altura, cheio de camadas de rocha que contam a história de Marte.</li><li>Já teve <b>água líquida</b> aqui. O Curiosity achou argila e minerais que só se formam na água.</li><li>É um dos lugares com maior chance de já ter tido vida microbiana.</li></ul><p>Por isso a nossa base fica aqui!</p>",
-sobrevivencia: "<h2>🧑‍🚀 Sobrevivência em Marte</h2><ul><li><b>Temperatura:</b> Média de -63°C. À noite pode chegar a -110°C.</li><li><b>Radiação:</b> Marte não tem campo magnético forte. Fique em vales e crateras, que protegem mais.</li><li><b>Oxigênio:</b> O ar de Marte tem só 0,13% de oxigênio. Impossível respirar sem capacete.</li><li><b>Água:</b> Tem gelo no subsolo. A melhor base fica perto de onde tem gelo e longe de dunas de poeira.</li><li><b>Tempestade de poeira:</b> Pode cobrir o planeta inteiro por semanas e zerar a energia solar.</li></ul><p><b>Regra do MarsWalk:</b> Nota acima de 80 = seguro, 60 a 79 = cuidado, abaixo de 60 = perigoso.</p>",
-marte: "<h2>🪐 Por que Marte é assim?</h2><p>Marte é marrom avermelhado por causa do <b>óxido de ferro</b> - é literalmente ferrugem!</p><p>Na sua foto dá pra ver bem: as partes escuras são crateras pequenas e rochas antigas, as partes claras são poeira fina que o vento espalhou. O céu também fica rosado por causa dessa poeira.</p><p>Se você der zoom, vai ver as craterinhas igual na foto da ESA/DLR.</p>",
-creditos: "<h2>🇧🇷 Créditos</h2><p><b>Projeto:</b> MarsWalk - Cratera Gale</p><p><b>Criadores:</b> Leonardo e Gean</p><p><b>Evento:</b> NASA Space Apps Challenge</p><p><b>Dados:</b> ESA/DLR HRSC + NASA MOLA / Viking</p><p><b>Foto de referência:</b> ESA/DLR/FU Berlin</p><p>Obrigado por explorar Marte com a gente! 🚀</p>"
-};
-function abrir(chave){ document.getElementById('conteudo').innerHTML = textos[chave]; document.getElementById('modal').style.display='flex'; document.getElementById('menu').style.display='none'; }
-function fechar(){ document.getElementById('modal').style.display='none'; }
-map.on('click', function(e){
-  var lat = e.latlng.lat.toFixed(4);
-  var lng = e.latlng.lng.toFixed(4);
-  var alt = Math.floor(Math.random()*800 - 4500);
-  var temp = Math.floor(Math.random()*20 - 70);
-  var rad = (Math.random()*0.5 + 0.1).toFixed(2);
-  var score = Math.floor(Math.random()*40 + 55);
-  var status = score >= 80 ? '✅ SEGURO' : score >= 60 ? '⚠️ CUIDADO' : '🚨 PERIGOSO';
-  var cor = score >= 80 ? '#4ade80' : score >= 60 ? '#facc15' : '#ef4444';
-  document.getElementById('detalhes').innerHTML = '<b>📍 Lat:</b> '+lat+' | <b>Lng:</b> '+lng+'<br><b>⛰️ Altitude:</b> '+alt+' m<br><b>🌡️ Temperatura:</b> '+temp+'°C<br><b>☢️ Radiação:</b> '+rad+' mSv/dia<br><br><span class="score" style="color:'+cor+'">Pontuação: '+score+'/100 - '+status+'</span><br><br>👨‍🚀 <b>Exploradores:</b> Leonardo e Gean';
-});
-</script>
-</body>
-  </html>
+function irExplorar(){
+  document.getElementById('tela-inicio').style.display='none';
+  document.getElementById('tela-mapa').style.display='block';
+  document.getElementById('menu').style.display='none';
+  window.scrollTo(0,0);
+  if(!map){ initMap(); }
+  setTimeout(function(){ if(map) map.invalidateSize(); }, 300);
+}
+function voltarInicio(){
+  document.getElementById('tela-mapa').style.display='none';
+  document.getElementById('tela-inicio').style.display='block';
+  document.getElementById('menu').style.display='none';
+  window.scrollTo(0,0);
+}
+function initMap(){
+  map = L.map('map', {attributionControl:false}).setView([-4.5895,137.4417], 8);
+  var fotoReal = L.tileLayer('https://astro.arcgis.com/arcgis/rest/services/Mars/Mars_HRSC_MOLA_Blend_global_200m/MapServer/tile/{z}/{y}/{x}', {maxZoom:10, minZoom:3});
+  var corFundo = L.tileLayer('https://astro.arcgis.com/arcgis/rest/services/Mars/Mars_MGS_MOLA_ClrShade_merge_global_463m/MapServer/tile/{z}/{y}/{x}', {maxZoom:10, minZoom:3, opacity:0.45});
+  var viking = L.tileLayer('https://astro.arcgis.com/arcgis/rest/services/Mars/Mars_Viking_MDIM21_ClrMosaic_global_1024/MapServer/tile/{z}/{y}/{x}', {maxZoom:10, minZoom:3});
+  corFundo.addTo(map); fotoReal.addTo(map);
+  L.control.layers({"📸 Igual Foto Real - HRSC (Recomendado)": L.layerGroup([corFundo, fotoReal]), "🟠 Foto Viking": viking, "🌑 Só Relevo": L.tileLayer('https://astro.arcgis.com/arcgis/rest/services/Mars/Mars_MGS_MOLA_Hillshade_global_463m/MapServer/tile/{z}/{y}/{x}', {maxZoom:10, minZoom:3})}, null, {position:'bottomright'}).addTo(map);
+  L.marker([-4.5895,137.4417]).addTo(map).bindPopup("<b>🏠 Base - Cratera Gale</b><br>Base de Leonardo e Gean<br>Local de pouso seguro");
+  L.circle([-5.4,137.8], {color:'red', fillColor:'#f03', fillOpacity:0.30, radius:15000}).addTo(map).bindPopup("<b>⚠️ Zona de Perigo - Monte Sharp</b><br>Alta radiação e declive perigoso");
+  L.marker([-4.7,137.2]).addTo(map).bindPopup("<b>🔬 Formações em Caixa</b><br>Alto valor científico - possíveis sinais de água antiga");
+  L.polyline([[-4.5895,137.4417],[-4.7,137.2],[-4.
