@@ -14,13 +14,13 @@ img{max-width:100%;background:#120805}
 header{background:#b14a22;padding:14px 15px;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,.4)}
 header h1{margin:0;font-size:24px;color:#fff}
 header p{margin:4px 0 0;font-size:12px;color:#ffd9c0}
-#menuBtn{position:fixed;right:10px;top:10px;background:#1a0f08;color:#fff;border:2px solid #fff;font-size:24px;width:44px;height:44px;border-radius:50%;cursor:pointer;z-index:99999;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.6)}
-#menu{position:fixed;right:10px;top:60px;background:#1a0f08;border:2px solid #ff6b1a;border-radius:12px;width:300px;max-width:92vw;display:none;z-index:99998;text-align:left;box-shadow:0 10px 30px rgba(0,0,0,.7);overflow:hidden}
+#menuBtn{position:fixed;right:10px;top:10px;background:#1a0f08;color:#fff;border:2px solid #fff;font-size:24px;width:46px;height:46px;border-radius:50%;cursor:pointer;z-index:99999;pointer-events:auto;touch-action:manipulation}
+#menu{position:fixed;right:10px;top:62px;background:#1a0f08;border:2px solid #ff6b1a;border-radius:12px;width:300px;max-width:92vw;display:none;z-index:99998;text-align:left;box-shadow:0 10px 30px rgba(0,0,0,.7);overflow:hidden;pointer-events:auto}
 #menu a{display:block;padding:16px;color:white;text-decoration:none;border-bottom:1px solid #3a251a;font-size:15px;font-weight:bold}
 #menu a small{display:block;font-weight:normal;font-size:12px;color:#ffd9c0;margin-top:3px}
 .hero{position:relative;background:#000}
-.hero img{width:100%;height:320px;object-fit:cover;display:block;background:#120805}
-.hero-text{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent, rgba(0,0,0,.88));padding:48px 16px 18px}
+.hero img{width:100%;height:320px;object-fit:cover;display:block;background:#120805;pointer-events:none}
+.hero-text{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent, rgba(0,0,0,.88));padding:48px 16px 18px;pointer-events:none}
 .hero-text h2{margin:0;font-size:26px;line-height:1.15;color:#fff}
 .hero-text p{margin:10px 0 0;font-size:14px;line-height:1.6}
 .badge{display:inline-block;background:#ff6b1a;color:#fff;font-size:11px;font-weight:bold;padding:5px 10px;border-radius:20px;margin-bottom:8px}
@@ -29,7 +29,7 @@ header p{margin:4px 0 0;font-size:12px;color:#ffd9c0}
 .dado b{display:block;font-size:22px;color:#ff8c42;line-height:1}
 .dado span{font-size:12px;color:#ffd9c0;display:block;margin-top:5px}
 .card{background:#1a0f08;margin:14px 12px;border-radius:16px;overflow:hidden;border:1px solid #3a2515}
-.card img{width:100%;height:230px;object-fit:cover;display:block;background:#120805}
+.card img{width:100%;height:230px;object-fit:cover;display:block;background:#120805;pointer-events:none}
 .card-body{padding:17px}
 .card-body h3{margin:0 0 9px;color:#ff8c42;font-size:20px}
 .card-body p{font-size:14.5px;line-height:1.7;margin:0 0 10px}
@@ -45,14 +45,12 @@ header p{margin:4px 0 0;font-size:12px;color:#ffd9c0}
 .curiosidade{background:#1a0f08;margin:14px 12px;border:1px dashed #FFC107;border-radius:14px;padding:16px}
 .curiosidade h3{margin:0 0 8px;color:#FFC107}
 .curiosidade p{font-size:14px;line-height:1.65;margin:0}
-/* EXPLICAÇÃO DO MAPA NO FINAL - SEM FOTO EM CIMA */
 .explicacao-mapa{background:#1a0f08;margin:14px 12px;border:1px solid #3a251a;border-radius:14px;padding:18px;position:relative;z-index:10}
 .explicacao-mapa h3{margin:0 0 8px;color:#ff8c42;font-size:18px}
 .explicacao-mapa p{font-size:14px;line-height:1.65;margin:0 0 10px;color:#f5e6d8}
 .explicacao-mapa ul{padding-left:19px;margin:8px 0}
 .explicacao-mapa li{font-size:14px;line-height:1.6;margin-bottom:6px}
-#btnMapaFinal{position:relative;z-index:20;display:block;width:100%;padding:14px;background:#27313a;color:#f5e6d8;border:1px solid #4a251a;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-top:14px;font-family:inherit}
-#btnMapaFinal:active{background:#3a4a58}
+#btnMapaFinal{position:relative;z-index:9999;display:block;width:100%;padding:16px;background:#27313a;color:#fff;border:1px solid #fff;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;margin-top:14px;pointer-events:auto;touch-action:manipulation}
 .footer{text-align:center;padding:22px 14px;font-size:12.5px;color:#ffd9c0;background:#0a0503;line-height:1.7}
 .footer b{color:#fff}
 .brasil-final{margin-top:14px;padding-top:12px;border-top:1px solid #3a251a;font-size:12px;color:#ccc}
@@ -100,10 +98,10 @@ header p{margin:4px 0 0;font-size:12px;color:#ffd9c0}
 <h1>🚀 MARSYNC</h1>
 <p>Descubra Marte de verdade | NASA Space Apps</p>
 </header>
-<button id="menuBtn" type="button">⋮</button>
+<button id="menuBtn" type="button" onclick="toggleMenu(event)">⋮</button>
 <div id="menu">
-<a href="#" id="linkInicio">🏠 Início - MARSYNC<small>Volta pro começo do site</small></a>
-<a href="#" id="linkMapa" style="background:#ef7547;color:#17110e">🗺️ Mapa de Exploração<small>Pra quem quer se aprofundar em como sobreviver em Marte</small></a>
+<a href="#" onclick="voltarTopo();return false">🏠 Início - MARSYNC<small>Volta pro começo do site</small></a>
+<a href="#" onclick="abrirMapa();return false" style="background:#ef7547;color:#17110e">🗺️ Mapa de Exploração<small>Pra quem quer se aprofundar em como sobreviver em Marte</small></a>
 </div>
 
 <div class="hero">
@@ -211,7 +209,6 @@ header p{margin:4px 0 0;font-size:12px;color:#ffd9c0}
 - A maior montanha do Sistema Solar está em Marte.</p>
 </div>
 
-<!-- EXPLICAÇÃO DO MAPA NO FINAL - DEPOIS DAS CURIOSIDADES -->
 <div class="explicacao-mapa">
 <h3>🗺️ Sobre o nosso mapa</h3>
 <p>Para quem quer se aprofundar um pouco mais em como sobreviver em Marte, a gente criou um mapa de exploração.</p>
@@ -222,7 +219,7 @@ header p{margin:4px 0 0;font-size:12px;color:#ffd9c0}
 <li>Conecte os pontos para ver sua rota</li>
 </ul>
 <p style="font-size:13px;color:#aab2bb">É uma ferramenta simples, para planejar e entender melhor a sobrevivência em Marte, com base nos dados da NASA.</p>
-<button id="btnMapaFinal" type="button">Ver mapa de exploração →</button>
+<button id="btnMapaFinal" type="button" onclick="abrirMapa()">Ver mapa de exploração →</button>
 </div>
 
 <div class="footer">
@@ -234,7 +231,7 @@ Feito no Brasil 🇧🇷
 </div>
 
 <div id="tela-mapa">
-<div class="mapa-topo"><b>MARS<span>YNC</span></b><span style="font-size:12px;color:#9ed6a2">● PROTÓTIPO DE PLANEJAMENTO DE MISSÃO</span><button id="btnFecharMapa" type="button">✕ SAIR</button></div>
+<div class="mapa-topo"><b>MARS<span>YNC</span></b><span style="font-size:12px;color:#9ed6a2">● PROTÓTIPO DE PLANEJAMENTO DE MISSÃO</span><button id="btnFecharMapa" type="button" onclick="fecharMapa()">✕ SAIR</button></div>
 <div class="mapa-conteudo">
 <div class="mapa-intro">
 <h1>Exploração inteligente da superfície marciana</h1>
@@ -246,4 +243,53 @@ Feito no Brasil 🇧🇷
 <section class="mapa-panel">
 <h2>Mapa de exploração — Marte</h2>
 <div class="map-wrap"><canvas id="map"></canvas><div class="map-label">MARTE · COORDENADAS APROXIMADAS</div></div>
-<div class="legend"><span><i class="dot" style="background:#63d5
+<div class="legend"><span><i class="dot" style="background:#63d5dc"></i>Local de missão</span><span><i class="dot" style="background:#f4d35e"></i>Ponto adicionado</span><span><i class="dot" style="background:#ef7547"></i>Área ilustrativa</span></div>
+<p class="note">O desenho de fundo é esquemático e não representa relevo ou imagens orbitais em escala.</p>
+</section>
+<aside class="mapa-panel">
+<h2>Painel da missão</h2>
+<div class="controls">
+<div class="field"><label for="site">Selecionar região científica</label><select id="site"><option value="gale">Cratera Gale — Curiosity</option><option value="jezero">Cratera Jezero — Perseverance</option><option value="custom">Visualização geral</option></select></div>
+<div class="info" id="siteInfo"></div>
+<div class="stats"><div class="stat"><b id="latStat">-4.59°</b><small>Latitude aproximada</small></div><div class="stat"><b id="lonStat">137.44°</b><small>Longitude aproximada</small></div></div>
+<button id="centerBtn">Centralizar região selecionada</button>
+<button class="secondary" id="routeBtn">Conectar pontos adicionados</button>
+<button class="secondary" id="clearBtn">Limpar pontos criados</button>
+</div>
+<h2 style="margin-top:20px">Pontos da equipe</h2>
+<div id="points"><div class="info">Clique no mapa para registrar um ponto de interesse.</div></div>
+<div class="info" style="margin-top:12px"><strong>Como usar:</strong><br>1. Escolha uma região.<br>2. Clique no mapa para adicionar pontos.<br>3. Conecte os pontos para visualizar uma rota.<br>4. Registre observações para sua equipe.</div>
+<div class="info" style="margin-top:12px"><strong>🎯 Dica de sobrevivência:</strong><br>Marque no mapa: sua base, fonte de água, abrigo contra radiação e rota de fuga. Quem planeja no mapa, sobrevive em Marte.</div>
+</aside>
+</div>
+</div>
+<div class="mapa-footer">
+<p><strong>Fontes e ferramentas:</strong> <a href="https://trek.nasa.gov/" target="_blank">NASA Mars Trek</a> — <a href="https://science.nasa.gov/mission/mars-science-laboratory/" target="_blank">NASA Curiosity</a> — <a href="https://science.nasa.gov/mission/mars-2020-perseverance/" target="_blank">NASA Perseverance</a>.</p>
+<p>Nota: coordenadas aproximadas. As rotas deste protótipo não são dados operacionais e não devem ser usadas para navegação real.</p>
+</div>
+</div>
+
+<script>
+function toggleMenu(e){ if(e){ e.stopPropagation(); } var m=document.getElementById('menu'); if(m.style.display==='block'){ m.style.display='none'; } else { m.style.display='block'; } }
+function voltarTopo(){ document.getElementById('menu').style.display='none'; window.scrollTo(0,0); }
+function abrirMapa(){ document.getElementById('menu').style.display='none'; var t=document.getElementById('tela-mapa'); t.style.display='block'; document.body.style.overflow='hidden'; setTimeout(function(){ resize(); update(); },100); setTimeout(function(){ resize(); update(); },500); }
+function fecharMapa(){ document.getElementById('tela-mapa').style.display='none'; document.body.style.overflow='auto'; }
+var canvas=document.getElementById('map'); var ctx=canvas.getContext('2d');
+var sites={gale:{name:'Cratera Gale',rover:'Curiosity',lat:-4.5895,lon:137.4417,desc:'Local de exploração do rover Curiosity. Região de interesse para estudar a história geológica e ambiental de Marte. Ótimo lugar para pensar em sobrevivência: cratera protege da radiação e do vento.'},jezero:{name:'Cratera Jezero',rover:'Perseverance',lat:18.4447,lon:77.4508,desc:'Local de exploração do rover Perseverance. A missão investiga geologia antiga e procura sinais de ambientes que poderiam ter sido habitáveis. Já teve um lago aqui - onde tem água, tem chance de sobreviver.'},custom:{name:'Visão geral',rover:'—',lat:0,lon:0,desc:'Visão esquemática geral de Marte.'}};
+var selected='gale'; var points=[]; var route=false;
+function resize(){ var r=canvas.getBoundingClientRect(); if(r.width===0) return; var dpr=window.devicePixelRatio||1; canvas.width=r.width*dpr; canvas.height=r.height*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); draw(); }
+function xy(lat,lon){ var w=canvas.clientWidth; var h=canvas.clientHeight; return {x:(lon+180)/360*w, y:(90-lat)/180*h}; }
+function marker(x,y,color,label){ ctx.beginPath(); ctx.arc(x,y,7,0,Math.PI*2); ctx.fillStyle=color; ctx.fill(); ctx.strokeStyle='#171717'; ctx.lineWidth=2; ctx.stroke(); ctx.fillStyle='#fff'; ctx.font='bold 11px Arial'; ctx.fillText(label,x+10,y-9); }
+function draw(){ var w=canvas.clientWidth; var h=canvas.clientHeight; if(!w||!h) return; ctx.clearRect(0,0,w,h); var grad=ctx.createRadialGradient(w*.48,h*.48,15,w*.48,h*.48,w*.65); grad.addColorStop(0,'#bd7952'); grad.addColorStop(.55,'#8b4d36'); grad.addColorStop(1,'#422a27'); ctx.fillStyle=grad; ctx.fillRect(0,0,w,h); for(var i=0;i<95;i++){ var x=(i*83%997)/997*w; var y=(i*137%991)/991*h; var r=2+(i%5)*2; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fillStyle=i%3?'#d18b6540':'#271c1b55'; ctx.fill(); } ctx.strokeStyle='#f2c4a02b'; ctx.lineWidth=1; for(var i=1;i<6;i++){ var x2=w*i/6; ctx.beginPath(); ctx.moveTo(x2,0); ctx.lineTo(x2,h); ctx.stroke(); } for(var i=1;i<5;i++){ var y2=h*i/5; ctx.beginPath(); ctx.moveTo(0,y2); ctx.lineTo(w,y2); ctx.stroke(); } ctx.fillStyle='#ef7547'; ctx.globalAlpha=.16; ctx.beginPath(); ctx.ellipse(w*.68,h*.35,42,25,-.4,0,Math.PI*2); ctx.fill(); ctx.globalAlpha=1; ctx.fillStyle='#ffd0b4'; ctx.font='12px Arial'; ctx.fillText('Região ilustrativa',w*.68-36,h*.35+4); var s=sites[selected]; var p=xy(s.lat,s.lon); if(selected!=='custom'){ marker(p.x,p.y,'#63d5dc',s.rover); } points.forEach(function(pt,idx){ var q=xy(pt.lat,pt.lon); marker(q.x,q.y,'#f4d35e','P'+(idx+1)); }); if(route&&points.length>1){ ctx.beginPath(); points.forEach(function(pt,idx){ var q=xy(pt.lat,pt.lon); if(idx){ ctx.lineTo(q.x,q.y); } else { ctx.moveTo(q.x,q.y); } }); ctx.strokeStyle='#f4d35e'; ctx.lineWidth=2.5; ctx.setLineDash([7,5]); ctx.stroke(); ctx.setLineDash([]); } ctx.fillStyle='#f7e7dc'; ctx.font='11px Arial'; ctx.fillText('180°W',8,h-10); ctx.fillText('0°',w/2-8,h-10); ctx.fillText('180°E',w-43,h-10); }
+function update(){ var s=sites[selected]; document.getElementById('siteInfo').innerHTML='<strong>'+s.name+'</strong><br>'+s.desc; document.getElementById('latStat').textContent=s.lat.toFixed(2)+'°'; document.getElementById('lonStat').textContent=s.lon.toFixed(2)+'°'; draw(); }
+document.getElementById('site').addEventListener('change', function(e){ selected=e.target.value; update(); });
+document.getElementById('centerBtn').addEventListener('click', function(){ if(selected==='custom'){ alert('Escolha Cratera Gale ou Cratera Jezero.'); return; } update(); });
+canvas.addEventListener('click', function(e){ var r=canvas.getBoundingClientRect(); var x=e.clientX-r.left; var y=e.clientY-r.top; var lon=x/r.width*360-180; var lat=90-y/r.height*180; points.push({lat:lat,lon:lon}); renderPoints(); draw(); });
+function renderPoints(){ var el=document.getElementById('points'); if(!points.length){ el.innerHTML='<div class="info">Clique no mapa para registrar um ponto de interesse.</div>'; return; } el.innerHTML=''; points.forEach(function(p,i){ var d=document.createElement('div'); d.className='point'; d.innerHTML='<span><strong>Ponto '+(i+1)+'</strong><br>'+p.lat.toFixed(3)+'°, '+p.lon.toFixed(3)+'°</span>'+'<button class="secondary" data-i="'+i+'">Excluir</button>'; el.appendChild(d); }); el.querySelectorAll('button').forEach(function(b){ b.addEventListener('click', function(){ points.splice(Number(b.dataset.i),1); renderPoints(); draw(); }); }); }
+document.getElementById('routeBtn').addEventListener('click', function(){ route=!route; draw(); document.getElementById('routeBtn').textContent=route?'Ocultar conexão':'Conectar pontos adicionados'; });
+document.getElementById('clearBtn').addEventListener('click', function(){ points=[]; route=false; renderPoints(); draw(); document.getElementById('routeBtn').textContent='Conectar pontos adicionados'; });
+window.addEventListener('resize', resize);
+update();
+</script>
+</body>
+  </html>
