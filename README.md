@@ -27,6 +27,8 @@ No futuro, o projeto pretende mostrar mais do que longitude e latitude, como tem
 
 MARSYNC, porque o futuro não é só ir para Marte. É estar sincronizado com ele.
 /////////////////////////////////////////
+English version: 
+
 MARSYNC, Syncing Earth with Mars to Build the Future
 
 MARSYNC is an interactive platform created for the NASA Space Apps Challenge, that allows anyone on Earth to explore Mars as if they were a real astronaut. It is not just a map, it is a tool to understand how to choose a place to land on Mars. Here you don't just look at Mars, you sync with it.
