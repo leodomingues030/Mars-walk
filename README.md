@@ -27,6 +27,7 @@ No futuro, o projeto pretende mostrar mais do que longitude e latitude, como tem
 
 MARSYNC, porque o futuro não é só ir para Marte. É estar sincronizado com ele.
 /////////////////////////////////////////
+
 English version: 
 
 MARSYNC, Syncing Earth with Mars to Build the Future
