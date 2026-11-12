@@ -1,59 +1,96 @@
 # MARSYNC 
-MARSYNC, Sincronizando a Terra com Marte para construir o futuro
+English version:
 
-O MARSYNC é uma plataforma interativa criada para o NASA Space Apps Challenge, que permite que qualquer pessoa na Terra explore Marte como se fosse um astronauta de verdade. Não é só um mapa, é uma ferramenta para entender como se escolhe um lugar para pousar em Marte. Aqui você não só olha para Marte, você sincroniza com ele.
+ MARSYNC: Synchronizing Earth with Mars to build the future
+
+Our project (MARSYNC) is an interactive platform, developed with dedication for the NASA Space Apps Challenge, that allows anyone to explore Mars. 
+It is not just a static map; it is an educational tool to understand the rigorous criteria for choosing a place to land or dig on Mars. 
+Here, you don't just look at Mars, you synchronize with it, connecting with space exploration.
+
+The project can be accessed via the link: https://leodomingues030.github.io/Marsync/
+
+The problem that our project solves is, at the same time, simple and of monumental importance for the future of humanity. 
+When NASA finally sends humans to Mars, the most crucial question will be: where to land safely and where to build the first base? 
+It is not a decision that can be made by guessing or without precise data. 
+A location chosen without proper analysis might have terrain too steep for landing platforms, be extremely difficult to explore, or offer little scientific value for studies. 
+MARSYNC was born precisely to help understand these complex challenges, allowing the user to visualize the terrain before any mission.
+
+The strategic location of the project is Gale Crater, one of the most studied and "trained" places on the entire planet Mars. 
+It is exactly there that NASA's Curiosity rover landed in 2012 and continues to operate and send valuable data to this day. 
+It is a perfect location for study because it possesses a rich history of water, imposing mountains, natural geological barriers, and unparalleled scientific density. 
+On the MARSYNC interactive map, you can choose a more suitable and safe route: learning to identify where the terrain is flat and safe and where geological dangers exist.
+In it, the user does not just observe; they plan the mission through three fundamental pillars of exploration.
+First, they define the **Landing Base**, which is the strategic location where human infrastructure must touch the Martian soil safely.
+To ensure this safety, the user analyzes the **Boxework Area**, which consists of a detailed verification of the topography and terrain stability around the landing site.
+This Boxework analysis is essential to avoid dangerous slopes and ensure that the base has a solid foundation to operate in the long term.
+Finally, the user identifies the **Collection Point**, which is the scientific target where the mission seeks to extract soil or rock samples.
+
+By interacting with the map, the user clicks on a point and obtains the exact latitude and longitude, transforming coordinates into a real scientific destination.
+This practice teaches that every click on the map represents a geographic address that dictates the success of a mission on Mars.
+With longitude and latitude in hand, the user can compare different points in Gale Crater and start thinking like a NASA scientist. 
+They can mark where it would be an ideal location to explore, where it would be a good place to perform drilling, and where the most stable terrain would be to build a base. 
+It is the user making the decision that NASA will truly have to make in the future, starting with the basics, which is knowing exactly where things are in an alien environment.
+
+The name MARSYNC comes from the combination of Mars and Sync, which means to synchronize and connect.
+It is the central idea that Earth and Mars are not separated by an insurmountable abyss. 
+We are connected, synchronized, and learning from Mars to prepare the future of humanity.
+
+The project was developed using fundamental web technologies such as HTML, CSS, and JavaScript, featuring an interactive map of Gale Crater and efficient hosting on GitHub Pages.
+The design was carefully thought out to be simple, fast, and work perfectly on mobile, so that anyone can use it, even without any prior knowledge of astronomy.
+
+MARSYNC was created by Leonardo Domingues and Gean Neves specifically for the NASA Space Apps Challenge.
+
+All information contained in the project is based on public data provided by NASA, such as data from the Mars Science Laboratory mission and the Curiosity rover, which has been exploring Gale Crater since 2012, the NASA Mars Trek, which is the official Mars mapping tool, and detailed maps from USGS Astrogeology. 
+MARSYNC is an educational and visualization project. 
+It uses public data to teach and help understand how to choose a location on Mars, and it does not replace NASA's official planning tools.
+
+MARSYNC, because the future is not just going to Mars. It is being synchronized with it.
+
+Versão português:
+
+MARSYNC: Sincronizando a Terra com Marte para construir o futuro
+
+O nosso projeto (MARSYNC) é uma plataforma interativa, desenvolvida com dedicação para o NASA Space Apps Challenge, que permite que qualquer pessoa explore Marte .
+Não é apenas um mapa estático; é uma ferramenta educacional para entender os critérios rigorosos de como se escolhe um local para pousar ou cavar em Marte. 
+Aqui, você não apenas olha para Marte, você se sincroniza com ele, conectando-se com a exploração espacial.
 
 O projeto pode ser acessado pelo link: https://leodomingues030.github.io/Marsync/
 
-O problema que o MARSYNC resolve é simples e ao mesmo tempo muito importante. Quando a NASA for mandar humanos para Marte, a pergunta mais importante vai ser onde pousar e onde construir a primeira base. Não dá para escolher no chute. Um lugar errado pode ter terreno muito inclinado para pousar, ser difícil de explorar e ter pouca ciência para estudar. O MARSYNC nasceu para ajudar a entender isso.
+O problema que o nosso projeto resolve é, ao mesmo tempo, simples e de uma importância monumental para o futuro da humanidade. 
+Quando a NASA finalmente enviar humanos para Marte, a pergunta mais crucial será: onde pousar com segurança e onde construir a primeira base? 
+Não é uma decisão que se possa tomar no chute ou sem dados precisos. 
+Um local escolhido de qualquer forma pode apresentar um terreno muito inclinado para plataformas de pouso, ser extremamente difícil de explorar ou oferecer pouco valor científico para estudos. 
+O MARSYNC nasceu justamente para ajudar a entender esses desafios complexos, permitindo que o usuário visualize o terreno antes de qualquer missão.
 
-O coração do projeto é a Cratera Gale, um dos lugares mais estudados de Marte. É lá que o rover Curiosity da NASA pousou em 2012 e trabalha até hoje. É um lugar perfeito porque tem história de água, montanhas, planícies e muita ciência. No mapa interativo do MARSYNC, você pode dar zoom e explorar a cratera inteira e entender onde é plano e onde é perigoso para pousar.
+O local estratégico  do projeto é a Cratera Gale, um dos lugares mais estudados e "treinados" de todo o planeta Marte. 
+É exatamente lá que o rover Curiosity da NASA pousou em 2012 e continua operando e enviando dados valiosos até hoje. 
+É um local perfeito para o estudo porque possui uma rica história de água, montanhas imponentes, barreiras geológicas naturais e uma densidade científica incomparável. 
+No mapa interativo do MARSYNC, você pode escolher uma rota mais adequada e segura: aprendendo a identificar onde o terreno é plano e seguro e onde existem perigos geológicos.
+Nele, o usuário não apenas observa, ele planeja a missão através de três pilares fundamentais de exploração.
+Primeiro, ele define a **Base de Pouso**, que é o local estratégico onde a infraestrutura humana deve tocar o solo marciano com segurança.
+Para garantir essa segurança, o usuário analisa a **Área de Boxework**, que consiste na verificação detalhada da topografia e estabilidade do terreno ao redor do pouso.
+Essa análise de Boxework é essencial para evitar inclinações perigosas e garantir que a base tenha uma fundação sólida para operar a longo prazo.
+Por fim, o usuário identifica o **Ponto de Coleta**, que é o alvo científico onde a missão busca extrair amostras de solo ou rochas.
 
-É importante falar a verdade sobre o que o site mostra hoje. Infelizmente, o que a gente realmente consegue ver no mapa é a longitude e a latitude. Quando você clica em um ponto do mapa, o site mostra a longitude e a latitude daquele lugar. É só isso que é real no site até agora, e a gente não vai mentir dizendo que mostra mais do que isso.
+Ao interagir com o mapa, o usuário clica em um ponto e obtém a latitude e longitude exatas, transformando coordenadas em um destino científico real.
+Essa prática ensina que cada clique no mapa representa um endereço geográfico que dita o sucesso de uma missão em Marte.
+Com a longitude e a latitude em mãos, o usuário pode comparar diferentes pontos da Cratera Gale e começar a pensar como um cientista da NASA. 
+Ele pode marcar onde seria um local ideal para explorar, onde seria um bom lugar para realizar perfurações e onde seria o terreno mais estável para construir uma base. 
+É o usuário tomando a decisão que a NASA terá que tomar de verdade no futuro, começando pelo básico, que é saber exatamente onde as coisas estão em um ambiente alienígena.
 
-Mas a longitude e a latitude são muito importantes. É com elas que a NASA marca exatamente onde um rover pousou, onde ele vai andar e onde uma futura base poderia ser construída. Sem longitude e latitude, não existe missão, porque ninguém saberia onde está em Marte. No MARSYNC, o usuário aprende na prática como funciona isso. Ele clica em um ponto da Cratera Gale, vê a longitude e a latitude e entende que aquele número é o endereço daquele lugar em Marte.
+O nome MARSYNC vem da junção de Mars, que significa Marte, e Sync, que significa sincronizar e conectar.
+É a ideia central de que a Terra e Marte não estão separadas por um abismo intransponível. 
+Nós estamos conectados, sincronizados e aprendendo com Marte para preparar o futuro da humanidade.
 
-Com a longitude e a latitude, o usuário pode comparar diferentes pontos da Cratera Gale e começar a pensar como um cientista. Ele pode marcar onde seria um bom lugar para pousar, onde seria um bom lugar para explorar e onde seria um bom lugar para construir uma base. É o usuário tomando a decisão que a NASA vai ter que tomar de verdade no futuro, começando pelo básico, que é saber onde as coisas estão.
+O projeto foi desenvolvido utilizando tecnologias web fundamentais como HTML, CSS e JavaScript, contando com um mapa interativo da Cratera Gale e hospedagem eficiente no GitHub Pages.
+O design foi cuidadosamente pensado para ser simples, rápido e funcionar perfeitamente no celular, para que qualquer pessoa possa usar, mesmo sem ter qualquer conhecimento prévio de astronomia.
 
-O nome MARSYNC vem de Mars, que é Marte, e Sync, que significa sincronizar e conectar. Enquanto Mars Walk é só andar em Marte, MARSYNC é entender Marte daqui. É a ideia de que a Terra e Marte não estão separados. A gente está conectado, sincronizado, aprendendo com Marte para preparar o futuro da humanidade.
+O MARSYNC foi criado por Leonardo Domingues e Gean Neves especificamente para o NASA Space Apps Challenge.
 
-O projeto foi feito com HTML, CSS e JavaScript, com mapa interativo da Cratera Gale e hospedagem no GitHub Pages. O design foi pensado para ser simples, rápido e funcionar bem no celular, para que qualquer pessoa consiga usar, mesmo sem saber nada de programação ou de Marte.
+Todas as informações contidas no projeto são baseadas em dados públicos fornecidos pela NASA, como os dados da missão Mars Science Laboratory e do rover Curiosity, que explora a Cratera Gale desde 2012, o NASA Mars Trek, que é a ferramenta oficial de mapas de Marte, e os mapas detalhados do USGS Astrogeology. 
+O MARSYNC é um projeto educacional e de visualização. 
+Ele utiliza dados públicos para ensinar e ajudar a entender como se escolhe um local em Marte, e não substitui as ferramentas oficiais de planejamento da NASA.
 
-O MARSYNC foi criado por Leonardo Domingues para o NASA Space Apps Challenge.
+MARSYNC, porque o futuro não é apenas ir para Marte. É estar sincronizado com ele.
 
-Todas as informações do projeto são baseadas em dados públicos da NASA, como a missão Mars Science Laboratory e o rover Curiosity, que explora a Cratera Gale desde 2012, o NASA Mars Trek, que é a ferramenta oficial de mapas de Marte, e os mapas do USGS Astrogeology. O MARSYNC é um projeto educacional e de visualização. Ele usa dados públicos para ensinar e ajudar a entender como se escolhe um local em Marte, e não substitui as ferramentas oficiais de planejamento da NASA.
 
-No futuro, o projeto pretende mostrar mais do que longitude e latitude, como temperatura, radiação e altitude, comparar a Cratera Gale com outros lugares, como Jezero e Eberswalde, e adicionar simulação de rota do rover.
-
-MARSYNC, porque o futuro não é só ir para Marte. É estar sincronizado com ele.
-/////////////////////////////////////////
-
-English version: 
-
-MARSYNC, Syncing Earth with Mars to Build the Future
-
-MARSYNC is an interactive platform created for the NASA Space Apps Challenge, that allows anyone on Earth to explore Mars as if they were a real astronaut. It is not just a map, it is a tool to understand how to choose a place to land on Mars. Here you don't just look at Mars, you sync with it.
-
-The project can be accessed at the link: https://leodomingues030.github.io/Marsync/
-
-The problem MARSYNC solves is simple and at the same time very important. When NASA sends humans to Mars, the most important question will be where to land and where to build the first base. You can't choose by guessing. A wrong place can have terrain too steep to land on, be difficult to explore and have little science to study. MARSYNC was born to help understand this.
-
-The heart of the project is Gale Crater, one of the most studied places on Mars. It is where NASA's Curiosity rover landed in 2012 and still works today. It is a perfect place because it has a history of water, mountains, plains and a lot of science. On MARSYNC's interactive map, you can zoom in and explore the entire crater and understand where it is flat and where it is dangerous to land.
-
-It is important to tell the truth about what the site shows today. Unfortunately, what we can actually see on the map is longitude and latitude. When you click on a point on the map, the site shows the longitude and latitude of that place. That is all that is real on the site so far, and we are not going to lie saying it shows more than that.
-
-But longitude and latitude are very important. With them, NASA marks exactly where a rover landed, where it will drive and where a future base could be built. Without longitude and latitude, there is no mission, because no one would know where they are on Mars. In MARSYNC, the user learns in practice how this works. He clicks on a point in Gale Crater, sees the longitude and latitude and understands that that number is the address of that place on Mars.
-
-With longitude and latitude, the user can compare different points in Gale Crater and start thinking like a scientist. He can mark where would be a good place to land, where would be a good place to explore and where would be a good place to build a base. It is the user making the decision that NASA will have to make for real in the future, starting with the basics, which is knowing where things are.
-
-The name MARSYNC comes from Mars, which is Mars, and Sync, which means to synchronize and connect. While Mars Walk is just walking on Mars, MARSYNC is understanding Mars from here. It is the idea that Earth and Mars are not separated. We are connected, synchronized, learning from Mars to prepare the future of humanity.
-
-The project was made with HTML, CSS and JavaScript, with an interactive map of Gale Crater and hosting on GitHub Pages. The design was thought to be simple, fast and work well on mobile, so anyone can use it, even without knowing anything about programming or Mars.
-
-MARSYNC was created by Leonardo Domingues for the NASA Space Apps Challenge.
-
-All project information is based on public NASA data, such as the Mars Science Laboratory mission and the Curiosity rover, which has been exploring Gale Crater since 2012, NASA Mars Trek, which is the official Mars mapping tool, and USGS Astrogeology maps. MARSYNC is an educational and visualization project. It uses public data to teach and help understand how to choose a location on Mars, and does not replace NASA's official planning tools.
-
-In the future, the project intends to show more than longitude and latitude, such as temperature, radiation and altitude, compare Gale Crater with other places, such as Jezero and Eberswalde, and add rover route simulation.
-
-MARSYNC, because the future is not just going to Mars. It is being synchronized with it.
