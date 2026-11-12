@@ -62,7 +62,7 @@ Não é uma decisão que se possa tomar no chute ou sem dados precisos.
 Um local escolhido de qualquer forma pode apresentar um terreno muito inclinado para plataformas de pouso, ser extremamente difícil de explorar ou oferecer pouco valor científico para estudos. 
 O MARSYNC nasceu justamente para ajudar a entender esses desafios complexos, permitindo que o usuário visualize o terreno antes de qualquer missão.
 
-O local estratégico  do projeto é a Cratera Gale, um dos lugares mais estudados e "treinados" de todo o planeta Marte. 
+O local estratégico  do projeto é a Cratera Gale, um dos lugares mais estudados de todo o planeta Marte. 
 É exatamente lá que o rover Curiosity da NASA pousou em 2012 e continua operando e enviando dados valiosos até hoje. 
 É um local perfeito para o estudo porque possui uma rica história de água, montanhas imponentes, barreiras geológicas naturais e uma densidade científica incomparável. 
 No mapa interativo do MARSYNC, você pode escolher uma rota mais adequada e segura: aprendendo a identificar onde o terreno é plano e seguro e onde existem perigos geológicos.
