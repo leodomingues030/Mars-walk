@@ -85,26 +85,12 @@ header p{margin:4px 0 0;font-size:12px;color:#ffd9c0}
 .stat b{display:block;font-size:19px;color:#63d5dc}
 .stat small{color:#aab2bb}
 #points{display:grid;gap:8px;margin-top:12px}
-.point{border:1px solid #303943;padding:9px;border-radius:8px;font-size:13px;display:flex;justify-content:space-between;gap:8px;cursor:pointer}
-.point.active{border-color:#63d5dc;background:#1d2a30}
+.point{border:1px solid #303943;padding:9px;border-radius:8px;font-size:13px;display:flex;justify-content:space-between;gap:8px}
 .point button{width:auto;padding:5px 9px;font-size:11px}
 .note{font-size:12px;color:#aab2bb}
 .mapa-footer{max-width:1300px;margin:auto;padding:0 5% 28px;font-size:12px;color:#aab2bb}
 .mapa-footer a{color:#63d5dc}
-.analise-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
-.analise-card{background:#11161b;border:1px solid #303943;border-radius:9px;padding:11px;min-width:0}
-.analise-card h3{font-size:13px;color:#f4f1eb;margin:0 0 6px}
-.analise-card b{display:block;color:#63d5dc;font-size:17px;margin-bottom:4px}
-.analise-card p{font-size:11px;line-height:1.45;color:#aab2bb;margin:0}
-.analise-card .tag{display:inline-block;margin-top:7px;font-size:10px;padding:3px 6px;border-radius:5px;background:#344b3e;color:#b9f0c5}
-.analise-card .tag.atencao{background:#51402c;color:#ffdda8}
-.analise-card .tag.indisponivel{background:#303943;color:#d2d8de}
-.analise-titulo{font-size:15px;margin:20px 0 8px;color:#f4f1eb}
-#routeAnalysis{margin-top:12px}
-#routeDistance{color:#63d5dc;font-weight:bold}
-#terrainWarning{margin-top:9px}
 @media(max-width:850px){.mapa-layout{grid-template-columns:1fr}.map-wrap,#map{height:350px}}
-@media(max-width:420px){.analise-grid{grid-template-columns:1fr 1fr}.analise-card{padding:9px}.analise-card b{font-size:15px}}
 </style>
 </head>
 <body>
@@ -270,51 +256,16 @@ Feito no Brasil 🇧🇷
 <button class="secondary" id="routeBtn">Conectar pontos adicionados</button>
 <button class="secondary" id="clearBtn">Limpar pontos criados</button>
 </div>
-
-<h2 class="analise-titulo" id="analiseTitulo">Análise ambiental da região</h2>
-<div class="analise-grid">
-<div class="analise-card">
-<h3>⛰️ Altitude</h3>
-<b id="altitudeValue">--</b>
-<p id="altitudeDesc">Aguardando região selecionada.</p>
-<span class="tag indisponivel">Estimativa por posição</span>
-</div>
-<div class="analise-card">
-<h3>📐 Inclinação</h3>
-<b id="slopeValue">--</b>
-<p id="slopeDesc">Aguardando região selecionada.</p>
-<span class="tag indisponivel">Estimativa por posição</span>
-</div>
-<div class="analise-card">
-<h3>☢️ Radiação</h3>
-<b id="radiationValue">--</b>
-<p id="radiationDesc">Aguardando região selecionada.</p>
-<span class="tag atencao">Estimativa por posição</span>
-</div>
-<div class="analise-card">
-<h3>🛡️ Segurança</h3>
-<b id="safetyValue">--</b>
-<p id="safetyDesc">Aguardando região selecionada.</p>
-<span class="tag atencao">Estimativa por posição</span>
-</div>
-</div>
-
-<h2 class="analise-titulo">Análise da rota</h2>
-<div class="info" id="routeAnalysis">
-<strong id="routeDistance">Nenhuma rota calculada.</strong>
-<p id="terrainWarning">Adicione pelo menos dois pontos e conecte-os para analisar a distância e as limitações da rota.</p>
-</div>
-
 <h2 style="margin-top:20px">Pontos da equipe</h2>
 <div id="points"><div class="info">Clique no mapa para registrar um ponto de interesse.</div></div>
-<div class="info" style="margin-top:12px"><strong>Como usar:</strong><br>1. Escolha uma região.<br>2. Clique no mapa para adicionar pontos.<br>3. Clique em um ponto da lista para ver a análise dele.<br>4. Conecte os pontos para visualizar uma rota.</div>
+<div class="info" style="margin-top:12px"><strong>Como usar:</strong><br>1. Escolha uma região.<br>2. Clique no mapa para adicionar pontos.<br>3. Conecte os pontos para visualizar uma rota.<br>4. Registre observações para sua equipe.</div>
 <div class="info" style="margin-top:12px"><strong>🎯 Dica de sobrevivência:</strong><br>Marque no mapa: sua base, fonte de água, abrigo contra radiação e rota de fuga. Quem planeja no mapa, sobrevive em Marte.</div>
 </aside>
 </div>
 </div>
 <div class="mapa-footer">
 <p><strong>Fontes e ferramentas:</strong> <a href="https://trek.nasa.gov/" target="_blank">NASA Mars Trek</a> — <a href="https://science.nasa.gov/mission/mars-science-laboratory/" target="_blank">NASA Curiosity</a> — <a href="https://science.nasa.gov/mission/mars-2020-perseverance/" target="_blank">NASA Perseverance</a>.</p>
-<p>Nota: coordenadas aproximadas. As rotas deste protótipo não são dados operacionais e não devem ser usadas para navegação real. Valores de altitude, inclinação, radiação e segurança são estimativas didáticas calculadas a partir da posição do ponto, não medições oficiais da NASA.</p>
+<p>Nota: coordenadas aproximadas. As rotas deste protótipo não são dados operacionais e não devem ser usadas para navegação real.</p>
 </div>
 </div>
 
@@ -323,232 +274,22 @@ function toggleMenu(e){ if(e){ e.stopPropagation(); } var m=document.getElementB
 function voltarTopo(){ document.getElementById('menu').style.display='none'; window.scrollTo(0,0); }
 function abrirMapa(){ document.getElementById('menu').style.display='none'; var t=document.getElementById('tela-mapa'); t.style.display='block'; document.body.style.overflow='hidden'; setTimeout(function(){ resize(); update(); },100); setTimeout(function(){ resize(); update(); },500); }
 function fecharMapa(){ document.getElementById('tela-mapa').style.display='none'; document.body.style.overflow='auto'; }
-
-var canvas=document.getElementById('map');
-var ctx=canvas.getContext('2d');
-
-var sites={
-gale:{
-name:'Cratera Gale',
-rover:'Curiosity',
-lat:-4.5895,
-lon:137.4417,
-desc:'Local de exploração do rover Curiosity. Região de interesse para estudar a história geológica e ambiental de Marte.',
-altitude:'Baixa',
-altitudeDesc:'A cratera Gale está em uma região de baixa elevação relativa do planeta. O valor exato do ponto depende do modelo topográfico consultado.',
-slope:'Variável',
-slopeDesc:'O fundo da cratera possui áreas mais suaves, mas as encostas do Monte Sharp apresentam terrenos mais inclinados.',
-radiation:'Elevada',
-radiationDesc:'A superfície marciana recebe radiação ionizante. Abrigos e cobertura do solo podem reduzir parte da exposição.',
-safety:'Atenção',
-safetyDesc:'Áreas planas podem ser interessantes para estudos, mas poeira, rochas, encostas e radiação precisam ser avaliadas.'
-},
-jezero:{
-name:'Cratera Jezero',
-rover:'Perseverance',
-lat:18.4447,
-lon:77.4508,
-desc:'Local de exploração do rover Perseverance. A missão investiga geologia antiga e procura sinais de ambientes que poderiam ter sido habitáveis.',
-altitude:'Baixa',
-altitudeDesc:'A região de Jezero está em uma área de baixa elevação relativa. A altitude precisa ser consultada em dados topográficos locais.',
-slope:'Variável',
-slopeDesc:'Existem áreas relativamente suaves no interior da cratera e terrenos mais inclinados próximos às bordas e formações geológicas.',
-radiation:'Elevada',
-radiationDesc:'A radiação na superfície é um fator importante para missões humanas. A região não possui proteção natural garantida.',
-safety:'Atenção',
-safetyDesc:'A região possui interesse científico, mas a escolha de uma base exigiria verificar inclinação, obstáculos, poeira e radiação.'
-},
-custom:{
-name:'Visão geral',
-rover:'—',
-lat:0,
-lon:0,
-desc:'Visão esquemática geral de Marte. Não há análise topográfica detalhada para toda a superfície.',
-altitude:'Não disponível',
-altitudeDesc:'É necessário selecionar uma região científica para consultar a referência regional.',
-slope:'Não disponível',
-slopeDesc:'O mapa não possui dados de elevação suficientes para calcular a inclinação.',
-radiation:'Elevada',
-radiationDesc:'A superfície de Marte apresenta exposição à radiação. A intensidade varia conforme as condições locais.',
-safety:'Não classificada',
-safetyDesc:'Não é possível avaliar a segurança de uma região sem dados topográficos e ambientais específicos.'
-}
-};
-
-var selected='gale';
-var points=[];
-var route=false;
-var selectedPointIndex=-1;
-
-// SÓ ISSO QUE MUDA: CALCULA A ANÁLISE A PARTIR DA POSIÇÃO DO PONTO
-// Não é dado real da NASA ponto a ponto, é uma estimativa didática
-// que muda quando o ponto muda de lugar.
-function getPointAnalysis(lat, lon){
-  // Variação suave que depende só de lat/lon, então cada lugar dá um valor diferente
-  var n1 = Math.sin(lat*0.35)*Math.cos(lon*0.28) + Math.sin((lat+lon)*0.12)*0.7;
-  var n2 = Math.cos(lat*0.22)*Math.sin(lon*0.31) + Math.cos((lat-lon)*0.09)*0.6;
-  var n3 = Math.sin(lat*0.55 + lon*0.18);
-
-  // Distância até o centro da cratera selecionada - perto do centro = mais plano / mais baixo
-  var c = sites[selected] || sites.gale;
-  var dLat = lat - c.lat;
-  var dLon = (lon - c.lon) * Math.cos(lat*Math.PI/180);
-  var distCentro = Math.sqrt(dLat*dLat + dLon*dLon); // em graus
-
-  // Altitude: base da região + variação por posição + sobe perto da borda / Monte Sharp
-  var baseAlt = (selected==='jezero') ? -2600 : -4500;
-  var altitude = Math.round(baseAlt + n1*650 + distCentro*120 + n3*180);
-
-  // Inclinação: aumenta perto da borda e com a variação do terreno
-  var slope = Math.max(1, Math.min(32, Math.round(4 + Math.abs(n2)*9 + distCentro*1.4 + Math.abs(n3)*4)));
-  var slopeLabel = slope < 7 ? slope + '° - Plano' : slope < 15 ? slope + '° - Moderado' : slope + '° - Íngreme';
-
-  // Radiação: maior em altitude alta (menos atmosfera) e mais perto do equador
-  var radiation = Math.round(220 + (altitude - baseAlt)*0.06 + Math.abs(lat)*0.8 + Math.abs(n2)*35);
-  var radiationLabel = radiation < 260 ? radiation + ' mSv/ano - Moderada' : radiation < 320 ? radiation + ' mSv/ano - Elevada' : radiation + ' mSv/ano - Muito elevada';
-
-  // Segurança: cai se inclinação ou radiação sobem
-  var score = 100 - slope*2.2 - (radiation-220)*0.18;
-  score = Math.max(18, Math.min(96, Math.round(score)));
-  var safetyLabel = score >= 75 ? score + '/100 - Boa' : score >= 55 ? score + '/100 - Atenção' : score + '/100 - Arriscado';
-
-  return {
-    altitude: altitude,
-    altitudeText: altitude + ' m',
-    altitudeDesc: 'Estimativa para ' + lat.toFixed(2) + '°, ' + lon.toFixed(2) + '°. Locais mais baixos têm mais atmosfera acima e ajudam na proteção.',
-    slope: slope,
-    slopeText: slopeLabel,
-    slopeDesc: slope < 7 ? 'Terreno plano neste ponto. Bom para pousar e montar base.' : slope < 15 ? 'Terreno com inclinação moderada. Exige cuidado para pousar.' : 'Terreno íngreme neste ponto. Ruim para pousar, risco de capotar.',
-    radiation: radiation,
-    radiationText: radiationLabel,
-    radiationDesc: 'Estimativa por posição. Altitude maior = menos atmosfera = mais radiação.',
-    safety: score,
-    safetyText: safetyLabel,
-    safetyDesc: score >= 75 ? 'Ponto favorável para base neste local.' : score >= 55 ? 'Ponto possível, mas verifique inclinação e radiação.' : 'Ponto arriscado para base. Procure um lugar mais plano e mais baixo.'
-  };
-}
-
-function showPointAnalysis(idx){
-  if(idx < 0 || idx >= points.length) return;
-  var p = points[idx];
-  var a = p.analysis;
-  document.getElementById('analiseTitulo').textContent = 'Análise do Ponto ' + (idx+1) + ' — acompanha o ponto';
-  document.getElementById('latStat').textContent = p.lat.toFixed(2)+'°';
-  document.getElementById('lonStat').textContent = p.lon.toFixed(2)+'°';
-  document.getElementById('altitudeValue').textContent = a.altitudeText;
-  document.getElementById('altitudeDesc').textContent = a.altitudeDesc;
-  document.getElementById('slopeValue').textContent = a.slopeText;
-  document.getElementById('slopeDesc').textContent = a.slopeDesc;
-  document.getElementById('radiationValue').textContent = a.radiationText;
-  document.getElementById('radiationDesc').textContent = a.radiationDesc;
-  document.getElementById('safetyValue').textContent = a.safetyText;
-  document.getElementById('safetyDesc').textContent = a.safetyDesc;
-}
-
-function resize(){
-var r=canvas.getBoundingClientRect();
-if(r.width===0)return;
-var dpr=window.devicePixelRatio||1;
-canvas.width=r.width*dpr;
-canvas.height=r.height*dpr;
-ctx.setTransform(dpr,0,0,dpr,0,0);
-draw();
-}
-
-function xy(lat,lon){
-var w=canvas.clientWidth;
-var h=canvas.clientHeight;
-return{x:(lon+180)/360*w,y:(90-lat)/180*h};
-}
-
-function marker(x,y,color,label){
-ctx.beginPath();
-ctx.arc(x,y,7,0,Math.PI*2);
-ctx.fillStyle=color;
-ctx.fill();
-ctx.strokeStyle='#171717';
-ctx.lineWidth=2;
-ctx.stroke();
-ctx.fillStyle='#fff';
-ctx.font='bold 11px Arial';
-ctx.fillText(label,x+10,y-9);
-}
-
-function draw(){
-var w=canvas.clientWidth;
-var h=canvas.clientHeight;
-if(!w||!h)return;
-ctx.clearRect(0,0,w,h);
-var grad=ctx.createRadialGradient(w*.48,h*.48,15,w*.48,h*.48,w*.65);
-grad.addColorStop(0,'#bd7952');
-grad.addColorStop(.55,'#8b4d36');
-grad.addColorStop(1,'#422a27');
-ctx.fillStyle=grad;
-ctx.fillRect(0,0,w,h);
-for(var i=0;i<95;i++){
-var x=(i*83%997)/997*w;
-var y=(i*137%991)/991*h;
-var r=2+(i%5)*2;
-ctx.beginPath();
-ctx.arc(x,y,r,0,Math.PI*2);
-ctx.fillStyle=i%3?'#d18b6540':'#271c1b55';
-ctx.fill();
-}
-ctx.strokeStyle='#f2c4a02b';
-ctx.lineWidth=1;
-for(var i=1;i<6;i++){
-var x2=w*i/6;
-ctx.beginPath();
-ctx.moveTo(x2,0);
-ctx.lineTo(x2,h);
-ctx.stroke();
-}
-for(var i=1;i<5;i++){
-var y2=h*i/5;
-ctx.beginPath();
-ctx.moveTo(0,y2);
-ctx.lineTo(w,y2);
-ctx.stroke();
-}
-ctx.fillStyle='#ef7547';
-ctx.globalAlpha=.16;
-ctx.beginPath();
-ctx.ellipse(w*.68,h*.35,42,25,-.4,0,Math.PI*2);
-ctx.fill();
-ctx.globalAlpha=1;
-ctx.fillStyle='#ffd0b4';
-ctx.font='12px Arial';
-ctx.fillText('Região ilustrativa',w*.68-36,h*.35+4);
-var s=sites[selected];
-var p=xy(s.lat,s.lon);
-if(selected!=='custom'){
-marker(p.x,p.y,'#63d5dc',s.rover);
-}
-points.forEach(function(pt,idx){
-var q=xy(pt.lat,pt.lon);
-marker(q.x,q.y, idx===selectedPointIndex ? '#63d5dc' : '#f4d35e','P'+(idx+1));
-});
-if(route&&points.length>1){
-ctx.beginPath();
-points.forEach(function(pt,idx){
-var q=xy(pt.lat,pt.lon);
-if(idx){ctx.lineTo(q.x,q.y);}
-else{ctx.moveTo(q.x,q.y);}
-});
-ctx.strokeStyle='#f4d35e';
-ctx.lineWidth=2.5;
-ctx.setLineDash([7,5]);
-ctx.stroke();
-ctx.setLineDash([]);
-}
-ctx.fillStyle='#f7e7dc';
-ctx.font='11px Arial';
-ctx.fillText('180°W',8,h-10);
-ctx.fillText('0°',w/2-8,h-10);
-ctx.fillText('180°E',w-43,h-10);
-}
-
-function update(){
-var s=sites[selected];
-document.getElementById('siteInfo').innerHTML='<strong>'+s.name+'</strong><br>'+s.desc;
-if(selectedPointIndex>=0 &&
+var canvas=document.getElementById('map'); var ctx=canvas.getContext('2d');
+var sites={gale:{name:'Cratera Gale',rover:'Curiosity',lat:-4.5895,lon:137.4417,desc:'Local de exploração do rover Curiosity. Região de interesse para estudar a história geológica e ambiental de Marte. Ótimo lugar para pensar em sobrevivência: cratera protege da radiação e do vento.'},jezero:{name:'Cratera Jezero',rover:'Perseverance',lat:18.4447,lon:77.4508,desc:'Local de exploração do rover Perseverance. A missão investiga geologia antiga e procura sinais de ambientes que poderiam ter sido habitáveis. Já teve um lago aqui - onde tem água, tem chance de sobreviver.'},custom:{name:'Visão geral',rover:'—',lat:0,lon:0,desc:'Visão esquemática geral de Marte.'}};
+var selected='gale'; var points=[]; var route=false;
+function resize(){ var r=canvas.getBoundingClientRect(); if(r.width===0) return; var dpr=window.devicePixelRatio||1; canvas.width=r.width*dpr; canvas.height=r.height*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); draw(); }
+function xy(lat,lon){ var w=canvas.clientWidth; var h=canvas.clientHeight; return {x:(lon+180)/360*w, y:(90-lat)/180*h}; }
+function marker(x,y,color,label){ ctx.beginPath(); ctx.arc(x,y,7,0,Math.PI*2); ctx.fillStyle=color; ctx.fill(); ctx.strokeStyle='#171717'; ctx.lineWidth=2; ctx.stroke(); ctx.fillStyle='#fff'; ctx.font='bold 11px Arial'; ctx.fillText(label,x+10,y-9); }
+function draw(){ var w=canvas.clientWidth; var h=canvas.clientHeight; if(!w||!h) return; ctx.clearRect(0,0,w,h); var grad=ctx.createRadialGradient(w*.48,h*.48,15,w*.48,h*.48,w*.65); grad.addColorStop(0,'#bd7952'); grad.addColorStop(.55,'#8b4d36'); grad.addColorStop(1,'#422a27'); ctx.fillStyle=grad; ctx.fillRect(0,0,w,h); for(var i=0;i<95;i++){ var x=(i*83%997)/997*w; var y=(i*137%991)/991*h; var r=2+(i%5)*2; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fillStyle=i%3?'#d18b6540':'#271c1b55'; ctx.fill(); } ctx.strokeStyle='#f2c4a02b'; ctx.lineWidth=1; for(var i=1;i<6;i++){ var x2=w*i/6; ctx.beginPath(); ctx.moveTo(x2,0); ctx.lineTo(x2,h); ctx.stroke(); } for(var i=1;i<5;i++){ var y2=h*i/5; ctx.beginPath(); ctx.moveTo(0,y2); ctx.lineTo(w,y2); ctx.stroke(); } ctx.fillStyle='#ef7547'; ctx.globalAlpha=.16; ctx.beginPath(); ctx.ellipse(w*.68,h*.35,42,25,-.4,0,Math.PI*2); ctx.fill(); ctx.globalAlpha=1; ctx.fillStyle='#ffd0b4'; ctx.font='12px Arial'; ctx.fillText('Região ilustrativa',w*.68-36,h*.35+4); var s=sites[selected]; var p=xy(s.lat,s.lon); if(selected!=='custom'){ marker(p.x,p.y,'#63d5dc',s.rover); } points.forEach(function(pt,idx){ var q=xy(pt.lat,pt.lon); marker(q.x,q.y,'#f4d35e','P'+(idx+1)); }); if(route&&points.length>1){ ctx.beginPath(); points.forEach(function(pt,idx){ var q=xy(pt.lat,pt.lon); if(idx){ ctx.lineTo(q.x,q.y); } else { ctx.moveTo(q.x,q.y); } }); ctx.strokeStyle='#f4d35e'; ctx.lineWidth=2.5; ctx.setLineDash([7,5]); ctx.stroke(); ctx.setLineDash([]); } ctx.fillStyle='#f7e7dc'; ctx.font='11px Arial'; ctx.fillText('180°W',8,h-10); ctx.fillText('0°',w/2-8,h-10); ctx.fillText('180°E',w-43,h-10); }
+function update(){ var s=sites[selected]; document.getElementById('siteInfo').innerHTML='<strong>'+s.name+'</strong><br>'+s.desc; document.getElementById('latStat').textContent=s.lat.toFixed(2)+'°'; document.getElementById('lonStat').textContent=s.lon.toFixed(2)+'°'; draw(); }
+document.getElementById('site').addEventListener('change', function(e){ selected=e.target.value; update(); });
+document.getElementById('centerBtn').addEventListener('click', function(){ if(selected==='custom'){ alert('Escolha Cratera Gale ou Cratera Jezero.'); return; } update(); });
+canvas.addEventListener('click', function(e){ var r=canvas.getBoundingClientRect(); var x=e.clientX-r.left; var y=e.clientY-r.top; var lon=x/r.width*360-180; var lat=90-y/r.height*180; points.push({lat:lat,lon:lon}); renderPoints(); draw(); });
+function renderPoints(){ var el=document.getElementById('points'); if(!points.length){ el.innerHTML='<div class="info">Clique no mapa para registrar um ponto de interesse.</div>'; return; } el.innerHTML=''; points.forEach(function(p,i){ var d=document.createElement('div'); d.className='point'; d.innerHTML='<span><strong>Ponto '+(i+1)+'</strong><br>'+p.lat.toFixed(3)+'°, '+p.lon.toFixed(3)+'°</span>'+'<button class="secondary" data-i="'+i+'">Excluir</button>'; el.appendChild(d); }); el.querySelectorAll('button').forEach(function(b){ b.addEventListener('click', function(){ points.splice(Number(b.dataset.i),1); renderPoints(); draw(); }); }); }
+document.getElementById('routeBtn').addEventListener('click', function(){ route=!route; draw(); document.getElementById('routeBtn').textContent=route?'Ocultar conexão':'Conectar pontos adicionados'; });
+document.getElementById('clearBtn').addEventListener('click', function(){ points=[]; route=false; renderPoints(); draw(); document.getElementById('routeBtn').textContent='Conectar pontos adicionados'; });
+window.addEventListener('resize', resize);
+update();
+</script>
+</body>
+  </html>
